@@ -23,7 +23,7 @@
                 <local:MonitorControl/>
             </TabItem>
             <TabItem Header="SETTING" FontSize="16">
-
+                <local:SettingControl/>
             </TabItem>
         </TabControl>
     </Grid>
