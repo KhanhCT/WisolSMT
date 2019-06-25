@@ -1,35 +1,36 @@
-/**
-* Module dependencies.
-*/
-var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , path = require('path');
-//var methodOverride = require('method-override');
-var session = require('express-session');
-var app = express();
-var mysql      = require('mysql');
-var bodyParser=require("body-parser");
-var connection = mysql.createConnection({
-              host     : '127.0.0.1',
-              port: "3306",
-              user     : 'root',
-              password : '',
-              database : 'test'
-            });
- 
-connection.connect();
- 
+import express from 'express';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import mysql from 'mysql';
+import path from 'path';
+import * as routes from './routes'
+import * as user from './routes/user'
+import logger  from 'morgan';
+
+const app = express();
+
+const connection = mysql.createConnection({
+    host     : '127.0.0.1',
+    port: "3306",
+    user     : 'root',
+    password : '',
+    database : 'smt'
+  });
+
+  connection.connect((err) => {
+    if (err) throw err;
+    console.log('Connected!');
+  });
+
 global.db = connection;
- 
-// all environments
+
 app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(logger('dev'));
 app.use(session({
               secret: 'keyboard cat',
               resave: false,
@@ -49,4 +50,3 @@ app.get('/home/logout', user.logout);//call for logout
 app.get('/home/profile',user.profile);//to render users profile
 //Middleware
 app.listen(8080)
-module.exports = app;
