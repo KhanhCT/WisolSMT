@@ -7,6 +7,7 @@ import * as user from './routes/user'
 import * as product from './routes/product'
 import * as production from './routes/production'
 import * as productionDtl from './routes/orderDetail'
+import * as modelDetail from './routes/modelDetail'
 import logger  from 'morgan';
 
 const app = express();
@@ -53,7 +54,7 @@ app.use(session({
               secret: 'keyboard cat',
               resave: false,
               saveUninitialized: true,
-              cookie: { maxAge: 60000 }
+              cookie: { maxAge: 86400000 }
             }))
  
 // development only
@@ -73,6 +74,11 @@ app.get('/production/getLineResult/:date',production.getLineResult);
 //Production Detail
 app.post('/production/createOrderDtl',productionDtl.createProductionDtl);
 app.post('/production/submitOrderDtl',productionDtl.submitOrderDtl);
+
+//Model Detail
+app.post('/model/importProduct',modelDetail.importProduct);
+app.post('/model/exportProduct',modelDetail.exportProduct);
+app.get('/model/getModelResult/:date',modelDetail.getModelResult);
 
 //Middleware
 app.listen(8080)
