@@ -1,8 +1,8 @@
 export function getLstModel(req,res){
     let userId = req.session.userId;
     if(userId == null){
-       res.redirect("/login");
-       return;
+      res.status(401).send('Unauthorized ');
+      return;
     }
  
     var sql="SELECT * FROM product";
@@ -14,8 +14,8 @@ export function getLstModel(req,res){
  export function getLstLine(req,res){
     let userId = req.session.userId;
     if(userId == null){
-       res.redirect("/login");
-       return;
+      res.status(401).send('Unauthorized ')
+      return;
     }
  
     var sql="SELECT * FROM productionline";

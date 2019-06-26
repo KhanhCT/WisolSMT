@@ -1,10 +1,8 @@
-import moment from 'moment';
-
 export function createPlan(req,res){
     let userId = req.session.userId;
     if(userId == null){
-       res.redirect("/login");
-       return;
+        res.status(401).send('Unauthorized ')
+        return;
     }
 
     let params = Object.assign({}, req.body);
@@ -32,10 +30,10 @@ export function createPlan(req,res){
 
  export function updatePlan(req,res){
     let userId = req.session.userId;
-    // if(userId == null){
-    //    res.redirect("/login");
-    //    return;
-    // }
+    if(userId == null){
+        res.status(401).send('Unauthorized ')
+        return;
+    }
 
     let params = Object.assign({}, req.body);
     if (!params.date) {
@@ -64,15 +62,14 @@ export function createPlan(req,res){
 
  export function getLstOrderNotFinish(req,res){
     let userId = req.session.userId;
-    // if(userId == null){
-    //    res.redirect("/login");
-    //    return;
-    // }
+    if(userId == null){
+        res.status(401).send('Unauthorized ')
+       return;
+    }
 
     let data = {};
     let lineId = Number(req.params.lineId);
     if (lineId) {
-        // res.json(getLstOrderByLine(lineId, false));
         var sql="SELECT * FROM productiondtl WHERE LineID = "+lineId+" AND Finished = false";
         db.query(sql, function(err, results){
             if (err) throw err;
@@ -90,10 +87,49 @@ export function createPlan(req,res){
     }
  };
 
- export function getLstOrderByLine (lineId, finished) {
-    var sql="SELECT * FROM productiondtl WHERE LineID = "+lineId+" AND Finished = "+finished+"";
-    db.query(sql, function(err, results){
-        if (err) throw err;
-        return results[0];
-    });  
- }
+ export const getLineResult = async (req,res) => {
+    let userId = req.session.userId;
+    if(userId == null){
+        res.status(401).send('Unauthorized ')
+       return;
+    }
+    let date = req.params.date;
+    console.log(date);
+    const query = async (sql) => {
+        return new Promise(resolve=>{
+            db.query(sql, function(err, results){
+                if (err) {
+                    resolve(null)
+                    throw err;
+                } 
+                resolve(JSON.parse(JSON.stringify(results)))
+            });
+        })
+    }
+
+    let lstLines = await query("SELECT * FROM productionline");
+    let lstModel = await query("SELECT * FROM product");
+    var result = {};
+    if (lstLines) {
+        for (let i = 0; i < lstLines.length; i++) {
+            let dataLine = {};
+            let countProd = await query("SELECT COUNT(*) AS amount FROM productiondtl WHERE WorkingDate = '"+date+"' AND LineID = '"+lstLines[i].LineID+"' AND Finished = false");
+            if (countProd[0].amount > 0) {
+                dataLine.status = "ORDERING"
+            } else {
+                dataLine.status = "RUN"
+            }
+            let prodPlan = await query ("SELECT * FROM productionplan WHERE WorkingDate = '"+date+"' AND LineID = '"+lstLines[i].LineID+"'");
+            if (prodPlan) {
+                dataLine.order = prodPlan[0].OrderedQty;
+                dataLine.elapsed = prodPlan[0].GoodProdQty;
+                dataLine.remain = prodPlan[0].RemainQty;
+                for (let j = 0; j < lstModel.length; j++) {
+                    if (lstModel[j].id == prodPlan[0].)
+                }
+            }
+        }
+    }
+    
+    console.log(lstLines);
+}

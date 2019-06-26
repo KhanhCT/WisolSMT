@@ -25,7 +25,10 @@ const connection = mysql.createConnection({
           // A Buffer in Node represents a collection of 8-bit unsigned integers.
           // Therefore, our single "bit field" comes back as the bits '0000 0001',
           // which is equivalent to the number 1.
-          return( bytes[ 0 ] === 1 );
+          if (bytes) {
+            return( bytes[ 0 ] === 1 );
+          }
+          return null;
       }
       return( useDefaultTypeCasting() );
 
@@ -60,9 +63,12 @@ app.post('/login', user.login);//call for login post
 app.get('/logout', user.logout);//call for logout
 
 app.get('/product/getLstModel',product.getLstModel);
+app.get('/product/getLstLine',product.getLstLine);
+
 app.post('/production/createPlan',production.createPlan);
 app.post('/production/initProduct',production.updatePlan);
 app.get('/production/getLstOrderNotFinish/:lineId',production.getLstOrderNotFinish);
+app.get('/production/getLineResult/:date',production.getLineResult);
 
 //Production Detail
 app.post('/production/createOrderDtl',productionDtl.createProductionDtl);

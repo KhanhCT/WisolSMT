@@ -1,9 +1,9 @@
 export const createProductionDtl = async(req,res) => {
     let userId = req.session.userId;
-    // if(userId == null){
-    //    res.redirect("/login");
-    //    return;
-    // }
+    if(userId == null){
+      res.status(401).send('Unauthorized ')
+      return;
+    }
     let dataRes = {};
     let params = Object.assign({}, req.body);
     if (!params.date) {
@@ -72,10 +72,10 @@ export const createProductionDtl = async(req,res) => {
 
  export function submitOrderDtl(req,res){
     let userId = req.session.userId;
-    // if(userId == null){
-    //    res.redirect("/login");
-    //    return;
-    // }
+    if(userId == null){
+      res.status(401).send('Unauthorized ')
+      return;
+    }
 
     let params = Object.assign({}, req.body);
     if (!params.date) {
