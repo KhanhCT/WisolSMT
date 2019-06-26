@@ -51,51 +51,13 @@ export function createPlan(req,res){
        GoodProdQty : params.goodProdQty
     }
 
-    var goodProdQty = 0;
-    var remainQty = 0;
-    var selectQuery="SELECT GoodProdQty,RemainQty FROM productionplan WHERE WorkingDate='"+updatePlanObj.WorkingDate+"' AND FactoryID ="+updatePlanObj.FactoryID+"";
-    selectQuery+= " AND LineID = "+updatePlanObj.LineID+" AND ShiftID = "+updatePlanObj.ShiftID+"";
-    db.query(selectQuery, function(err, results){
-        if (err) throw err;
-        goodProdQty = results[0].GoodProdQty;
-        remainQty = results[0].RemainQty;
-        console.log(results[0]);
-    });
-    goodProdQty+=updatePlanObj.GoodProdQty;
-    remainQty-=updatePlanObj.GoodProdQty;
-    var selectQuery="UPDATE productionplan SET GoodProdQty = "+goodProdQty +",RemainQty = "+remainQty+" WHERE WorkingDate='"+updatePlanObj.WorkingDate+"' AND FactoryID ="+updatePlanObj.FactoryID+"";
-    selectQuery+= " AND LineID = "+updatePlanObj.LineID+" AND ShiftID = "+updatePlanObj.ShiftID+"";
-    db.query(sql,productionPlan, function(err, results){
-        if (err) throw err;
-        res.json(true);
-    });       
- };
-
- export function createProductionDtl(req,res){
-    let userId = req.session.userId;
-    // if(userId == null){
-    //    res.redirect("/login");
-    //    return;
-    // }
-
-    let params = Object.assign({}, req.body);
-    if (!params.date) {
-        res.json(false);
-        console.log('Date fail');
-        return;
-    }
-    let productionDtl = {
-       WorkingDate : params.date,
-       FactoryID : 1,
-       LineID : params.lineId,
-       ShiftID : params.shiftId, 
-       Amount : params.amount,
-       Finished : false
-    }
-
-    var sql="INSERT INTO productiondtl SET ?";
-    db.query(sql,productionDtl, function(err, results){
-        if (err) throw err;
+    var sql = "UPDATE productionplan SET GoodProdQty = GoodProdQty + "+updatePlanObj.GoodProdQty +",RemainQty = RemainQty - "+updatePlanObj.GoodProdQty;
+    var conditionSQL = " WHERE WorkingDate='"+updatePlanObj.WorkingDate+"' AND FactoryID ="+updatePlanObj.FactoryID+" AND LineID = "+updatePlanObj.LineID+" AND ShiftID = "+updatePlanObj.ShiftID+"";
+    db.query(sql + conditionSQL, function(err, results){
+        if (err) {
+            res.json(false);
+            throw err;
+        }
         res.json(true);
     });       
  };

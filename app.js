@@ -3,10 +3,10 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import mysql from 'mysql';
 import path from 'path';
-import * as routes from './routes'
 import * as user from './routes/user'
 import * as product from './routes/product'
 import * as production from './routes/production'
+import * as productionDtl from './routes/orderDetail'
 import logger  from 'morgan';
 
 const app = express();
@@ -55,20 +55,18 @@ app.use(session({
  
 // development only
  
-app.get('/', routes.index);//call for main index page
-app.get('/signup', user.signup);//call for signup page
 app.post('/signup', user.signup);//call for signup post 
-app.get('/login', routes.index);//call for login page
 app.post('/login', user.login);//call for login post
-app.get('/home/dashboard', user.dashboard);//call for dashboard page after login
-app.get('/home/logout', user.logout);//call for logout
-app.get('/home/profile',user.profile);//to render users profile
+app.get('/logout', user.logout);//call for logout
 
 app.get('/product/getLstModel',product.getLstModel);
 app.post('/production/createPlan',production.createPlan);
-app.post('/production/updatePlan',production.updatePlan);
-app.post('/production/createProductionDtl',production.createProductionDtl);
+app.post('/production/initProduct',production.updatePlan);
 app.get('/production/getLstOrderNotFinish/:lineId',production.getLstOrderNotFinish);
+
+//Production Detail
+app.post('/production/createOrderDtl',productionDtl.createProductionDtl);
+app.post('/production/submitOrderDtl',productionDtl.submitOrderDtl);
 
 //Middleware
 app.listen(8080)
