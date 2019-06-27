@@ -103,6 +103,11 @@ export const importProduct = async (req,res) =>{
  };
 
  export const getModelResult = async (req,res) =>{
+    let userId = req.session.userId;
+    if(userId == null){
+        res.status(401).send('Unauthorized ')
+        return;
+    }
     const query = async (sql) => {
         return new Promise(resolve=>{
             db.query(sql, function(err, results){

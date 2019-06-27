@@ -93,10 +93,10 @@ export function createPlan(req,res){
 
  export const getLineResult = async (req,res) => {
     let userId = req.session.userId;
-    // if(userId == null){
-    //     res.status(401).send('Unauthorized ')
-    //    return;
-    // }
+    if(userId == null){
+        res.status(401).send('Unauthorized ')
+       return;
+    }
     let dateStr = req.params.date;
     let date = moment(dateStr, 'DD-MM-YYYY');
     if (!date) {
