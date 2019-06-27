@@ -1,0 +1,5 @@
+export const messageConstants = {
+    LOGIN_SUCCESS: "LOGIN_SUCCESS",
+    SIGNUP_SUCCESS: "SIGNUP_SUCCESS",
+    LOGOUT_MESSAGE: "LOGOUT_MESSAGE",
+};

@@ -1,0 +1,106 @@
+{
+    "TEACHER": {
+        "session": {
+            "add_session": "Add New Session",
+            "update_session": "Update Session",
+            "delete_session": "Delete Session",
+            "start_time": "Start Time",
+            "end_time": "End Time",
+            "learning_date": "Learning Date",
+            "choose_room": "Choose Room",
+            "attendance": "Attendance",
+            "list_student_confirm": "list of confirmed students",
+            "list_student_unconfirm": "List of unconfirmed students"
+        },
+        "tabbar": {
+            "not_confirmed_number_hours": "Number of hours waiting for confirmation",
+            "confirmed_number_hours": "Number of hours confirmed",
+            "total_number_hours": "Total hours taught",
+            "not_confirmed_number_sessions": "Number of sessions awaiting confirmation",
+            "confirmed_number_sessions": "Number of sessions confirmed",
+            "total_number_sessions": "Total number of sessions taught"
+        },
+        "common": {
+            "teacher": "Teacher",
+            "noty": "Notifications",
+            "rating": "Rating",
+            "contract": "Contract",
+            "hours": "hours",
+            "back": "Back",
+            "schedule": "Schedule",
+            "teacher_teaching": "Teacher teaching",
+            "list_class": "List of classes",
+            "list_teacher": "List of teachers",
+            "list_student": "List of students"
+        }
+    },
+    "DEPARTMENT": {
+        "common": {
+            "manager_2": "Manager 2",
+            "manager_1": "Manager 1",
+            "select": "Selct",
+            "manager": "Manager",
+            "address": "Address",
+            "phone": "Phone number",
+            "name_department": "Department name",
+            "back": "Back",
+            "headquarters": "Headquarters",
+            "no_department": "There is no department!"
+        }
+    },
+    "STUDENT": {
+        "leftbar": {
+            "online_payment": "Online payment",
+            "payment_history": "Payment history",
+            "number_pay": "Number of payments",
+            "this_month": "This month",
+            "number_hours_remaining": "Number of remaining registration hours",
+            "number_hours": "Number of hours studied",
+            "vietnamese": "Vietnamese",
+            "language_learning": "Language learning",
+            "address": "Address",
+            "base_of_study": "Facility to study",
+            "noty": "Notifications",
+            "student": "Student",
+            "contract": "Contract"
+        },
+        "rightbar": {
+            "delay_sessions": "Total sessions vacation",
+            "not_confirmed_sessions": "Total number of sessions not confirmed",
+            "confirmed_sessions": "Total number of sessions confirmed"
+        },
+        "common": {
+            "note_content_1": "Note: Your remaining hours of study are",
+            "note_content_2": "please pay tuition fee to continue the program. Thank you!",
+            "schedule": "Schedule",
+            "hours": "hours",
+            "back": "Back",
+            "teacher_teaching": "Teacher teaching",
+            "list_class": "List of classes",
+            "list_teacher": "List of teachers",
+            "list_student": "List of students"
+        },
+        "rating": {
+            "title_quest_1": "Khả năng diễn đạt, trình bày111",
+            "title_quest_2": "Sự tự tin",
+            "title_quest_3": "Bầu không khí vui vẻ",
+            "title_quest_4": "Khích lệ học học viên",
+            "title_quest_5": "Tập trung giảng dạy",
+            "title_quest_6": "Lắng nghe học viên",
+            "title_quest_7": "Sự sáng tạo",
+            "title_quest_8": "Sử dụng điện thoại",
+            "title_quest_9": "Không nhìn nhiều vào bảng",
+            "title_quest_10": "Công tác chuẩn bị trước khi dạy",
+            "content_quest_1": "Nói dứt khoát, mạch lạc, có chủ đích, viết trên bảng có bố cục rõ ràng, ngôn ngữ cơ thể 111",
+            "content_quest_2": "Thoải mái, không đỏ mặt, ngại ngùng, run rẩy",
+            "content_quest_3": "Khuôn mặt vui vẻ, tiếng cười",
+            "content_quest_4": "Khen ngợi, tạo động lực",
+            "content_quest_5": "Không bị phân tán bởi việc riêng, các yếu tố ngoại cảnh khác, điện thoại",
+            "content_quest_6": "Học viên nói chủ đạo",
+            "content_quest_7": "Nghĩ ra nhiều hoạt động, trò chơi",
+            "content_quest_8": "Điện thoại để chế độ yên lặng",
+            "content_quest_9": "Hướng về phía khách hàng",
+            "content_quest_10": "Chuẩn bị đầy đủ sách giáo khoa, tài liệu giảng dạy, công cụ giảng dạy..."
+        }
+    }
+}

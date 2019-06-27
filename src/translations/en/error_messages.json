@@ -1,0 +1,374 @@
+{
+    "SYSTEM_ERROR": {
+        "code": 500,
+        "message": "System Error! Please contact your administrator"
+    },
+    "NETWORK_ERROR": {
+        "code": 999,
+        "message": "Please check your internet connection!"
+    },
+    "LOGIN": {
+        "ERROR_404": {
+            "code": 404,
+            "message": "username or password is incorrect"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System error when login!"
+        }
+    },
+    "RESET_PASSWORD": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Email is not valid"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Email is not map with your account!"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System error when reset password!"
+        }
+    },
+    "SIGNUP": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Bad request!"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Email or phone number has existed"
+        },
+        "ERROR_422": {
+            "code": 422,
+            "message": "You have created a previous account that using this email! Please check email to verify account"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System error when signup! Please try it again"
+        }
+    },
+    "ACTIVE_ACCOUNT": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Bad request!"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "COD is not valid!"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "COD has actived!"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System error! Please contact to admin"
+        }
+    },
+    "VALIDATE_REGISTER": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Bad request!"
+        },
+        "ERROR_401": {
+            "code": 401,
+            "message": "Cannot verify account! Please submit sign up form again"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "User has verified! We will redirect to Login"
+        },
+        "ERROR_422": {
+            "code": 422,
+            "message": "Cannot create user, please signup again"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System error when verify email! Please register other account"
+        }
+    },
+    "COD_BUY_CARD": {
+        "ERROR_500": {
+            "code": 500,
+            "message": "Order not success, system error"
+        }
+    },
+    "USER_BOOK": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Get list user book bad request"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Get list user book not found"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System error when get list user book"
+        }
+    },
+    "USER_INFO_ONLINE_SOFTWARE": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Get user info has error bad request"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Get user info has error not found"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System error when get user info"
+        }
+    },
+    "BOOK_DETAIL": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Get book detail has error bad request"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Not found book detail data"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System error when get book detail"
+        }
+    },
+    "LESSION_DETAIL": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Get lession detail has error bad request"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Not found lession detail data"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System error when get lession detail"
+        }
+    },
+    "GET_VOCABULARY": {
+        "ERROR_404": {
+            "code": 404,
+            "message": "Not found vocabulary data"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System error when get vocabulary data"
+        }
+    },
+    "GET_EXPANSION": {
+        "ERROR_404": {
+            "code": 404,
+            "message": "Not found expansion data"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System error when get expansion data"
+        }
+    },
+    "UPDATE_FINISH_LESSION": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Update finish lession has error bad request"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System error when update finish lession"
+        }
+    },
+
+    "ROLE_FOR_SCHOOL": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Error bad request"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Role's name has existed"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System's Error"
+        }
+    },
+
+    "ROOM": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Error bad request"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Not found room data"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Room's name has existed"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System's Error"
+        }
+    },
+    "STUDY_METHOD": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Error bad request"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Not found study method data"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Study method is name has existed"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System's Error"
+        }
+    },
+    "TEACHER": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Error bad request"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Not found teacher data"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Account is has existed"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System's Error"
+        }
+    },
+    "STUDENT": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Error bad request"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Not found student data"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Account is has existed"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System's Error"
+        }
+    },
+    "DEPARTMENT_STAFF": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Error bad request"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Not found user data"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Account is has existed"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System's Error"
+        }
+    },
+    "COURSE": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Error bad request"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Not found course data"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Course is has existed"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System's Error"
+        }
+    },
+    "CLASS": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Error bad request"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Not found class data"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Class is has existed"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System's Error"
+        }
+    },
+    "ADD_SESSION": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Error bad request"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Session is has existed"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System's Error"
+        }
+    },
+    "UPDATE_SESSION": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Error bad request"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System's Error"
+        }
+    },
+    "DELETE_SESSION": {
+        "ERROR_500": {
+            "code": 500,
+            "message": "System's Error"
+        }
+    },
+    "RATING": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Error bad request"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Not found rating data"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Rating is has existed"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "System's Error"
+        }
+    }
+}

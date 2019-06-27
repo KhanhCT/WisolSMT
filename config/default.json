@@ -1,0 +1,34 @@
+{
+    "server": {
+        "host": "0.0.0.0",
+        "port": 5001,
+        "base_url": "localhost:3000"
+    },
+    "app": {
+        "secret_key": "hanaspeak_secret"
+    },
+    "logs": {
+        "level": "debug",
+        "handleExceptions": false
+    },
+    "unauthorization": ["/swagger"],
+    "token_expire": 86400,
+    "time_format": "YYYY-MM-DD H:mm:ss:SSS",
+    "mysql": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "hanaspeak",
+        "password": "hanaspeak@2018",
+        "database": "hanaspeak",
+        "timeout": 120000,
+        "dateStrings": true
+    },
+    "salt_factor": 10,
+    "jwt": {
+        "jwt_secret": "helloworld",
+        "expired_at": 86400
+    },
+    "GMT_TIME": 7,
+    "DIE_TIME": 300,
+    "login_api": "https://core.vcam.viettel.vn/api/login"
+}

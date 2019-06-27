@@ -1,0 +1,392 @@
+{
+    "SYSTEM_ERROR": {
+        "code": 500,
+        "message": "Đã xảy ra lỗi hệ thống! Vui lòng liên hệ nhà quản trị"
+    },
+    "NETWORK_ERROR": {
+        "code": 999,
+        "message": "Vui lòng kiểm tra kết nối internet của bạn!"
+    },
+    "LOGIN": {
+        "ERROR_404": {
+            "code": 404,
+            "message": "Tên đăng nhập hoặc mật khẩu không đúng"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống khi đăng nhập!"
+        }
+    },
+    "RESET_PASSWORD": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Email không hợp lệ"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Email không tồn tại trong hệ thống!"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Lỗi hệ thống!"
+        }
+    },
+    "SIGNUP": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Tham số không hợp lệ!"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Email hoặc số điện thoại này đã tồn tại trong hệ thống"
+        },
+        "ERROR_422": {
+            "code": 422,
+            "message": "Bạn đã tạo tài khoản sử dụng email này trước đó. Vui lòng kiểm tra email để xác thực tài khoản"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống khi đăng ký! Vui lòng thử lại sau"
+        }
+    },
+    "ACTIVE_ACCOUNT": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Tham số không hợp lệ!"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "COD không hợp lệ!"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "COD đã được kích hoạt!"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Đã xảy ra lỗi hệ thống, vui lòng liên hệ quản trị viên!"
+        }
+    },
+    "VALIDATE_REGISTER": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Tham số không hợp lệ!"
+        },
+        "ERROR_401": {
+            "code": 401,
+            "message": "Không thể xác thực tài khoản! Vui lòng gửi lại form đăng ký, hệ thống sẽ gửi lại link xác thực"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Tài khoản đã được xác thực! Vui lòng Login"
+        },
+        "ERROR_422": {
+            "code": 422,
+            "message": "Không thể tạo tài khoản! Vui lòng đăng ký tài khoản mới"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống! Vui lòng đăng ký tài khoản mới"
+        }
+    },
+    "COD_BUY_CARD": {
+        "ERROR_500": {
+            "code": 500,
+            "message": "Đặt hàng không thành công, xảy ra lỗi hệ thống"
+        }
+    },
+    "USER_BOOK": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số khi lấy danh sách sách"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Danh sách sách không tồn tại"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Lỗi hệ thống khi lấy danh sách sách"
+        }
+    },
+    "USER_INFO_ONLINE_SOFTWARE": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số khi lấy thông tin người dùng"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Không tồn tại thông tin người dùng"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Lỗi hệ thống khi lấy thông tin người dùng"
+        }
+    },
+    "BOOK_DETAIL": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số khi lấy dữ liệu sách"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Không tồn tại dữ liệu sách"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Lỗi hệ thống khi lấy dữ liệu sách"
+        }
+    },
+    "LESSION_DETAIL": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số khi lấy dữ liệu bài học"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Không tồn tại dữ liệu bài học"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Lỗi hệ thống khi lấy dữ liệu bài học"
+        }
+    },
+    "GET_VOCABULARY": {
+        "ERROR_404": {
+            "code": 404,
+            "message": "Bài học này không có dữ liệu phần từ vựng"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Lỗi hệ thống khi lấy dữ liệu phần từ vựng"
+        }
+    },
+    "GET_EXPANSION": {
+        "ERROR_404": {
+            "code": 404,
+            "message": "Bài học này không có dữ liệu phần mở rộng"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Lỗi hệ thống khi lấy dữ liệu phần mở rộng"
+        }
+    },
+    "UPDATE_FINISH_LESSION": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số khi cập nhật hoàn thành bài học"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Lỗi hệ thống khi cập nhật hoàn thành bài học"
+        }
+    },
+
+    "ROLE_FOR_SCHOOL": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số không hợp lệ"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Quyền cùng tên đã tồn tại"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Lỗi hệ thống"
+        }
+    },
+
+    "ROOM": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số không hợp lệ"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Không tồn tại dữ liệu phòng học"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Phòng học này đã tồn tại trong hệ thống"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống"
+        }
+    },
+    "STUDY_METHOD": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số không hợp lệ"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Không tồn tại dữ liệu hình thức học"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Hình thức học này đã tồn tại trong hệ thống"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống"
+        }
+    },
+    "TEACHER": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số không hợp lệ"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Không tồn tại dữ liệu giáo viên"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Tài khoản này đã tồn tại trong hệ thống"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống"
+        }
+    },
+    "STUDENT": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số không hợp lệ"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Không tồn tại dữ liệu học viên"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Tài khoản này đã tồn tại trong hệ thống"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống"
+        }
+    },
+    "DEPARTMENT_STAFF": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số không hợp lệ"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Không tồn tại dữ liệu nhân viên"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Tài khoản này đã tồn tại trong hệ thống"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống"
+        }
+    },
+    "COURSE": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số không hợp lệ"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Không tồn tại dữ liệu khóa học"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Khóa học này đã tồn tại trong hệ thống"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống"
+        }
+    },
+    "CLASS": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số không hợp lệ"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Không tồn tại dữ liệu lớp học"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Lớp học này đã tồn tại trong hệ thống"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống"
+        }
+    },
+    "SCHEDULE": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số không hợp lệ"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Không tồn tại dữ liệu thời khóa biểu"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Thời khóa biểu này đã tồn tại trong hệ thống"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống"
+        }
+    },
+    "ADD_SESSION": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số không hợp lệ"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Buổi học đã tồn tại"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống"
+        }
+    },
+    "UPDATE_SESSION": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số không hợp lệ"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống"
+        }
+    },
+    "DELETE_SESSION": {
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống"
+        }
+    },
+    "RATING": {
+        "ERROR_400": {
+            "code": 400,
+            "message": "Lỗi tham số không hợp lệ"
+        },
+        "ERROR_404": {
+            "code": 404,
+            "message": "Không tồn tại dữ liệu đánh giá"
+        },
+        "ERROR_409": {
+            "code": 409,
+            "message": "Bạn đã đánh giá giáo viên này rồi"
+        },
+        "ERROR_500": {
+            "code": 500,
+            "message": "Xảy ra lỗi hệ thống"
+        }
+    }
+}
