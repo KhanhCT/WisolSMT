@@ -1,8 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using static PandaApp.GPIOCommunication.GPIOHelper;
 
 namespace WisolSMTLineApp
@@ -15,24 +14,37 @@ namespace WisolSMTLineApp
         public MainWindow()
         {
             InitializeComponent();
-            //Loaded += MainWindow_Loaded;
+            MainTabControl = MainTab;
+            Loaded += MainWindow_Loaded;
+            DataContext = this;
         }
+
+        public static TabControl MainTabControl;
 
         public static GPIOBoard F0;
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             await TextHelper.InitSetting();
-            var COMPort = TextHelper.Settings.Where(x => x.Key == "COMPort").FirstOrDefault();
+            Setting.WorkingMode = Model.WorkingMode.Auto;
+            //var COMport = TextHelper.ReadSetting("COMPort");
+            //try
+            //{
+            //    F0 = new GPIOBoard(0xF0, COMport);
+            //    Loop();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //    Application.Current.Shutdown();
+            //    return;
+            //}            
             try
             {
-                F0 = new GPIOBoard(0xF0, COMPort.Value);
-                Loop();
+
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
-                Application.Current.Shutdown();
-                return;
+
             }
         }
 
@@ -64,6 +76,7 @@ namespace WisolSMTLineApp
 
             });
         }
+
         public class IN
         {
             public static InputPin CountingSensor = F0.InputPins[0];

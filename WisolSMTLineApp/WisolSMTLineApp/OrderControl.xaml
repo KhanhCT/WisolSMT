@@ -25,6 +25,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <TextBlock Text="Model:" Grid.Row="0"/>
@@ -36,7 +37,7 @@
         <TextBlock Text="Amount:" Grid.Row="1"/>
         <TextBox  Grid.Column="1" Grid.Row="1" Margin="10" Text="{Binding Amount}"/>
 
-
         <Button Content="Order" Grid.Row="2" Margin="20" VerticalAlignment="Center" Grid.ColumnSpan="2" Click="Order_Click"/>
+        <Button Content="Confirm Order" Grid.Row="3" Margin="20" VerticalAlignment="Center" Grid.ColumnSpan="2" Click="Order_Click"/>
     </Grid>
 </UserControl>

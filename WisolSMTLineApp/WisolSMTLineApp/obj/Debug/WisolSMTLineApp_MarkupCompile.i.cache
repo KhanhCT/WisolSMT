@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\HP\source\repos\WisolSMTLineApp\WisolSMTLineApp\obj\Debug\
+C:\Users\HP\Documents\GitHub\WisolSMT\WisolSMTLineApp\WisolSMTLineApp\obj\Debug\
 WisolSMTLineApp
 none
 false
 DEBUG;TRACE
-C:\Users\HP\source\repos\WisolSMTLineApp\WisolSMTLineApp\App.xaml
+C:\Users\HP\Documents\GitHub\WisolSMT\WisolSMTLineApp\WisolSMTLineApp\App.xaml
 5571135644
 
-16185180336
-14-537865352
+19-1412840348
+14599119381
 MainWindow.xaml;MonitorControl.xaml;OrderControl.xaml;PlanControl.xaml;SettingControl.xaml;
 
-True
+False
 

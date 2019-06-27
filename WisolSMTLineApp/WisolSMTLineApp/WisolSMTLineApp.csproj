@@ -58,8 +58,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controllers.cs" />
     <Compile Include="GPIO\GPIOHelper.cs" />
     <Compile Include="GPIO\SerialHelper.cs" />
+    <Compile Include="Model\TimeStamp.cs" />
+    <Compile Include="Model\WorkPlaceStatus.cs" />
     <Compile Include="MonitorControl.xaml.cs">
       <DependentUpon>MonitorControl.xaml</DependentUpon>
     </Compile>

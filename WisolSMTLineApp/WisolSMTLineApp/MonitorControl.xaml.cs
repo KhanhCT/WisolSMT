@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using WisolSMTLineApp.Model;
 
 namespace WisolSMTLineApp
 {
@@ -21,7 +11,19 @@ namespace WisolSMTLineApp
     /// </summary>
     public partial class MonitorControl : UserControl, INotifyPropertyChanged
     {
-
+        static WorkingStatus _WorkingStatus;
+        public static WorkingStatus workingStatus
+        {
+            get { return _WorkingStatus; }
+            set
+            {
+                if (_WorkingStatus != value)
+                {
+                    _WorkingStatus = value;
+                    NotifyStaticPropertyChanged("workingStatus");
+                }
+            }
+        }
         string _Model;
         public string Model
         {
@@ -35,15 +37,29 @@ namespace WisolSMTLineApp
                 }
             }
         }
+
         public MonitorControl()
         {
             InitializeComponent();
+            Loaded += MonitorControl_Loaded;
+        }
+
+        private void MonitorControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
+
+        public static event PropertyChangedEventHandler StaticPropertyChanged;
+
+        private static void NotifyStaticPropertyChanged([CallerMemberName] string name = null)
+        {
+            StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(name));
         }
     }
 }
