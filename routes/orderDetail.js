@@ -14,7 +14,7 @@ export const createProductionDtl = async(req,res) => {
     return;
   }
   let params = Object.assign({}, req.body);
-  let date = moment(params.date, 'DD-MM-YYYY');
+  let date = moment(params.date, 'DD-MM-YYYY', true);
   if (!date.isValid()) {
       dataRes = {
           code : "NOK",
@@ -78,7 +78,7 @@ export const createProductionDtl = async(req,res) => {
   }
 
   let params = Object.assign({}, req.body);
-  let date = moment(params.date, 'DD-MM-YYYY');
+  let date = moment(params.date, 'DD-MM-YYYY', true);
   if (!date.isValid()) {
       dataRes = {
           code : "NOK",

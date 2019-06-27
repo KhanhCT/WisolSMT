@@ -39,6 +39,7 @@ app.get('/logout', user.logout);//call for logout
 
 app.get('/product/getLstModel',product.getLstModel);
 app.get('/product/getLstLine',product.getLstLine);
+app.get('/product/getShifts',product.getShifts);
 
 app.post('/production/createPlan',production.createPlan);
 app.post('/production/initProduct',production.updatePlan);

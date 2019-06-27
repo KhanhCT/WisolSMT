@@ -15,7 +15,7 @@ export function createPlan(req,res){
         return;
     }
     let params = Object.assign({}, req.body);
-    let date = moment(params.date, 'DD-MM-YYYY');
+    let date = moment(params.date, 'DD-MM-YYYY', true);
     if (!date.isValid()) {
         dataRes = {
             code : "NOK",
@@ -71,7 +71,7 @@ export function createPlan(req,res){
         return;
     }
     let params = Object.assign({}, req.body);
-    let date = moment(params.date, 'DD-MM-YYYY');
+    let date = moment(params.date, 'DD-MM-YYYY', true);
     if (!date.isValid()) {
         dataRes = {
             code : "NOK",
@@ -162,7 +162,7 @@ export function createPlan(req,res){
         return;
     }
     let dateStr = req.params.date;
-    let date = moment(dateStr, 'DD-MM-YYYY');
+    let date = moment(dateStr, 'DD-MM-YYYY', true);
     if (!date.isValid()) {
         dataRes = {
             code : "NOK",
