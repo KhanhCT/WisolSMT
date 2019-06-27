@@ -1,16 +1,28 @@
 import moment from 'moment';
+import db from '../connectDB'
+import * as query from '../until/common';
+
 export function createPlan(req,res){
+    let dataRes = {};
     let userId = req.session.userId;
     if(userId == null){
-        res.status(401).send('Unauthorized ')
+        dataRes = {
+            code : "NOK",
+            message : "Unauthorized",
+            data : false
+         }
+        res.status(401).send(dataRes)
         return;
     }
-
     let params = Object.assign({}, req.body);
     let date = moment(params.date, 'DD-MM-YYYY');
-    if (!date) {
-        res.json(false);
-        console.log('Date fail');
+    if (!date.isValid()) {
+        dataRes = {
+            code : "NOK",
+            message : "Date is error, please set format DD-MM-YYYY",
+            data : false
+         }
+        res.json(dataRes);
         return;
     }
     let productionPlan = {
@@ -26,23 +38,47 @@ export function createPlan(req,res){
 
     var sql="INSERT INTO productionplan SET ?";
     db.query(sql,productionPlan, function(err, results){
-        if (err) throw err;
-        res.json(true);
+        if (err) {
+            dataRes = {
+              code : "NOK",
+              message : err.sqlMessage,
+              data : false
+           }
+           console.log(err);
+           res.json(dataRes);
+          }
+          if (results) {
+            dataRes = {
+              code : "OK",
+              message : "INSERT productionplan success",
+              data : true
+           }
+            res.json(dataRes);
+          }
     });       
  };
 
  export function updatePlan(req,res){
+    let dataRes = {};
     let userId = req.session.userId;
     if(userId == null){
-        res.status(401).send('Unauthorized ')
+        dataRes = {
+            code : "NOK",
+            message : "Unauthorized",
+            data : false
+         }
+        res.status(401).send(dataRes)
         return;
     }
-
     let params = Object.assign({}, req.body);
     let date = moment(params.date, 'DD-MM-YYYY');
-    if (!date) {
-        res.json(false);
-        console.log('Date fail');
+    if (!date.isValid()) {
+        dataRes = {
+            code : "NOK",
+            message : "Date is error, please set format DD-MM-YYYY",
+            data : false
+         }
+        res.json(dataRes);
         return;
     }
     let updatePlanObj = {
@@ -57,79 +93,108 @@ export function createPlan(req,res){
     var conditionSQL = " WHERE WorkingDate='"+updatePlanObj.WorkingDate+"' AND FactoryID ="+updatePlanObj.FactoryID+" AND LineID = "+updatePlanObj.LineID+" AND ShiftID = "+updatePlanObj.ShiftID+"";
     db.query(sql + conditionSQL, function(err, results){
         if (err) {
-            res.json(false);
-            throw err;
+            dataRes = {
+              code : "NOK",
+              message : err.sqlMessage,
+              data : false
+           }
+           res.json(dataRes);
+          }
+        if (results) {
+            console.log(results);
+            dataRes = {
+                code : "OK",
+                message : "Update productionplan success",
+                data : true
+            }
+            res.json(dataRes);
         }
-        res.json(true);
     });       
  };
 
  export function getLstOrderNotFinish(req,res){
+    let dataRes = {};
     let userId = req.session.userId;
     if(userId == null){
-        res.status(401).send('Unauthorized ')
-       return;
+        dataRes = {
+            code : "NOK",
+            message : "Unauthorized",
+            data : false
+         }
+        res.status(401).send(dataRes)
+        return;
     }
 
-    let data = {};
     let lineId = Number(req.params.lineId);
     if (lineId) {
         var sql="SELECT * FROM productiondtl WHERE LineID = "+lineId+" AND Finished = false";
         db.query(sql, function(err, results){
-            if (err) throw err;
-            data = {
-                id : results[0].id,
-                WorkingDate : results[0].WorkingDate,
-                FactoryID : results[0].FactoryID,
-                ShiftID : results[0].ShiftID,
-                LineID : results[0].LineID,
-                Amount : results[0].Amount,
-                Finished : results[0].Finished
+            if (err) {
+                dataRes = {
+                  code : "NOK",
+                  message : err.sqlMessage,
+                  data : null
+               }
+               res.json(dataRes);
             }
-            res.json(data)
-            });  
+            if (results && results.length > 0) {
+                dataRes = {
+                    code : "OK",
+                    message : "getLstOrderNotFinish success",
+                    data : results
+                 }
+                 res.json(dataRes);
+            }
+        });  
     }
  };
 
  export const getLineResult = async (req,res) => {
+    let dataRes = {};
     let userId = req.session.userId;
     if(userId == null){
-        res.status(401).send('Unauthorized ')
-       return;
+        dataRes = {
+            code : "NOK",
+            message : "Unauthorized",
+            data : false
+         }
+        res.status(401).send(dataRes)
+        return;
     }
     let dateStr = req.params.date;
     let date = moment(dateStr, 'DD-MM-YYYY');
-    if (!date) {
-        res.json(null);
-        console.log('Date fail');
+    if (!date.isValid()) {
+        dataRes = {
+            code : "NOK",
+            message : "Date is error, please set format DD-MM-YYYY",
+            data : false
+         }
+        res.json(dataRes);
         return;
     }
-    const query = async (sql) => {
-        return new Promise(resolve=>{
-            db.query(sql, function(err, results){
-                if (err) {
-                    resolve(null)
-                    throw err;
-                } 
-                resolve(JSON.parse(JSON.stringify(results)))
-            });
-        })
+    let lstLines = await query.queryNormal("SELECT * FROM productionline");
+    let lstModel = await query.queryNormal("SELECT * FROM product");
+    if (!lstLines || !lstModel) {
+        dataRes = {
+            code : "NOK",
+            message : "ERROR when query",
+            data : null
+         }
+        res.json(dataRes);
+        return;
     }
-
-    let lstLines = await query("SELECT * FROM productionline");
-    let lstModel = await query("SELECT * FROM product");
     var result = [];
-    if (lstLines) {
+    if (lstLines.length > 0) {
         for (let i = 0; i < lstLines.length; i++) {
             let dataLine = {};
             dataLine.lineId = lstLines[i].LineID;
-            let countProd = await query("SELECT COUNT(*) AS amount FROM productiondtl WHERE WorkingDate = '"+dateStr+"' AND LineID = '"+lstLines[i].LineID+"' AND Finished = false");
+            let countProd = await query.queryNormal("SELECT COUNT(*) AS amount FROM productiondtl WHERE WorkingDate = '"+dateStr+"' AND LineID = '"+lstLines[i].LineID+"' AND Finished = false");
             if (countProd[0].amount > 0) {
                 dataLine.status = "ORDERING"
             } else {
                 dataLine.status = "RUN"
             }
-            let prodPlan = await query ("SELECT * FROM productionplan WHERE WorkingDate = '"+dateStr+"' AND LineID = '"+lstLines[i].LineID+"'");
+            let prodPlan = await query.queryNormal ("SELECT * FROM productionplan WHERE WorkingDate = '"+dateStr+"' AND LineID = '"+lstLines[i].LineID+"'");
             if (prodPlan) {
                 if (prodPlan[0]) {
                     dataLine.order = prodPlan[0].OrderedQty;
@@ -150,5 +215,10 @@ export function createPlan(req,res){
             result.push(dataLine);
         }
     }
-    res.json(result);
+    dataRes = {
+        code : "OK",
+        message : "getLineResult sucess",
+        data : result
+     }
+    res.json(dataRes);
 }

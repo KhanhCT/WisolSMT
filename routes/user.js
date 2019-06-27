@@ -1,4 +1,4 @@
-
+import db from '../connectDB'
 //---------------------------------------------signup page call------------------------------------------------------
 export function signup(req, res){
     var message = '';

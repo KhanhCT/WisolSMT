@@ -1,8 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import session from 'express-session';
-import mysql from 'mysql';
 import path from 'path';
+import connection from './connectDB'
 import * as user from './routes/user'
 import * as product from './routes/product'
 import * as production from './routes/production'
@@ -12,36 +12,10 @@ import logger  from 'morgan';
 
 const app = express();
 
-const connection = mysql.createConnection({
-    host     : '127.0.0.1',
-    port: "3306",
-    user     : 'root',
-    password : '',
-    database : 'smt',
-    typeCast: function castField( field, useDefaultTypeCasting ) {
-      // We only want to cast bit fields that have a single-bit in them. If the field
-      // has more than one bit, then we cannot assume it is supposed to be a Boolean.
-      if ( ( field.type === "BIT" ) && ( field.length === 1 ) ) {
-          var bytes = field.buffer();
-          // A Buffer in Node represents a collection of 8-bit unsigned integers.
-          // Therefore, our single "bit field" comes back as the bits '0000 0001',
-          // which is equivalent to the number 1.
-          if (bytes) {
-            return( bytes[ 0 ] === 1 );
-          }
-          return null;
-      }
-      return( useDefaultTypeCasting() );
-
-  }
-  });
-
-  connection.connect((err) => {
-    if (err) throw err;
-    console.log('Connected!');
-  });
-
-global.db = connection;
+connection.connect((err) => {
+  if (err) throw err;
+  console.log('Connected!');
+});
 
 app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/views');
