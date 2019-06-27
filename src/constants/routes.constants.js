@@ -44,4 +44,6 @@ export const ROUTES = {
   STATUS_LINE_CHART: "/status_line_chart",
   HIST_CHART: "/hist_chart",
   LIST_MACHINE: "/list_machine",
+  LINE_RESULT: "/line_result",
+  MODEL_RESULT: "/model_result"
 };

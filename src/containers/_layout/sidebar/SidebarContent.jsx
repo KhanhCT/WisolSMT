@@ -145,6 +145,26 @@ class SidebarContent extends Component {
             onClick={this.hideSidebar}
           />
         </ul>
+
+        <ul className="sidebar__block">
+          <SidebarLink
+            // title={t("common.listening")}
+            title="Line Result"
+            icon="construction"
+            route={ROUTES.LINE_RESULT}
+            onClick={this.hideSidebar}
+          />
+        </ul>
+
+        <ul className="sidebar__block">
+          <SidebarLink
+            // title={t("common.listening")}
+            title="Model Result"
+            icon="construction"
+            route={ROUTES.MODEL_RESULT}
+            onClick={this.hideSidebar}
+          />
+        </ul>
         {/* <ul className="sidebar__block">
           <SidebarLink
             // title={t("common.listening")}
@@ -172,7 +192,7 @@ class SidebarContent extends Component {
             onClick={this.hideSidebar}
           />
         </ul> */}
-        
+
 
         {/* {userStorage.is_school_member ? (
           <ul className="sidebar__block">

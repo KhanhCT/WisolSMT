@@ -81,6 +81,8 @@ import { ProductionPlan } from "../containers/model_register";
 import { FactorySchedule } from "../containers/factory_schedule";
 import { WorkplaceConfig } from "../containers/workplace_config";
 import { DeviceConfig } from "../containers/device_config";
+import { LineResult } from "../containers/line_result";
+import { ModelResult } from "../containers/model_result";
 
 // List role for allow authorization
 // const STUDENT = Authorization(LIST_ROLES.STUDENT);
@@ -118,6 +120,8 @@ const wrappedRoutes = () => (
       <Route path={ROUTES.WORKPLACE_CONFIG} component={WorkplaceConfig} />
       <Route path={ROUTES.DEVICE_CONFIG} component={DeviceConfig} />
       <Route path={ROUTES.GOAL_MONITOR} component={GoalMonitor} />
+      <Route path={ROUTES.LINE_RESULT} component={LineResult} />
+      <Route path={ROUTES.MODEL_RESULT} component={ModelResult} />
       {/* <Route path={ROUTES.STATUS_LINE_CHART} component={StatusLineChart} />
       <Route path={ROUTES.HIST_CHART} component={HistChart} />
       <Route path={ROUTES.LIST_MACHINE} component={TestButton} /> */}
