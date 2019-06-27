@@ -3,16 +3,16 @@ import moment from 'moment';
 import db from '../connectDB'
 export const createProductionDtl = async(req,res) => {
   let dataRes = {};
-  let userId = req.session.userId;
-  if(userId == null){
-    dataRes = {
-        code : "NOK",
-        message : "Unauthorized",
-        data : false
-     }
-    res.status(401).send(dataRes)
-    return;
-  }
+  // let userId = req.session.userId;
+  // if(userId == null){
+  //   dataRes = {
+  //       code : "NOK",
+  //       message : "Unauthorized",
+  //       data : false
+  //    }
+  //   res.status(401).send(dataRes)
+  //   return;
+  // }
   let params = Object.assign({}, req.body);
   let date = moment(params.date, 'DD-MM-YYYY', true);
   if (!date.isValid()) {
@@ -66,16 +66,16 @@ export const createProductionDtl = async(req,res) => {
 
  export function submitOrderDtl(req,res){
   let dataRes = {};
-  let userId = req.session.userId;
-  if(userId == null){
-    dataRes = {
-        code : "NOK",
-        message : "Unauthorized",
-        data : false
-     }
-    res.status(401).send(dataRes)
-    return;
-  }
+  // let userId = req.session.userId;
+  // if(userId == null){
+  //   dataRes = {
+  //       code : "NOK",
+  //       message : "Unauthorized",
+  //       data : false
+  //    }
+  //   res.status(401).send(dataRes)
+  //   return;
+  // }
 
   let params = Object.assign({}, req.body);
   let date = moment(params.date, 'DD-MM-YYYY', true);

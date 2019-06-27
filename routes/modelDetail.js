@@ -3,16 +3,16 @@ import * as query from '../until/common';
 
 export const importProduct = async (req,res) =>{
     let dataRes = {};
-    let userId = req.session.userId;
-    if(userId == null){
-        dataRes = {
-            code : "NOK",
-            message : "Unauthorized",
-            data : false
-         }
-        res.status(401).send(dataRes)
-        return;
-    }
+    // let userId = req.session.userId;
+    // if(userId == null){
+    //     dataRes = {
+    //         code : "NOK",
+    //         message : "Unauthorized",
+    //         data : false
+    //      }
+    //     res.status(401).send(dataRes)
+    //     return;
+    // }
     let params = Object.assign({}, req.body);
     let date = moment(params.date, 'DD-MM-YYYY',true);
     if (!date.isValid()) {
@@ -79,16 +79,16 @@ export const importProduct = async (req,res) =>{
 
  export const exportProduct = async (req,res) =>{
     let dataRes = {};
-    let userId = req.session.userId;
-    if(userId == null){
-        dataRes = {
-            code : "NOK",
-            message : "Unauthorized",
-            data : false
-         }
-        res.status(401).send(dataRes)
-        return;
-    }
+    // let userId = req.session.userId;
+    // if(userId == null){
+    //     dataRes = {
+    //         code : "NOK",
+    //         message : "Unauthorized",
+    //         data : false
+    //      }
+    //     res.status(401).send(dataRes)
+    //     return;
+    // }
     let params = Object.assign({}, req.body);
     let date = moment(params.date, 'DD-MM-YYYY', true);
     if (!date.isValid()) {
@@ -106,10 +106,20 @@ export const importProduct = async (req,res) =>{
        remain_qty : 0,
        exported_qty : params.qty
     }
-    const countModelDetail = await query.queryNormal("SELECT COUNT(*) AS numOf FROM productdtl WHERE WorkingDate = '"+modelDetail.WorkingDate+"' AND ProductID = "+modelDetail.ProductID+"",null);
+    const numRemain = await query.queryNormal("SELECT remain_qty FROM productdtl WHERE WorkingDate = '"+modelDetail.WorkingDate+"' AND ProductID = "+modelDetail.ProductID+"");
+    if (!numRemain || (numRemain[0].remain_qty - modelDetail.exported_qty < 0)) {
+        dataRes = {
+            code : "NOK",
+            message : "Please import production",
+            data : false
+         }
+         res.json(dataRes);
+         return;
+    }
+    const countModelDetail = await query.queryNormal("SELECT COUNT(*) AS numOf FROM productdtl WHERE WorkingDate = '"+modelDetail.WorkingDate+"' AND ProductID = "+modelDetail.ProductID+"");
     if (countModelDetail) {
         if (countModelDetail[0].numOf > 0) {
-            let equalUpd = await query.queryNormal("UPDATE productdtl SET exported_qty = exported_qty + "+modelDetail.exported_qty+" WHERE WorkingDate = '"+modelDetail.WorkingDate+"' AND ProductID = "+modelDetail.ProductID+"")
+            let equalUpd = await query.queryNormal("UPDATE productdtl SET exported_qty = exported_qty + "+modelDetail.exported_qty+", remain_qty = remain_qty - "+modelDetail.exported_qty+" WHERE WorkingDate = '"+modelDetail.WorkingDate+"' AND ProductID = "+modelDetail.ProductID+"")
             if (equalUpd) {
                 dataRes = {
                     code : "OK",
@@ -155,16 +165,16 @@ export const importProduct = async (req,res) =>{
 
  export const getModelResult = async (req,res) =>{
     let dataRes = {};
-    let userId = req.session.userId;
-    if(userId == null){
-        dataRes = {
-            code : "NOK",
-            message : "Unauthorized",
-            data : false
-         }
-        res.status(401).send(dataRes)
-        return;
-    }
+    // let userId = req.session.userId;
+    // if(userId == null){
+    //     dataRes = {
+    //         code : "NOK",
+    //         message : "Unauthorized",
+    //         data : false
+    //      }
+    //     res.status(401).send(dataRes)
+    //     return;
+    // }
     let dateStr = req.params.date;
     let date = moment(dateStr, 'DD-MM-YYYY',true);
     if (!date.isValid()) {

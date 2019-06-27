@@ -4,16 +4,16 @@ import * as query from '../until/common';
 
 export function createPlan(req,res){
     let dataRes = {};
-    let userId = req.session.userId;
-    if(userId == null){
-        dataRes = {
-            code : "NOK",
-            message : "Unauthorized",
-            data : false
-         }
-        res.status(401).send(dataRes)
-        return;
-    }
+    // let userId = req.session.userId;
+    // if(userId == null){
+    //     dataRes = {
+    //         code : "NOK",
+    //         message : "Unauthorized",
+    //         data : false
+    //      }
+    //     res.status(401).send(dataRes)
+    //     return;
+    // }
     let params = Object.assign({}, req.body);
     let date = moment(params.date, 'DD-MM-YYYY', true);
     if (!date.isValid()) {
@@ -60,16 +60,16 @@ export function createPlan(req,res){
 
  export function updatePlan(req,res){
     let dataRes = {};
-    let userId = req.session.userId;
-    if(userId == null){
-        dataRes = {
-            code : "NOK",
-            message : "Unauthorized",
-            data : false
-         }
-        res.status(401).send(dataRes)
-        return;
-    }
+    // let userId = req.session.userId;
+    // if(userId == null){
+    //     dataRes = {
+    //         code : "NOK",
+    //         message : "Unauthorized",
+    //         data : false
+    //      }
+    //     res.status(401).send(dataRes)
+    //     return;
+    // }
     let params = Object.assign({}, req.body);
     let date = moment(params.date, 'DD-MM-YYYY', true);
     if (!date.isValid()) {
@@ -115,15 +115,15 @@ export function createPlan(req,res){
  export function getLstOrderNotFinish(req,res){
     let dataRes = {};
     let userId = req.session.userId;
-    if(userId == null){
-        dataRes = {
-            code : "NOK",
-            message : "Unauthorized",
-            data : false
-         }
-        res.status(401).send(dataRes)
-        return;
-    }
+    // if(userId == null){
+    //     dataRes = {
+    //         code : "NOK",
+    //         message : "Unauthorized",
+    //         data : false
+    //      }
+    //     res.status(401).send(dataRes)
+    //     return;
+    // }
 
     let lineId = Number(req.params.lineId);
     if (lineId) {
@@ -152,15 +152,15 @@ export function createPlan(req,res){
  export const getLineResult = async (req,res) => {
     let dataRes = {};
     let userId = req.session.userId;
-    if(userId == null){
-        dataRes = {
-            code : "NOK",
-            message : "Unauthorized",
-            data : false
-         }
-        res.status(401).send(dataRes)
-        return;
-    }
+    // if(userId == null){
+    //     dataRes = {
+    //         code : "NOK",
+    //         message : "Unauthorized",
+    //         data : false
+    //      }
+    //     res.status(401).send(dataRes)
+    //     return;
+    // }
     let dateStr = req.params.date;
     let date = moment(dateStr, 'DD-MM-YYYY', true);
     if (!date.isValid()) {

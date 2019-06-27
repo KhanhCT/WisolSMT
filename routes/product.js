@@ -1,16 +1,16 @@
 import db from '../connectDB'
 export function getLstModel(req,res){
   let dataRes = {};
-  let userId = req.session.userId;
-  if(userId == null){
-    dataRes = {
-        code : "NOK",
-        message : "Unauthorized",
-        data : null
-     }
-    res.status(401).send(dataRes)
-    return;
-  }
+  // let userId = req.session.userId;
+  // if(userId == null){
+  //   dataRes = {
+  //       code : "NOK",
+  //       message : "Unauthorized",
+  //       data : null
+  //    }
+  //   res.status(401).send(dataRes)
+  //   return;
+  // }
 
   var sql="SELECT * FROM product";
   db.query(sql, function(err, results){
@@ -35,16 +35,16 @@ export function getLstModel(req,res){
 
  export function getLstLine(req,res){
   let dataRes = {};
-  let userId = req.session.userId;
-  if(userId == null){
-    dataRes = {
-        code : "NOK",
-        message : "Unauthorized",
-        data : null
-     }
-    res.status(401).send(dataRes)
-    return;
-  }
+  // let userId = req.session.userId;
+  // if(userId == null){
+  //   dataRes = {
+  //       code : "NOK",
+  //       message : "Unauthorized",
+  //       data : null
+  //    }
+  //   res.status(401).send(dataRes)
+  //   return;
+  // }
  
   var sql="SELECT * FROM productionline";
   db.query(sql, function(err, results){
@@ -69,16 +69,16 @@ export function getLstModel(req,res){
 
 export function getShifts(req,res){
   let dataRes = {};
-  let userId = req.session.userId;
-  if(userId == null){
-    dataRes = {
-        code : "NOK",
-        message : "Unauthorized",
-        data : null
-     }
-    res.status(401).send(dataRes)
-    return;
-  }
+  // let userId = req.session.userId;
+  // if(userId == null){
+  //   dataRes = {
+  //       code : "NOK",
+  //       message : "Unauthorized",
+  //       data : null
+  //    }
+  //   res.status(401).send(dataRes)
+  //   return;
+  // }
  
   var sql="SELECT * FROM shift";
   db.query(sql, function(err, results){
