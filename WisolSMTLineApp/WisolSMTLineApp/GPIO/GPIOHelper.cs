@@ -12,7 +12,7 @@ namespace PandaApp.GPIOCommunication
 {
     public class GPIOHelper
     {
-       
+
         public class GPIOBoard
         {
             public static GPIOSerial GPIOCOM;
@@ -56,53 +56,49 @@ namespace PandaApp.GPIOCommunication
             }
 
             public byte GPIOStation { get; set; }
-            public ObservableCollection<InputPin> InputPins { get; set; }
-            public ObservableCollection<OutputPin> OutputPins { get; set; }
-
-
-            public GPIOBoard(byte Station, string comPort)
+            public ObservableCollection<InputPin> InputPins { get; set; } = new ObservableCollection<InputPin>()
             {
-                if (GPIOCOM == null)
-                    GPIOCOM = new GPIOSerial(comPort);
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO00, GPIOLabel = "IN_00", GPIODescription = "IN0" },
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO01, GPIOLabel = "IN_01", GPIODescription = "IN1" },
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO02, GPIOLabel = "IN_02", GPIODescription = "IN2" },
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO03, GPIOLabel = "IN_03", GPIODescription = "IN3" },
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO04, GPIOLabel = "IN_04", GPIODescription = "IN4" },
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO05, GPIOLabel = "IN_05", GPIODescription = "IN5" },
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO06, GPIOLabel = "IN_06", GPIODescription = "IN6" },
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO07, GPIOLabel = "IN_07", GPIODescription = "IN7" },
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO08, GPIOLabel = "IN_08", GPIODescription = "IN8" },
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO09, GPIOLabel = "IN_09", GPIODescription = "IN9" },
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO10, GPIOLabel = "IN_10", GPIODescription = "IN10"},
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO11, GPIOLabel = "IN_11", GPIODescription = "IN11"},
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO12, GPIOLabel = "IN_12", GPIODescription = "IN12"},
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO13, GPIOLabel = "IN_13", GPIODescription = "IN13"},
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO14, GPIOLabel = "IN_14", GPIODescription = "IN14"},
+                new InputPin() { GPIOBitmask = GPIOBitmask.GPIO15, GPIOLabel = "IN_15", GPIODescription = "IN15"},
+            };
+            public ObservableCollection<OutputPin> OutputPins { get; set; } = new ObservableCollection<OutputPin>()
+            {
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO00, GPIOLabel = "OUT_00" ,GPIODescription = "OUT0"},
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO01, GPIOLabel = "OUT_01", GPIODescription = "OUT1"},
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO02, GPIOLabel = "OUT_02" ,GPIODescription = "OUT2"},
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO03, GPIOLabel = "OUT_03" ,GPIODescription = "OUT3" },
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO04, GPIOLabel = "OUT_04" ,GPIODescription = "OUT4"},
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO05, GPIOLabel = "OUT_05" ,GPIODescription = "OUT5"},
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO06, GPIOLabel = "OUT_06" ,GPIODescription = "OUT6"},
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO07, GPIOLabel = "OUT_07" ,GPIODescription = "OUT7"},
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO08, GPIOLabel = "OUT_08" ,GPIODescription = "OUT8"},
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO09, GPIOLabel = "OUT_09" ,GPIODescription = "OUT9"},
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO10, GPIOLabel = "OUT_10" ,GPIODescription = "OUT10"},
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO11, GPIOLabel = "OUT_11" ,GPIODescription = "OUT11"},
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO12, GPIOLabel = "OUT_12" ,GPIODescription = "OUT12"},
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO13, GPIOLabel = "OUT_13" ,GPIODescription = "OUT13"},
+                new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO14, GPIOLabel = "OUT_14" ,GPIODescription = "OUT14"},
+                //new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO15, GPIOLabel = "OUT_15" ,GPIODescription = "OUT15"},
+            };
+
+
+            public GPIOBoard(byte Station)
+            {
                 GPIOStation = Station;
-                InputPins = new ObservableCollection<InputPin>()
-                {
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO00, GPIOLabel = "IN_00", GPIODescription = "IN0" },
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO01, GPIOLabel = "IN_01", GPIODescription = "IN1" },
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO02, GPIOLabel = "IN_02", GPIODescription = "IN2" },
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO03, GPIOLabel = "IN_03", GPIODescription = "IN3" },
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO04, GPIOLabel = "IN_04", GPIODescription = "IN4" },
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO05, GPIOLabel = "IN_05", GPIODescription = "IN5" },
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO06, GPIOLabel = "IN_06", GPIODescription = "IN6" },
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO07, GPIOLabel = "IN_07", GPIODescription = "IN7" },
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO08, GPIOLabel = "IN_08", GPIODescription = "IN8" },
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO09, GPIOLabel = "IN_09", GPIODescription = "IN9" },
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO10, GPIOLabel = "IN_10", GPIODescription = "IN10"},
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO11, GPIOLabel = "IN_11", GPIODescription = "IN11"},
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO12, GPIOLabel = "IN_12", GPIODescription = "IN12"},
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO13, GPIOLabel = "IN_13", GPIODescription = "IN13"},
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO14, GPIOLabel = "IN_14", GPIODescription = "IN14"},
-                    new InputPin() { GPIOBitmask = GPIOBitmask.GPIO15, GPIOLabel = "IN_15", GPIODescription = "IN15"},
-                };
-                OutputPins = new ObservableCollection<OutputPin>()
-                {
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO00, GPIOLabel = "OUT_00" ,GPIODescription = "OUT0"},
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO01, GPIOLabel = "OUT_01", GPIODescription = "OUT1"},
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO02, GPIOLabel = "OUT_02" ,GPIODescription = "OUT2"},
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO03, GPIOLabel = "OUT_03" ,GPIODescription = "OUT3" },
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO04, GPIOLabel = "OUT_04" ,GPIODescription = "OUT4"},
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO05, GPIOLabel = "OUT_05" ,GPIODescription = "OUT5"},
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO06, GPIOLabel = "OUT_06" ,GPIODescription = "OUT6"},
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO07, GPIOLabel = "OUT_07" ,GPIODescription = "OUT7"},
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO08, GPIOLabel = "OUT_08" ,GPIODescription = "OUT8"},
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO09, GPIOLabel = "OUT_09" ,GPIODescription = "OUT9"},
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO10, GPIOLabel = "OUT_10" ,GPIODescription = "OUT10"},
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO11, GPIOLabel = "OUT_11" ,GPIODescription = "OUT11"},
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO12, GPIOLabel = "OUT_12" ,GPIODescription = "OUT12"},
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO13, GPIOLabel = "OUT_13" ,GPIODescription = "OUT13"},
-                    new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO14, GPIOLabel = "OUT_14" ,GPIODescription = "OUT14"},
-                    //new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO15, GPIOLabel = "OUT_15" ,GPIODescription = "OUT15"},
-                };
             }
 
             public async Task RST(OutputPin Pin)
@@ -180,11 +176,11 @@ namespace PandaApp.GPIOCommunication
             public bool ModulesResultNG { get; set; }
             public async Task SET()
             {
-                await Board.SET(this);
+                await Board?.SET(this);
             }
             public async Task RST()
             {
-                await Board.RST(this);
+                await Board?.RST(this);
             }
             //public System.Timers.Timer Timer { get; set; } = new System.Timers.Timer(10000);
             //object lockObject = new object();
@@ -218,22 +214,10 @@ namespace PandaApp.GPIOCommunication
                     return _PinValue;
                 }
                 set
-                {
-                    //if (CurrentPinValue != value)
-                    //{
-                    //    CurrentPinValue = value;
-                    //    if (DebounceTime != 0)
-                    //        DebounceTimer = Stopwatch.StartNew();
-                    //}
-                    //if (DebounceTimer.ElapsedMilliseconds >= DebounceTime)
-                    //{
-                    //    DebounceTimer.Reset();
-                    //    _PinValue = CurrentPinValue;
-                    //}
+                {                 
                     if (_PinValue != value)
                     {
                         _PinValue = value;
-                        //NotifyPropertyChanged("PinValue");
                         if (_PinValue == PinValue.ON)
                             NotifyPinValueChanged(Edge.Rise);
                         else

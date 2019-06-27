@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,31 +14,33 @@ namespace WisolSMTLineApp
     {
         public MainWindow()
         {
+            Init();
             InitializeComponent();
             MainTabControl = MainTab;
-            Loaded += MainWindow_Loaded;
             DataContext = this;
         }
 
         public static TabControl MainTabControl;
+        public static ConfirmationWindow ConfirmWindow { get; set; } = new ConfirmationWindow();
+        public static GPIOBoard F0 = new GPIOBoard(0xF0);
 
-        public static GPIOBoard F0;
-        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private async void Init()
         {
             await TextHelper.InitSetting();
             Setting.WorkingMode = Model.WorkingMode.Auto;
-            //var COMport = TextHelper.ReadSetting("COMPort");
-            //try
-            //{
-            //    F0 = new GPIOBoard(0xF0, COMport);
-            //    Loop();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //    Application.Current.Shutdown();
-            //    return;
-            //}            
+            var COMport = TextHelper.ReadSetting("COMPort");
+            try
+            {
+                if (GPIOBoard.GPIOCOM == null)
+                    GPIOBoard.GPIOCOM = new GPIOSerial(COMport);
+                Loop();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                //Application.Current.Shutdown();
+                //return;
+            }
             try
             {
 

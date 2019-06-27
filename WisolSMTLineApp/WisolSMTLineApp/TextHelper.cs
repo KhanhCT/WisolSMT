@@ -77,9 +77,10 @@ namespace WisolSMTLineApp
                 if (txt_Setting != string.Empty)
                 {
                     Settings = JsonConvert.DeserializeObject<List<KeyValue>>(txt_Setting);
+                    Setting.COMPort = Settings.Where(x => x.Key == "COMPort").FirstOrDefault().Value;
                     Setting.WorkingMode = Settings.Where(x => x.Key == "WorkingMode").FirstOrDefault().Value == "Auto" ? WorkingMode.Auto : WorkingMode.Manual;
-                    Setting.DefaultLots = int.Parse(Settings.Where(x => x.Key == "DefaultLots").FirstOrDefault().Value);
-                    Setting.DefaultLevel = int.Parse(Settings.Where(x => x.Key == "DefaultLevel").FirstOrDefault().Value);
+                    Setting.DefaultLots = uint.Parse(Settings.Where(x => x.Key == "DefaultLots").FirstOrDefault().Value);
+                    Setting.DefaultLevel = uint.Parse(Settings.Where(x => x.Key == "DefaultLevel").FirstOrDefault().Value);
                 }
                 else
                 {
@@ -104,18 +105,16 @@ namespace WisolSMTLineApp
         };
     }
 
-    public class Setting : INotifyPropertyChanged
+    public class Setting
     {
 
         public static event PropertyChangedEventHandler StaticPropertyChanged;
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private static void NotifyStaticPropertyChanged([CallerMemberName] string name = null)
         {
             StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(name));
         }
 
-        public static string COMPort { get; set; } = "COM7";
+        public static string COMPort { get; set; }
         public static WorkingMode workingMode;
         public static WorkingMode WorkingMode
         {
@@ -131,8 +130,8 @@ namespace WisolSMTLineApp
             }
         }
 
-        static int defaultLots;
-        public static int DefaultLots
+        static uint defaultLots;
+        public static uint DefaultLots
         {
             get { return defaultLots; }
             set
@@ -141,11 +140,11 @@ namespace WisolSMTLineApp
                 NotifyStaticPropertyChanged("DefaultLots");
                 TextHelper.Settings.Where(x => x.Key == "DefaultLots").FirstOrDefault().Value = value.ToString();
                 TextHelper.WriteSettingToTxt();
-                }
+            }
         }
 
-        static int defaultLevel;
-        public static int DefaultLevel
+        static uint defaultLevel;
+        public static uint DefaultLevel
         {
             get { return defaultLevel; }
             set
@@ -156,6 +155,41 @@ namespace WisolSMTLineApp
                 TextHelper.WriteSettingToTxt();
             }
         }
+
+        static uint orderedNode;
+        public static uint OrderedNode
+        {
+            get { return orderedNode; }
+            set
+            {
+                orderedNode = value;
+                NotifyStaticPropertyChanged("OrderedNode");
+            }
+        }
+
+        static uint elapsedNode;
+        public static uint ElapsedNode
+        {
+            get { return elapsedNode; }
+            set
+            {
+                elapsedNode = value;
+                RemainNode = OrderedNode - elapsedNode;
+                NotifyStaticPropertyChanged("ElapsedNode");
+            }
+        }
+
+        static uint remainNode;
+        public static uint RemainNode
+        {
+            get { return remainNode; }
+            set
+            {
+                remainNode = value;
+                NotifyStaticPropertyChanged("RemainNode");
+            }
+        }
+
     }
 
 }

@@ -7,23 +7,7 @@ namespace WisolSMTLineApp
     /// Interaction logic for OrderControl.xaml
     /// </summary>
     public partial class OrderControl : UserControl
-    {
-        int _Amount;
-        public int Amount
-        {
-            get
-            {
-                return _Amount;
-            }
-            set
-            {
-                if (value != _Amount)
-                {
-                    _Amount = value;
-                    NotifyPropertyChanged(nameof(Amount));
-                }
-            }
-        }
+    {    
 
         public OrderControl()
         {
@@ -33,7 +17,8 @@ namespace WisolSMTLineApp
 
         private void Order_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            MainWindow.ConfirmWindow.Visibility = System.Windows.Visibility.Visible;
+            MainWindow.ConfirmWindow.ShowDialog();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

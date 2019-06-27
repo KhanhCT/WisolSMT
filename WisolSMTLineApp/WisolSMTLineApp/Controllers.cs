@@ -1,6 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using WisolSMTLineApp.Model;
 
@@ -9,6 +12,34 @@ namespace WisolSMTLineApp
     public class Controllers
     {
         private static readonly HttpClient _httpClient = new HttpClient();
+        public String _token;
+        public string Login(string username, string password)
+        {
+            Login login = new Login(username, password);
+            string url = "login";
+            string token = null;
+            string jsonObj = Newtonsoft.Json.JsonConvert.SerializeObject(login);
+            ;
+            using (var content = new StringContent(jsonObj, Encoding.UTF8, "application/json"))
+            {
+                var response = _httpClient.PostAsync(url, content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string ret = response.Content.ReadAsStringAsync().Result;
+                    Response<string> resMsg = JsonConvert.DeserializeObject<Response<string>>(ret);
+                    token = (string)resMsg.Data;
+                }
+
+                return token;
+            }
+        }
+        public void ChangeAuthorization(String token)
+        {
+            this._token = token;
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
+
+
         public async Task<bool> NewProductionPlan(ProductionPlan obj)
         {
             var jsonObj = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
@@ -48,7 +79,7 @@ namespace WisolSMTLineApp
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     List<string> resMsg = JsonConvert.DeserializeObject<List<string>>(content);
-                   
+
                 }
             }
             return Models;
@@ -62,8 +93,25 @@ namespace WisolSMTLineApp
         }
     }
 
+    public class Login
+    {
+        string username;
+        string password;
+        public string DeviceID { get; set; }
+        public Login(string _username, string _password)
+        {
+            username = _username;
+            password = _password;
+        }
+        public Login(string deviceID)
+        {
+            this.DeviceID = deviceID;
+        }
+
+    }
+
     public class Api
     {
-        public static Controllers Controllers { get; set; }
+        public static Controllers Controllers { get; set; } = new Controllers();
     }
 }

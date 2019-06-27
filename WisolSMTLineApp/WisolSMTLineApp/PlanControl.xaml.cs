@@ -12,6 +12,7 @@ namespace WisolSMTLineApp
     {
 
         DateTime _SelectedDate = DateTime.Now;
+
         public DateTime SelectedDate
         {
             get { return _SelectedDate; }
@@ -21,7 +22,6 @@ namespace WisolSMTLineApp
                 NotifyPropertyChanged(nameof(SelectedDate));
             }
         }
-                          
 
         public static Shift CurrentShift
         {
@@ -44,7 +44,7 @@ namespace WisolSMTLineApp
 
         private async void PlanControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-           //ModelComboBox.ItemsSource = await Api.Controllers.GetAllModel();
+            //ModelComboBox.ItemsSource = await Api.Controllers.GetAllModel();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -57,11 +57,16 @@ namespace WisolSMTLineApp
         {
             var x = (int)((Shift)ShiftComboBox.SelectedItem);
             var ToDay = DateTime.Now.ToString("dd/MM/yyyy");
-            var SelectedShift = (int)ShiftComboBox.SelectedItem;
-            var Plan = Api.Controllers.GetProductionPlan(ToDay, SelectedShift, 1);
+            var SelectedShift = (Shift)ShiftComboBox.SelectedItem;
+            var Plan = Api.Controllers.GetProductionPlan(ToDay, (int)SelectedShift, 1);
             if (Plan == null)
             {
-                await Api.Controllers.NewProductionPlan(new ProductionPlan() { WorkingDate = ToDay, ShiftID = SelectedShift, ProductName = (string)ModelComboBox.SelectedItem });
+                await Api.Controllers.NewProductionPlan(new ProductionPlan()
+                {
+                    WorkingDate = ToDay,
+                    ShiftID = (int)SelectedShift,
+                    ProductName = (string)ModelComboBox.SelectedItem
+                });
             }
             else
             {

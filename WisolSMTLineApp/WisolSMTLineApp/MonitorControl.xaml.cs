@@ -3,6 +3,8 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using WisolSMTLineApp.Model;
+using static PandaApp.GPIOCommunication.GPIOHelper;
+using static WisolSMTLineApp.MainWindow;
 
 namespace WisolSMTLineApp
 {
@@ -41,7 +43,43 @@ namespace WisolSMTLineApp
         public MonitorControl()
         {
             InitializeComponent();
+            IN.CountingSensor.OnPinValueChanged += CountingSensor_OnPinValueChanged;
             Loaded += MonitorControl_Loaded;
+        }
+
+        private async void CountingSensor_OnPinValueChanged(object sender, GPIOPin.PinValueChangedEventArgs e)
+        {
+            if (e.Edge == Edge.Rise)
+            {
+                if (Setting.RemainNode > 0)
+                {
+                    Setting.ElapsedNode++;
+
+                    if (Setting.RemainNode <= 10)
+                    {
+                        //await OUT.OrangeLight.SET();
+                        //await OUT.GreenLight.RST();
+                        //await OUT.RedLight.RST();
+                        Dispatcher.Invoke(() =>
+                        {
+
+                        });
+                    }
+                    else
+                    if (Setting.RemainNode > 10)
+                    {
+                        //await OUT.GreenLight.SET();
+                        //await OUT.OrangeLight.RST();
+                        //await OUT.RedLight.RST();
+                    }
+                }
+                else if (Setting.RemainNode == 0)
+                {
+                    //await OUT.OrangeLight.RST();
+                    //await OUT.GreenLight.RST();
+                    //await OUT.RedLight.SET();
+                }
+            }
         }
 
         private void MonitorControl_Loaded(object sender, RoutedEventArgs e)
@@ -60,6 +98,11 @@ namespace WisolSMTLineApp
         private static void NotifyStaticPropertyChanged([CallerMemberName] string name = null)
         {
             StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(name));
+        }
+
+        private void Ellipse_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            CountingSensor_OnPinValueChanged(null, new GPIOPin.PinValueChangedEventArgs(Edge.Rise));
         }
     }
 }
