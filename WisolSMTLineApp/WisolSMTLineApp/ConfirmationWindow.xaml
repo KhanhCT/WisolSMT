@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WisolSMTLineApp"
-        mc:Ignorable="d"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="ConfirmationWindow" Height="300" Width="400">
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -15,7 +15,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
+
         <TextBlock Text="Odered Nodes" Margin="5" VerticalAlignment="Center"/>
         <TextBox Text="{Binding OrderedNode, Mode=TwoWay}" Grid.Column="1" VerticalAlignment="Center"/>
 

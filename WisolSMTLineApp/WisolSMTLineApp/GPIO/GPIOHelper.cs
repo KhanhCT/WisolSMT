@@ -117,7 +117,6 @@ namespace PandaApp.GPIOCommunication
                             await GPIOCOM.GPIOWriteAsync(GPIOStation, Flag.SetIOOutput, BitConverter.GetBytes(OutputRegister));
 
                         }
-                        //RespTime = (int)sw.ElapsedMilliseconds;
                         GPIOIOLock.Release();
                     }
                 }
@@ -137,7 +136,6 @@ namespace PandaApp.GPIOCommunication
                             OutputRegister |= (Pin.GPIOBitmask);
                             await GPIOCOM.GPIOWriteAsync(GPIOStation, Flag.SetIOOutput, BitConverter.GetBytes(OutputRegister));
                         }
-                        //RespTime = (int)sw.ElapsedMilliseconds;
                         GPIOIOLock.Release();
                     }
                 }
@@ -173,22 +171,14 @@ namespace PandaApp.GPIOCommunication
         public class OutputPin : GPIOPin
         {
             public GPIOBoard Board { get; set; }
-            public bool ModulesResultNG { get; set; }
             public async Task SET()
             {
-                await Board?.SET(this);
+                await Board.SET(this);
             }
             public async Task RST()
             {
-                await Board?.RST(this);
-            }
-            //public System.Timers.Timer Timer { get; set; } = new System.Timers.Timer(10000);
-            //object lockObject = new object();
-            public OutputPin()
-            {
-                //Timer.AutoReset = false;
-                //Timer.Elapsed += Timer_Elapsed;
-            }
+                await Board.RST(this);
+            }           
         }
 
         public class GPIOPin : INotifyPropertyChanged

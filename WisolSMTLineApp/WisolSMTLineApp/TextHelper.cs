@@ -173,8 +173,7 @@ namespace WisolSMTLineApp
             get { return elapsedNode; }
             set
             {
-                elapsedNode = value;
-                RemainNode = OrderedNode - elapsedNode;
+                elapsedNode = value;                
                 NotifyStaticPropertyChanged("ElapsedNode");
             }
         }
@@ -186,6 +185,7 @@ namespace WisolSMTLineApp
             set
             {
                 remainNode = value;
+                ElapsedNode++;
                 NotifyStaticPropertyChanged("RemainNode");
             }
         }

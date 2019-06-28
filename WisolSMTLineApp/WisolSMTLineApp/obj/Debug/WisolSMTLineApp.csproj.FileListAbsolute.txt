@@ -53,3 +53,4 @@ C:\Users\HP\Documents\GitHub\WisolSMT\WisolSMTLineApp\WisolSMTLineApp\obj\Debug\
 C:\Users\HP\Documents\GitHub\WisolSMT\WisolSMTLineApp\WisolSMTLineApp\obj\Debug\WisolSMTLineApp.csproj.CopyComplete
 C:\Users\HP\Documents\GitHub\WisolSMT\WisolSMTLineApp\WisolSMTLineApp\obj\Debug\ConfirmationWindow.g.cs
 C:\Users\HP\Documents\GitHub\WisolSMT\WisolSMTLineApp\WisolSMTLineApp\obj\Debug\ConfirmationWindow.baml
+C:\Users\HP\Documents\GitHub\WisolSMT\WisolSMTLineApp\WisolSMTLineApp\obj\Debug\Skins\MainSkin.baml

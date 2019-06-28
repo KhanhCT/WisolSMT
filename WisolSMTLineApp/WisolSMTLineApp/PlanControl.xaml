@@ -12,12 +12,7 @@
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="FontSize" Value="16"/>
-        </Style>
-        <ObjectDataProvider x:Key="enumValues" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="model:Shift"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+        </Style>      
     </UserControl.Resources>
     <Grid Background="White" Margin="50">
         <Grid.ColumnDefinitions>
@@ -37,21 +32,24 @@
                      SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
 
         <TextBlock Text="Shift:" Grid.Row="1"/>
-        <ComboBox Grid.Column="1" Grid.Row="1" Margin="10" ItemsSource="{Binding Source={StaticResource enumValues}}" SelectedIndex="0" Name="ShiftComboBox">
+        <ComboBox Grid.Column="1" Grid.Row="1" Margin="10" ItemsSource="{Binding Shifts}" SelectedIndex="0" Name="ShiftComboBox">
 
         </ComboBox>
 
 
         <TextBlock Text="Model:" Grid.Row="2"/>
-        <ComboBox Grid.Column="1" Grid.Row="2" Margin="10" IsEditable="True" Name="ModelComboBox" SelectedIndex="0">
-            <ComboBoxItem Content="L7E0"/>
-            <ComboBoxItem Content="D7E1" />
+        <ComboBox Grid.Column="1" Grid.Row="2" Margin="10" IsEditable="True" 
+                  ItemsSource="{Binding Products}"
+                  SelectedItem="{Binding SelectedProduct}"
+                  DisplayMemberPath="ProductName"
+                  Name="ModelComboBox" SelectedIndex="0">
+           
         </ComboBox>
 
         <TextBlock Text="Remain Nodes:" Grid.Row="3"/>
-        <TextBox Grid.Column="1" Grid.Row="3" Margin="10" Text="{Binding Path=(local:Setting.RemainNode), Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Margin="10" Text="{Binding RemainNodes}"/>
+        <!--<TextBox Grid.Column="1" Grid.Row="3" Margin="10" Text="{Binding Path=(local:Setting.RemainNode), Mode=TwoWay}"/>-->
 
-
-        <Button Content="Create" Grid.Row="4" Margin="20" Grid.ColumnSpan="2" Click="Create_Click"/>
+        <Button Content="Create" Grid.Row="4" Margin="20" Grid.ColumnSpan="2" Command="{Binding ClickCommand}"/>
     </Grid>
 </UserControl>
