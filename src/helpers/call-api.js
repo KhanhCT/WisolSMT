@@ -12,6 +12,7 @@ export function callApi(
     if (!headers)
         headers = {
             "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         };
     return axios({
         baseURL: apiConfigs.BASE_API,

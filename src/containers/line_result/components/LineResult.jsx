@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Container, Row, Col, Label, Button } from "reactstrap";
 import { TableComponent } from "../../../components/bases";
 import Panel from "../../../components/Panel";
+import { CustomDatePicker } from "../../../components/common";
+import { callApi } from "../../../helpers";
+import moment from "moment";
 
 const columnAttrs = [
     {
@@ -54,9 +57,51 @@ const sampleData = [
 ]
 
 export class LineResult extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            lineResultData: [],
+            date: moment()
+        }
+    }
+
+    componentDidMount() {
+        this.getData()
+        setInterval(() => this.getData(), 1000 * 60);
+    }
+
+    getData = () => {
+        const { date } = this.state;
+        if (date) {
+            callApi(
+                `production/getLineResult/${date.format('DD-MM-YYYY')}`,
+                "GET",
+                {}
+            )
+                .then(res => {
+                    if (res.status == 200)
+                        this.setState({
+                            lineResultData: res.data.data ? res.data.data : [],
+                        });
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.setState({ lineResultData: [] });
+                });
+        } else this.setState({ lineResultData: [] });
+    }
+
+    handleSetDate = date => {
+        this.setState({
+            date: date,
+        });
+    };
+
+
     render() {
+        const { date, lineResultData } = this.state;
         let renderRowDatas = columnAttrs.map((cA, index) => {
-            let renderColData = sampleData.map(colData => {
+            let renderColData = lineResultData.map(colData => {
                 if (colData.key == "line_name") {
                     return <th key={colData.lineId} style={{ fontSize: "18px", backgroundColor: "#ddd" }}>{colData[cA.name]}</th>
                 } else {
@@ -84,6 +129,27 @@ export class LineResult extends Component {
         })
         return (
             <Container>
+                <Row>
+                    <Col sm={3}>
+                        <Label style={{ fontSize: "18px" }}>View Date</Label>
+                        <CustomDatePicker
+                            placeholderText="View Date"
+                            name="date"
+                            value={date}
+                            showTimeSelect={false}
+                            setSelectedDate={this.handleSetDate}
+                        />
+                    </Col>
+                    <Col sm={3}>
+                        <Button
+                            color="primary"
+                            style={{ marginTop: "10px", fontSize: "18px" }}
+                            onClick={this.getData}
+                        >
+                            Search
+                        </Button>
+                    </Col>
+                </Row>
                 <Panel
                     title="LINE RESULT"
                     titleFontsize="30px"
