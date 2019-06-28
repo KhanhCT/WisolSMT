@@ -193,6 +193,7 @@ export const importProduct = async (req,res) =>{
         for (let i =0; i <lstModel.length; i++){
             let data = {
                 modelId : lstModel[i].id,
+                model_name : lstModel[i].product_name,
                 status : "WAITING",
                 color : "8E1E20",
                 remain : 0,

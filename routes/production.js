@@ -188,6 +188,7 @@ export function createPlan(req,res){
         for (let i = 0; i < lstLines.length; i++) {
             let dataLine = {};
             dataLine.lineId = lstLines[i].LineID;
+            dataLine.line_name = lstLines[i].Description;
             let countProd = await query.queryNormal("SELECT COUNT(*) AS amount FROM productiondtl WHERE WorkingDate = '"+dateStr+"' AND LineID = '"+lstLines[i].LineID+"' AND Finished = false");
             if (countProd[0].amount > 0) {
                 dataLine.status = "ORDERING"
