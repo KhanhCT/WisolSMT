@@ -191,8 +191,10 @@ export function createPlan(req,res){
             let countProd = await query.queryNormal("SELECT COUNT(*) AS amount FROM productiondtl WHERE WorkingDate = '"+dateStr+"' AND LineID = '"+lstLines[i].LineID+"' AND Finished = false");
             if (countProd[0].amount > 0) {
                 dataLine.status = "ORDERING"
+                dataLine.color = "8E1E20";
             } else {
                 dataLine.status = "RUN"
+                dataLine.color = "5BBD2B";
             }
             let prodPlan = await query.queryNormal ("SELECT * FROM productionplan WHERE WorkingDate = '"+dateStr+"' AND LineID = '"+lstLines[i].LineID+"'");
             if (prodPlan) {
