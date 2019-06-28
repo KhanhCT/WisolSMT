@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WisolSMTLineApp.Model;
+﻿using WisolSMTLineApp.Model;
 using static PandaApp.GPIOCommunication.GPIOHelper;
-using static WisolSMTLineApp.MainWindow;
+using static WisolSMTLineApp.App;
 
 namespace WisolSMTLineApp.ViewModel
 {
@@ -24,10 +19,10 @@ namespace WisolSMTLineApp.ViewModel
                 }
             }
         }
-               
+
         public MonitorViewModel()
         {
-            IN.CountingSensor.OnPinValueChanged += CountingSensor_OnPinValueChanged;          
+            IN.CountingSensor.OnPinValueChanged += CountingSensor_OnPinValueChanged;
         }
         private void CountingSensor_OnPinValueChanged(object sender, GPIOPin.PinValueChangedEventArgs e)
         {
@@ -41,7 +36,7 @@ namespace WisolSMTLineApp.ViewModel
                         //await OUT.OrangeLight.SET();
                         //await OUT.GreenLight.RST();
                         //await OUT.RedLight.RST();
-                     
+
                     }
                     else
                     if (Setting.RemainNode > 10)
