@@ -9,6 +9,7 @@ import * as production from './routes/production'
 import * as productionDtl from './routes/orderDetail'
 import * as modelDetail from './routes/modelDetail'
 import logger  from 'morgan';
+import cors from 'cors';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
+app.use(cors());
 app.use(session({
               secret: 'keyboard cat',
               resave: false,
