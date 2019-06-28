@@ -43,8 +43,10 @@ namespace WisolSMTLineApp
         object lockObject = new object();
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
+            //Confirm to server
             lock (lockObject)
             {
+                Api.Controller.ConfirmOrder(new Model.ProductionDtl() { FactoryID = 1, });
                 Setting.OrderedNode += OrderedNode;
                 Setting.RemainNode += OrderedNode;
                 Visibility = Visibility.Hidden;

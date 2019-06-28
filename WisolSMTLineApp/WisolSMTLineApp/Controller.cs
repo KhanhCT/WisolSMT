@@ -156,4 +156,9 @@ namespace WisolSMTLineApp
             public T Data { get; set; }
         }
     }
+
+    public class Api
+    {
+        public static Controller Controller { get; set; } = new Controller();
+    }
 }

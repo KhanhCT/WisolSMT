@@ -11,9 +11,10 @@ namespace WisolSMTLineApp.ViewModel
 {
     public class PlanViewModel : BaseViewModel
     {
+        public static PlanViewModel PlanVM;
         public ObservableCollection<Shift> Shifts { get; private set; }
         public Shift SelectedShift { get; set; }
-        public ObservableCollection<Product> Products { get; private set; }
+        public static ObservableCollection<Product> Products { get; private set; }
         public Product SelectedProduct
         {
             get;
@@ -35,6 +36,7 @@ namespace WisolSMTLineApp.ViewModel
         }
         public PlanViewModel()
         {
+            PlanVM = this;
             Initilize();
         }
         public void Initilize()

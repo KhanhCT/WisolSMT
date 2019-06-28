@@ -11,7 +11,7 @@ namespace WisolSMTLineApp
     /// </summary>
     public partial class PlanControl : UserControl
     {
-        public PlanViewModel PlanVM;
+        public static PlanViewModel PlanVM { get; set; }
         public static int CurrentShift
         {
             get
@@ -26,19 +26,13 @@ namespace WisolSMTLineApp
 
         public PlanControl()
         {
-            InitializeComponent();           
+            InitializeComponent();
             PlanVM = new PlanViewModel();
             this.DataContext = PlanVM;
         }
-     
+
         static ShiftPeriod DayShift = new ShiftPeriod() { From = TimeSpan.Parse("08:00:00") };
         static ShiftPeriod NightShift = new ShiftPeriod() { From = TimeSpan.Parse("20:00:00") };
         static TimeSpan TodayDateTime { get { return TimeSpan.Parse(DateTime.Now.ToString("hh:mm:ss")); } }
-
-        private void Create_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            var PlanVM = (PlanViewModel)((Button)sender).DataContext;
-            PlanVM.Create_Plan();
-        }
     }
 }
