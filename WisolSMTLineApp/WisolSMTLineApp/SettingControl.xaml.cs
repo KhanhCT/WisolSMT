@@ -22,8 +22,5 @@ namespace WisolSMTLineApp
             SettingVM = new SettingViewModel();
             DataContext = SettingVM;
         }
-
-      
-
     }
 }

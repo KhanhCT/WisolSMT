@@ -24,7 +24,7 @@ namespace WisolSMTLineApp.ViewModel
                 }
             }
         }
-
+               
         public MonitorViewModel()
         {
             IN.CountingSensor.OnPinValueChanged += CountingSensor_OnPinValueChanged;          
