@@ -85,9 +85,11 @@
     </Compile>
     <Compile Include="TextHelper.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ConfirmOrderViewModel.cs" />
     <Compile Include="ViewModel\MonitorViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\PlanViewModel.cs" />
+    <Compile Include="ViewModel\SettingViewModel.cs" />
     <Page Include="ConfirmationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

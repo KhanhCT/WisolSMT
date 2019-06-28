@@ -12,18 +12,7 @@ namespace WisolSMTLineApp
     public partial class PlanControl : UserControl
     {
         public static PlanViewModel PlanVM { get; set; }
-        public static int CurrentShift
-        {
-            get
-            {
-                //TimeSpan NowTimeStamp = TimeSpan.Parse(DateTime.Now.ToString("hh:mm:ss"));
-                if (TodayDateTime >= DayShift.From && TodayDateTime < DayShift.To)
-                    return 0;
-                else
-                    return 1;
-            }
-        }
-
+     
         public PlanControl()
         {
             InitializeComponent();
@@ -31,8 +20,6 @@ namespace WisolSMTLineApp
             this.DataContext = PlanVM;
         }
 
-        static ShiftPeriod DayShift = new ShiftPeriod() { From = TimeSpan.Parse("08:00:00") };
-        static ShiftPeriod NightShift = new ShiftPeriod() { From = TimeSpan.Parse("20:00:00") };
-        static TimeSpan TodayDateTime { get { return TimeSpan.Parse(DateTime.Now.ToString("hh:mm:ss")); } }
+       
     }
 }

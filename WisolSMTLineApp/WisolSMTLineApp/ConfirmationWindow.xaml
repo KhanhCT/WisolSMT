@@ -17,8 +17,8 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Text="Odered Nodes" Margin="5" VerticalAlignment="Center"/>
-        <TextBox Text="{Binding OrderedNode, Mode=TwoWay}" Grid.Column="1" VerticalAlignment="Center"/>
+        <TextBox Text="{Binding OderedNodeQty, Mode=TwoWay}" Grid.Column="1" VerticalAlignment="Center"/>
 
-        <Button Content="Confirm" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top" Click="Confirm_Click"/>
+        <Button Content="Confirm" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top" Command="{Binding ClickCommand}"/>
     </Grid>
 </Window>

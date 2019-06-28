@@ -79,8 +79,8 @@ namespace WisolSMTLineApp
                     Settings = JsonConvert.DeserializeObject<List<KeyValue>>(txt_Setting);
                     Setting.COMPort = Settings.Where(x => x.Key == "COMPort").FirstOrDefault().Value;
                     Setting.WorkingMode = Settings.Where(x => x.Key == "WorkingMode").FirstOrDefault().Value == "Auto" ? WorkingMode.Auto : WorkingMode.Manual;
-                    Setting.DefaultLots = uint.Parse(Settings.Where(x => x.Key == "DefaultLots").FirstOrDefault().Value);
-                    Setting.DefaultLevel = uint.Parse(Settings.Where(x => x.Key == "DefaultLevel").FirstOrDefault().Value);
+                    Setting.DefaultLots = int.Parse(Settings.Where(x => x.Key == "DefaultLots").FirstOrDefault().Value);
+                    Setting.DefaultLevel = int.Parse(Settings.Where(x => x.Key == "DefaultLevel").FirstOrDefault().Value);
                 }
                 else
                 {
@@ -130,8 +130,8 @@ namespace WisolSMTLineApp
             }
         }
 
-        static uint defaultLots;
-        public static uint DefaultLots
+        static int defaultLots;
+        public static int DefaultLots
         {
             get { return defaultLots; }
             set
@@ -143,8 +143,8 @@ namespace WisolSMTLineApp
             }
         }
 
-        static uint defaultLevel;
-        public static uint DefaultLevel
+        static int defaultLevel;
+        public static int DefaultLevel
         {
             get { return defaultLevel; }
             set
@@ -156,8 +156,8 @@ namespace WisolSMTLineApp
             }
         }
 
-        static uint orderedNode;
-        public static uint OrderedNode
+        static int orderedNode;
+        public static int OrderedNode
         {
             get { return orderedNode; }
             set
@@ -167,8 +167,8 @@ namespace WisolSMTLineApp
             }
         }
 
-        static uint elapsedNode;
-        public static uint ElapsedNode
+        static int elapsedNode;
+        public static int ElapsedNode
         {
             get { return elapsedNode; }
             set
@@ -178,8 +178,8 @@ namespace WisolSMTLineApp
             }
         }
 
-        static uint remainNode;
-        public static uint RemainNode
+        static int remainNode;
+        public static int RemainNode
         {
             get { return remainNode; }
             set

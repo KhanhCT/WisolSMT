@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using WisolSMTLineApp.ViewModel;
 
 namespace WisolSMTLineApp
 {
@@ -8,23 +9,20 @@ namespace WisolSMTLineApp
     /// </summary>
     public partial class ConfirmationWindow : Window, INotifyPropertyChanged
     {
+
+        ConfirmOrderViewModel ConfirmOrderVM;
         public ConfirmationWindow()
         {
             InitializeComponent();
-            Loaded += ConfirmationWindow_Loaded;
             Closing += ConfirmationWindow_Closing;
-            DataContext = this;
+            ConfirmOrderVM = new ConfirmOrderViewModel();
+            DataContext = ConfirmOrderVM;
         }
 
         private void ConfirmationWindow_Closing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
             Visibility = Visibility.Collapsed;
-        }
-
-        private void ConfirmationWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            OrderedNode = Setting.DefaultLots;
         }
 
         uint orderedNode;
@@ -40,18 +38,7 @@ namespace WisolSMTLineApp
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        object lockObject = new object();
-        private void Confirm_Click(object sender, RoutedEventArgs e)
-        {
-            //Confirm to server
-            lock (lockObject)
-            {
-                Api.Controller.ConfirmOrder(new Model.ProductionDtl() { FactoryID = 1, });
-                Setting.OrderedNode += OrderedNode;
-                Setting.RemainNode += OrderedNode;
-                Visibility = Visibility.Hidden;
-            }
-        }
+       
         public void NotifyPropertyChanged(string ProName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(ProName));

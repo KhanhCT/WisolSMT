@@ -22,7 +22,7 @@ namespace WisolSMTLineApp.ViewModel
         }
         public void OrderNode()
         {
-            MainWindow.ConfirmWindow.Visibility = System.Windows.Visibility.Visible;
+            MainWindow.ConfirmWindow = new ConfirmationWindow();
             MainWindow.ConfirmWindow.ShowDialog();
         }
 

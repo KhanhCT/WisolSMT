@@ -21,7 +21,7 @@ namespace WisolSMTLineApp
         }
 
         public static TabControl MainTabControl;
-        public static ConfirmationWindow ConfirmWindow { get; set; } = new ConfirmationWindow();
+        public static ConfirmationWindow ConfirmWindow { get; set; }
         public static GPIOBoard F0 = new GPIOBoard(0xF0);
 
         private async void Init()
