@@ -227,3 +227,53 @@ export function createPlan(req,res){
      }
     res.json(dataRes);
 }
+
+export const getPlanOfLine = async(req,res) =>{
+    let dataRes = {
+        code : "OK",
+        message : "SUCCESS",
+        data : {
+            modelID : 0,
+            modelName : "",
+            order : 0,
+            elapsed : 0,
+            remain : 0
+        }
+    };
+    const lineId = Number(req.params.lineId);
+    const factoryID = Number(req.params.factoryID);
+    const workingDate = req.params.date;
+    const shipId = req.params.shipId;
+    let date = moment(workingDate, 'DD-MM-YYYY', true);
+    if (!date.isValid()) {
+        dataRes = {
+            code : "NOK",
+            message : "Date is error, please set format DD-MM-YYYY",
+            data : null
+         }
+        res.json(dataRes);
+        return;
+    }
+
+    let lstModel = await query.queryNormal("SELECT * FROM product");
+    var sql="SELECT * FROM productionplan WHERE WorkingDate = '"+workingDate+"' AND FactoryID = '"+factoryID+"' AND LineID = "+lineId+" AND ShiftID = '"+shipId+"'";
+    let lstPlanOfLine = await query.queryNormal(sql);
+    if (lstPlanOfLine && lstPlanOfLine.length > 0) {
+        let modelName = "";
+        if (lstModel && lstModel.length > 0) {
+            for (let i = 0;i<lstModel.length;i++) {
+                if (lstModel[i].id == lstPlanOfLine[0].ProductID) {
+                    modelName = lstModel[i].product_name;
+                }
+            }
+        }
+        dataRes.data = {
+            modelID : lstPlanOfLine[0].ProductID,
+            modelName : modelName,
+            order : lstPlanOfLine[0].OrderedQty,
+            elapsed : lstPlanOfLine[0].GoodProdQty,
+            remain : lstPlanOfLine[0].RemainQty
+        }
+    }
+    res.json(dataRes);
+ };

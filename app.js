@@ -47,6 +47,7 @@ app.post('/production/createPlan',production.createPlan);
 app.post('/production/initProduct',production.updatePlan);
 app.get('/production/getLstOrderNotFinish/:lineId',production.getLstOrderNotFinish);
 app.get('/production/getLineResult/:date',production.getLineResult);
+app.get('/production/getPlanOfLine/:date/:factoryID/:lineId/:shipId',production.getPlanOfLine);
 
 //Production Detail
 app.post('/production/createOrderDtl',productionDtl.createProductionDtl);
