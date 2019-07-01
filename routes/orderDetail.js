@@ -14,7 +14,7 @@ export const createProductionDtl = async(req,res) => {
   //   return;
   // }
   let params = Object.assign({}, req.body);
-  let date = moment(params.date, 'DD-MM-YYYY', true);
+  let date = moment(params.WorkingDate, 'DD-MM-YYYY', true);
   if (!date.isValid()) {
       dataRes = {
           code : "NOK",
@@ -25,12 +25,12 @@ export const createProductionDtl = async(req,res) => {
       return;
   }
   let productionDtl = {
-      WorkingDate : params.date,
-      FactoryID : 1,
-      LineID : params.lineId,
-      ShiftID : params.shiftId, 
-      Amount : params.amount,
-      Finished : false
+      WorkingDate : params.WorkingDate,
+      FactoryID : params.FactoryID,
+      LineID : params.LineID,
+      ShiftID : params.ShiftID, 
+      Amount : params.Amount,
+      Finished : params.Finished
   }
 
   //check exits finished = 0
@@ -78,7 +78,7 @@ export const createProductionDtl = async(req,res) => {
   // }
 
   let params = Object.assign({}, req.body);
-  let date = moment(params.date, 'DD-MM-YYYY', true);
+  let date = moment(params.WorkingDate, 'DD-MM-YYYY', true);
   if (!date.isValid()) {
       dataRes = {
           code : "NOK",
@@ -89,11 +89,11 @@ export const createProductionDtl = async(req,res) => {
       return;
   }
   let productionDtl = {
-      WorkingDate : params.date,
-      FactoryID : 1,
-      LineID : params.lineId,
-      ShiftID : params.shiftId,
-      Amount : params.amount
+    WorkingDate : params.WorkingDate,
+    FactoryID : params.FactoryID,
+    LineID : params.LineID,
+    ShiftID : params.ShiftID, 
+    Amount : params.Amount
   }
   var conditionSQL = " WorkingDate='"+productionDtl.WorkingDate+"' AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID+"";
   var sqlProductionDtl="UPDATE productiondtl SET Finished = true WHERE ";

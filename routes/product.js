@@ -22,7 +22,7 @@ export function getLstModel(req,res){
      }
      res.json(dataRes);
     }
-    if (results && results.length > 0) {
+    if (results) {
       dataRes = {
         code : "OK",
         message : "Get list model success",
@@ -56,7 +56,7 @@ export function getLstModel(req,res){
      }
      res.json(dataRes);
     }
-    if (results && results.length > 0) {
+    if (results) {
       dataRes = {
         code : "OK",
         message : "Get list line success",
@@ -90,7 +90,7 @@ export function getShifts(req,res){
      }
      res.json(dataRes);
     }
-    if (results && results.length > 0) {
+    if (results) {
       dataRes = {
         code : "OK",
         message : "Get list shift success",

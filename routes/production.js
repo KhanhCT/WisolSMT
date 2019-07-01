@@ -15,7 +15,8 @@ export function createPlan(req,res){
     //     return;
     // }
     let params = Object.assign({}, req.body);
-    let date = moment(params.date, 'DD-MM-YYYY', true);
+    console.log(params);
+    let date = moment(params.WorkingDate, 'DD-MM-YYYY', true);
     if (!date.isValid()) {
         dataRes = {
             code : "NOK",
@@ -26,14 +27,14 @@ export function createPlan(req,res){
         return;
     }
     let productionPlan = {
-       WorkingDate : params.date,
-       FactoryID : 1,
-       LineID : params.lineId,
-       ShiftID : params.shiftId,
-       ProductID : params.productID, 
-       OrderedQty : params.orderedQty,
+       WorkingDate : params.WorkingDate,
+       FactoryID : params.FactoryID,
+       LineID : params.LineID,
+       ShiftID : params.ShiftID,
+       ProductID : params.ProductID, 
+       OrderedQty : params.OrderedQty,
        GoodProdQty : 0,
-       RemainQty : params.orderedQty
+       RemainQty : params.OrderedQty
     }
 
     var sql="INSERT INTO productionplan SET ?";
@@ -71,7 +72,8 @@ export function createPlan(req,res){
     //     return;
     // }
     let params = Object.assign({}, req.body);
-    let date = moment(params.date, 'DD-MM-YYYY', true);
+    console.log(params);
+    let date = moment(params.WorkingDate, 'DD-MM-YYYY', true);
     if (!date.isValid()) {
         dataRes = {
             code : "NOK",
@@ -82,11 +84,11 @@ export function createPlan(req,res){
         return;
     }
     let updatePlanObj = {
-       WorkingDate : params.date,
-       FactoryID : 1,
-       LineID : params.lineId,
-       ShiftID : params.shiftId,
-       GoodProdQty : params.goodProdQty
+       WorkingDate : params.WorkingDate,
+       FactoryID : params.FactoryID,
+       LineID : params.LineID,
+       ShiftID : params.ShiftID,
+       GoodProdQty : params.GoodProdQty
     }
 
     var sql = "UPDATE productionplan SET GoodProdQty = GoodProdQty + "+updatePlanObj.GoodProdQty +",RemainQty = RemainQty - "+updatePlanObj.GoodProdQty;
@@ -137,7 +139,7 @@ export function createPlan(req,res){
                }
                res.json(dataRes);
             }
-            if (results && results.length > 0) {
+            if (results) {
                 dataRes = {
                     code : "OK",
                     message : "getLstOrderNotFinish success",
