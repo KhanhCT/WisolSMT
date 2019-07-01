@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Threading;
 using WisolSMTLineApp.Model;
 
 namespace WisolSMTLineApp.ViewModel
@@ -12,9 +16,9 @@ namespace WisolSMTLineApp.ViewModel
     public class PlanViewModel : BaseViewModel
     {
         public static PlanViewModel PlanVM;
-        public ObservableCollection<Shift> Shifts { get; private set; }
+        public ObservableCollection<Shift> Shifts { get; private set; } = new ObservableCollection<Shift>();
         public Shift SelectedShift { get; set; }
-        public static ObservableCollection<Product> Products { get; private set; }
+        public static ObservableCollection<Product> Products { get; private set; } = new ObservableCollection<Product>();
         public Product SelectedProduct
         {
             get;
@@ -43,60 +47,66 @@ namespace WisolSMTLineApp.ViewModel
             {
                 //TimeSpan NowTimeStamp = TimeSpan.Parse(DateTime.Now.ToString("hh:mm:ss"));
                 if (TodayDateTime >= DayShift.From && TodayDateTime < DayShift.To)
-                    return 0;
-                else
                     return 1;
+                else
+                    return 2;
             }
         }
+        object lockObject = new object();
         public PlanViewModel()
         {
             PlanVM = this;
             Initilize();
+
         }
-        public void Initilize()
+        public async void Initilize()
         {
-
-            //Shifts = new ObservableCollection<Shift>();
-            //Products = new ObservableCollection<Product>();
+            List<Shift> _shifts = null;
+            List<Product> _products = null;
             try
             {
-                controller = new Controller();
-                List<Shift> _shifts = controller.GetShifts();
+                await Task.Run(() =>
+                {
+                    controller = new Controller();
+                    _shifts = controller.GetShifts();
+                    _products = controller.GetProducts();
+                });
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
                 if (_shifts != null)
-                    Shifts = new ObservableCollection<Shift>(_shifts);
-            }
-            catch (Exception)
-            {
-
-            }
-
-            try
-            {
-                List<Product> _products = controller.GetProducts();
+                {
+                    _shifts.ForEach(x => { Shifts.Add(x); });
+                    SelectedShift = (App.CurrentShift == 1) ? Shifts[0] : Shifts[1];
+                }
                 if (_products != null)
-                    Products = new ObservableCollection<Product>(_products);
-                //foreach (Product _product in _products)
-                //{
-                //    Products.Add(_product);
-                //}
-            }
-            catch (Exception)
-            {
-
+                {
+                    _products.ForEach(x => Products.Add(x));
+                    SelectedProduct = Products[0];
+                }
             }
         }
         public void Create_Plan()
         {
+            if (
             controller.NewProductionPlan(new ProductionPlan()
             {
-                ProductID = SelectedProduct.ProductID,
-                ProductName = SelectedProduct.ProductName,
+                ProductID = SelectedProduct.ID,
+                ProductName = SelectedProduct.Product_Name,
                 FactoryID = 1,
                 LineID = 1,
                 WorkingDate = SelectedDate.ToString("dd/mm/yyyy"),
                 OrderedQty = RemainNodes,
-                ShiftID = SelectedShift.ShiftID,
-            });
+                ShiftID = SelectedShift.ID,
+            })) { MessageBox.Show("Plan created"); }
+            else
+            {
+                MessageBox.Show("Plan create failed, something happened");
+            }
         }
 
         private ICommand _clickCommand;

@@ -13,15 +13,29 @@ namespace WisolSMTLineApp.ViewModel
     {
         public Controller controller;
         public ObservableCollection<Product> Products { get; private set; }
-        public int OrderNodeQty { get; set; }
-
+        int _Amount;
+        public int Amount
+        {
+            get { return _Amount; }
+            set { _Amount = value; OnPropertyChanged(nameof(Amount)); }
+        }
         public OrderViewModel()
         {
+            Amount = Setting.DefaultLots;
             Products = PlanViewModel.Products;
             controller = new Controller();
         }
         public void OrderNode()
         {
+            //controller.CreateOrder(new ProductionDtl()
+            //{
+            //    LineID = 1,
+            //    FactoryID = 1,
+            //    Amount = Amount,
+            //    WorkingDate = App.TodayDate,
+            //    ShiftID = App.CurrentShift,
+
+            //}); 
             MainWindow.ConfirmWindow = new ConfirmationWindow();
             MainWindow.ConfirmWindow.ShowDialog();
         }

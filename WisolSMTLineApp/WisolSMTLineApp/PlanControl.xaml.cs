@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows.Controls;
 using WisolSMTLineApp.Model;
 using WisolSMTLineApp.ViewModel;
@@ -17,6 +18,7 @@ namespace WisolSMTLineApp
         {
             InitializeComponent();
             PlanVM = new PlanViewModel();
+            Thread.Sleep(500);
             this.DataContext = PlanVM;
         }
 

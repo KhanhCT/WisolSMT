@@ -25,23 +25,17 @@ namespace WisolSMTLineApp
             Visibility = Visibility.Collapsed;
         }
 
-        uint orderedNode;
-        public uint OrderedNode
-        {
-            get { return orderedNode; }
-            set
-            {
-                orderedNode = value;
-                NotifyPropertyChanged(nameof(OrderedNode));
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
-       
+
         public void NotifyPropertyChanged(string ProName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(ProName));
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

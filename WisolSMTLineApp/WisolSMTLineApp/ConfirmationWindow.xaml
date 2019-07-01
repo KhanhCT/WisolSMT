@@ -4,21 +4,49 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WisolSMTLineApp"
+        xmlns:VM="clr-namespace:WisolSMTLineApp.ViewModel"
+        
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="ConfirmationWindow" Height="300" Width="400">
     <Grid Margin="20">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Odered Nodes" Margin="5" VerticalAlignment="Center"/>
-        <TextBox Text="{Binding OderedNodeQty, Mode=TwoWay}" Grid.Column="1" VerticalAlignment="Center"/>
+        <TextBlock Text="Unconfirmed Orders" Grid.Row="0"/>
 
-        <Button Content="Confirm" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top" Command="{Binding ClickCommand}"/>
+        <ListView ItemsSource="{Binding LstOrderNotFinish}" Grid.Row="1" Grid.ColumnSpan="2" Name="LstOrderNotFinish">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="Odered Nodes" Margin="5" VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding Amount, Mode=TwoWay}" Grid.Column="1" VerticalAlignment="Center"/>
+                            <Button 
+                                Content="Confirm" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top" 
+                                Command="{Binding ElementName=LstOrderNotFinish, 
+                                Path=DataContext.ClickCommand}" CommandParameter="{Binding .}" />
+
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
+            <TextBlock Text="New Order:" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Amount}" Width="130" Margin="10"/>
+        </StackPanel>
+
+        <Button Content="Submit" Grid.Row="3" Margin="5" Command="{Binding SubmitCommand}"/>
+        <Button Content="Close" Grid.Row="3" Grid.Column="1"  Click="Button_Click" Margin="5"/>
     </Grid>
 </Window>

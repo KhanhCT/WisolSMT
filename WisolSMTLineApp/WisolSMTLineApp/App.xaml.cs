@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using WisolSMTLineApp.Model;
 using static PandaApp.GPIOCommunication.GPIOHelper;
 
 namespace WisolSMTLineApp
@@ -19,11 +16,24 @@ namespace WisolSMTLineApp
         {
             Init();
         }
-
+        static TimeSpan TodayDateTime { get { return TimeSpan.Parse(DateTime.Now.ToString("HH:mm:ss")); } }
+        static ShiftPeriod DayShift = new ShiftPeriod() { From = TimeSpan.Parse("08:00:00") };
+        public static int CurrentShift
+        {
+            get
+            {
+                //TimeSpan NowTimeStamp = TimeSpan.Parse(DateTime.Now.ToString("hh:mm:ss"));
+                if (TodayDateTime >= DayShift.From && TodayDateTime < DayShift.To)
+                    return 1;
+                else
+                    return 2;
+            }
+        }
+        public static string TodayDate { get { return DateTime.Now.ToString("dd-MM-yyyy"); } }
         private async void Init()
         {
             await TextHelper.InitSetting();
-            Setting.WorkingMode = Model.WorkingMode.Auto;
+         
             var COMport = TextHelper.ReadSetting("COMPort");
             try
             {
@@ -33,9 +43,7 @@ namespace WisolSMTLineApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                //Application.Current.Shutdown();
-                //return;
+                MessageBox.Show(ex.Message);               
             }
             try
             {

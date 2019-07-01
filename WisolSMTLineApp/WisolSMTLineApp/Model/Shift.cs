@@ -9,8 +9,8 @@ namespace WisolSMTLineApp.Model
     public class Shift
     {
         public int FactoryID { set; get; }
-        public int ShiftID { set; get; }
-        public string ShiftName { set; get; }
+        public int ID { set; get; }
+        public string Name { set; get; }
         public int StartTime { set; get; }
         public int StopTime { set; get; }
         public bool Disabled { set; get; }

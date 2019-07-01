@@ -8,8 +8,8 @@ namespace WisolSMTLineApp.Model
 {
     public class Product
     {
-        public int ProductID { set; get; }
-        public string ProductName { set; get; }
+        public int ID { set; get; }
+        public string Product_Name { set; get; }
         public bool Disabled { set; get; }
     }
 }

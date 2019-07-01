@@ -23,16 +23,9 @@ namespace WisolSMTLineApp
             DataContext = MonitorVM;
         }
 
-
-
         private void MonitorControl_Loaded(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private void Ellipse_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            //CountingSensor_OnPinValueChanged(null, new GPIOPin.PinValueChangedEventArgs(Edge.Rise));
-        }
+        }     
     }
 }

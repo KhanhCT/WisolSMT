@@ -13,8 +13,13 @@ namespace WisolSMTLineApp
         public OrderControl()
         {
             InitializeComponent();
+            Loaded += OrderControl_Loaded;
+        }
+
+        private void OrderControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
             OrderVM = new OrderViewModel();
             DataContext = OrderVM;
-        }     
+        }
     }
 }

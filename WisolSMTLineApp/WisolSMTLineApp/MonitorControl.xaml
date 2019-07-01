@@ -29,7 +29,7 @@
 
         <TextBlock Text="Status:"/>
         <Ellipse HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="Center" Margin="10" 
-                 Fill="Green" MouseDown="Ellipse_MouseDown"
+                 Fill="Green"
                  Width="36" Height="36"/>
 
         <TextBlock Text="Model:" Grid.Row="1"/>
