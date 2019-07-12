@@ -81,6 +81,7 @@ INSERT INTO `productdtl` (`WorkingDate`, `ProductID`, `exported_qty`, `remain_qt
 /*!40000 ALTER TABLE `productdtl` ENABLE KEYS */;
 
 -- Dumping structure for table smt.productiondtl
+DROP TABLE IF EXISTS `productiondtl`;
 CREATE TABLE IF NOT EXISTS `productiondtl` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `WorkingDate` varchar(15) NOT NULL COMMENT 'Date format MM/DD/YYYY',
@@ -88,8 +89,8 @@ CREATE TABLE IF NOT EXISTS `productiondtl` (
   `ShiftID` int(11) NOT NULL,
   `LineID` int(11) NOT NULL,
   `Amount` int(11) NOT NULL,
-  `StartTime` datetime NOT NULL,
-  `StopTime` datetime DEFAULT NULL,
+  `StartTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `StopTime` timestamp NULL DEFAULT NULL,
   `Message` varchar(40) DEFAULT NULL,
   `Finished` bit(1) NOT NULL,
   PRIMARY KEY (`WorkingDate`,`id`,`FactoryID`,`ShiftID`,`LineID`),
@@ -99,10 +100,10 @@ CREATE TABLE IF NOT EXISTS `productiondtl` (
 -- Dumping data for table smt.productiondtl: ~3 rows (approximately)
 DELETE FROM `productiondtl`;
 /*!40000 ALTER TABLE `productiondtl` DISABLE KEYS */;
-INSERT INTO `productiondtl` (`id`, `WorkingDate`, `FactoryID`, `ShiftID`, `LineID`, `Amount`, `StartTime`, `StopTime`, `Message`, `Finished`) VALUES
-	(5, '01-07-2019', 1, 2, 2, 24, '0000-00-00 00:00:00', NULL, NULL, b'1'),
-	(2, '25-06-2019', 1, 1, 1, 20, '0000-00-00 00:00:00', NULL, NULL, b'1'),
-	(3, '25-06-2019', 1, 1, 2, 30, '0000-00-00 00:00:00', NULL, NULL, b'1');
+INSERT INTO `productiondtl` (`id`, `WorkingDate`, `FactoryID`, `ShiftID`, `LineID`, `Amount`, `StopTime`, `Message`, `Finished`) VALUES
+	(5, '01-07-2019', 1, 2, 2, 24, '0000-00-00 00:00:00', NULL, b'1'),
+	(2, '25-06-2019', 1, 1, 1, 20, '0000-00-00 00:00:00', NULL, b'1'),
+	(3, '25-06-2019', 1, 1, 2, 30, '0000-00-00 00:00:00', NULL, b'1');
 /*!40000 ALTER TABLE `productiondtl` ENABLE KEYS */;
 
 -- Dumping structure for table smt.productionline

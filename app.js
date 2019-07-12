@@ -52,6 +52,7 @@ app.get('/production/getPlanOfLine/:date/:factoryID/:lineId/:shipId',production.
 //Production Detail
 app.post('/production/createOrderDtl',productionDtl.createProductionDtl);
 app.post('/production/submitOrderDtl',productionDtl.submitOrderDtl);
+app.post('/production/updateMessage',productionDtl.updateMessage);
 
 //Model Detail
 app.post('/model/importProduct',modelDetail.importProduct);

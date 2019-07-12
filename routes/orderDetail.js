@@ -64,7 +64,7 @@ export const createProductionDtl = async(req,res) => {
   } 
 };
 
- export function submitOrderDtl(req,res){
+ export const submitOrderDtl = async(req,res) =>{
   let dataRes = {};
   // let userId = req.session.userId;
   // if(userId == null){
@@ -93,27 +93,39 @@ export const createProductionDtl = async(req,res) => {
     FactoryID : params.FactoryID,
     LineID : params.LineID,
     ShiftID : params.ShiftID, 
-    Amount : params.Amount
+    Amount : params.Amount,
+    StopTime : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
   }
+  let countSql = "SELECT COUNT(*) AS numberOfProd FROM productiondtl WHERE " + " WorkingDate='"+productionDtl.WorkingDate+"' AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID+" AND Finished = false";
+  let counts = await query.queryNormal(countSql);
+  if (counts && counts[0].numberOfProd == 0) {
+    dataRes = {
+      code : "NOK",
+      message : "Please create production detail",
+      data : false
+    }
+    res.json(dataRes);
+    return;
+  }
+
   var conditionSQL = " WorkingDate='"+productionDtl.WorkingDate+"' AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID+"";
-  var sqlProductionDtl="UPDATE productiondtl SET Finished = true WHERE ";
+  var sqlProductionDtl="UPDATE productiondtl SET StopTime = '"+productionDtl.StopTime+"', Finished = true WHERE ";
   var sqlProductionPlan = "UPDATE productionplan SET OrderedQty = OrderedQty + "+productionDtl.Amount+",RemainQty = RemainQty + "+productionDtl.Amount+" WHERE ";
   db.beginTransaction(function(err) {
       if (err) { 
         dataRes = {
           code : "NOK",
-          message : "ERROR Transaction 1",
+          message : err.sqlMessage,
           data : false
         }
         res.json(dataRes);
       }
       db.query(sqlProductionDtl + conditionSQL + " AND Finished = false", function(err, result) {
         if (err) { 
-          res.json(false); 
           db.rollback(function() {
             dataRes = {
               code : "NOK",
-              message : "ERROR Transaction 2",
+              message : err.sqlMessage,
               data : false
             }
             res.json(dataRes);
@@ -122,11 +134,10 @@ export const createProductionDtl = async(req,res) => {
 
         db.query(sqlProductionPlan + conditionSQL, function(err, result) {
           if (err) {
-              res.json(false);  
             db.rollback(function() {
               dataRes = {
                 code : "NOK",
-                message : "ERROR Transaction 3",
+                message : err.sqlMessage,
                 data : false
               }
               res.json(dataRes);
@@ -134,11 +145,10 @@ export const createProductionDtl = async(req,res) => {
           }  
           db.commit(function(err) {
             if (err) {
-              res.json(false); 
               db.rollback(function() {
                 dataRes = {
                   code : "NOK",
-                  message : "ERROR Transaction 4",
+                  message : err.sqlMessage,
                   data : false
                 }
                 res.json(dataRes);
@@ -156,3 +166,54 @@ export const createProductionDtl = async(req,res) => {
       });
     });
  };
+
+ export const updateMessage = async(req,res) => {
+  let dataRes = {};
+  let params = Object.assign({}, req.body);
+  let date = moment(params.WorkingDate, 'DD-MM-YYYY', true);
+  if (!date.isValid()) {
+      dataRes = {
+          code : "NOK",
+          message : "Date is error, please set format DD-MM-YYYY",
+          data : false
+        }
+      res.json(dataRes);
+      return;
+  }
+  let productionDtl = {
+      WorkingDate : params.WorkingDate,
+      FactoryID : params.FactoryID,
+      LineID : params.LineID,
+      ShiftID : params.ShiftID, 
+      Message : params.Message
+  }
+
+  //check exits finished = 0
+  let countSql = "SELECT COUNT(*) AS numberOfProd FROM productiondtl WHERE " + " WorkingDate='"+productionDtl.WorkingDate+"' AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID+" AND Finished = 0";
+  let counts = await query.queryNormal(countSql);
+  if (counts && counts[0].numberOfProd == 0)
+  {
+    dataRes = {
+      code : "NOK",
+      message : "Please create production detail",
+      data : false
+    }
+  } else {
+    let updateSql = "UPDATE productiondtl SET Message = '" +productionDtl.Message+ "' WHERE " + " WorkingDate='"+productionDtl.WorkingDate+"' AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID +" AND Finished = 0";
+    let updateObj = await query.queryNormal(updateSql);
+    if (updateObj) {
+      dataRes = {
+        code : "OK",
+        message : "Update message success",
+        data : true
+      }
+    } else {
+      dataRes = {
+        code : "NOK",
+        message : "Update error",
+        data : false
+      }
+    }
+  } 
+  res.json(dataRes);
+};
