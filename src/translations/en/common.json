@@ -636,7 +636,6 @@
         "software_short_intro": "Introduce yourself professionally, privately and directly to local and regional capital sources, all qualified and ready to invest.",
         "network_short_intro": "Present your corporate innovation program to attract relevant and interesting startup partners to join your journey."
     },
-
     "confirm_lession_modal": {
         "title": "Confirm Lession!",
         "body": "Confirm finish this lession!",
@@ -644,7 +643,6 @@
         "btn_cancel": "Cancel",
         "confirm_btn_text": "Finish Lession"
     },
-
     "flash_card": {
         "tem1": "Listen and choose the correct answer",
         "practice": "Practice",
@@ -698,7 +696,6 @@
         "intro_lead_1": "This is a module for students to learn new words in the form of flashcards. Students can select the specific vocabulary they want to learn.",
         "intro_lead_2": "This is a module for students to learn new words in the form of flashcards. Students can select the specific vocabulary they want to learn."
     },
-
     "learning": {
         "one_on_one": "ONE-ON-ONE",
         "one_on_one_content": "The student can choose to learn one-on-one via Skype or at our office or at required location. It's a coaching style which helps the student have more time to practice with teachers and get faster improvement.",
@@ -785,7 +782,6 @@
         "price_modal_text_7": "You don't need a CD or DVD to listen to the audio. All the listening files and interactive exercises and test are inside the software.",
         "price_modal_note": "TO GET SPECIAL DISCOUNT, PLEASE EMAIL US"
     },
-
     "software_modal": {
         "book": "BOOK",
         "book_content": "This is an entry for registered students. This is a full textbook of Vietnamese online with audio. By scrambling QR-CODE code into every article that you have, you will easily access the content of that lesson.",
@@ -803,7 +799,6 @@
         "attendance_record_content": "This is a section for teachers and students to follow the details of the offline course.",
         "attendance_record_button": "Take attendance record"
     },
-
     "attendance_record": {
         "teacher_title": "Teacher create Attendance Record",
         "student_title": "Student confirm Attendance Record",
@@ -814,14 +809,12 @@
         "event_label": "event labels",
         "add_attendance_record": "Add Attendance Record"
     },
-
     "lesson_detail": {
         "conversation": "Conversation",
         "vocabulary": "Vocabulary",
         "structure": "Structure",
         "extension": "Extension"
     },
-
     "exerise": {
         "confirm_back": {
             "header": "Confirm Back",
@@ -834,14 +827,12 @@
             "button": "Start Exerise"
         }
     },
-
     "examination": {
         "confirm_finish": {
             "header": "Confirm Finish",
             "content": "Do you want to finish this examination?"
         }
     },
-
     "buy_card": {
         "confirm_cod": {
             "header": "Confirm Order",
@@ -852,7 +843,6 @@
             "content": "Do you want to confirm this payment? We will redirect to the payment page, please do not disable the browser!"
         }
     },
-
     "MESSAGES": {
         "LOGIN_SUCCESS": "Login success!",
         "LOGOUT_MESSAGE": "Logout success!",
@@ -867,6 +857,7 @@
         "REGISTER_ACCOUNT_SUCCESS": "Register account success! Please check email to verify account",
         "ACTIVE_ACCOUNT_SUCCESS": "Verify account success! Please Login again",
         "COD_BUY_CARD_ORDER_SUCCESS": "Order success! We will contact you as soon as possible, please check your order history",
-        "SUCCESS": "Success!"
+        "SUCCESS": "Success!",
+        "UPDATE_MESSAGE_SUCCESS": "Update Message Success!"
     }
 }

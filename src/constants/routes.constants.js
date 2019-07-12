@@ -45,5 +45,6 @@ export const ROUTES = {
   HIST_CHART: "/hist_chart",
   LIST_MACHINE: "/list_machine",
   LINE_RESULT: "/line_result",
-  MODEL_RESULT: "/model_result"
+  MODEL_RESULT: "/model_result",
+  LINE_ORDER: "/line_order"
 };

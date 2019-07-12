@@ -83,6 +83,7 @@ import { WorkplaceConfig } from "../containers/workplace_config";
 import { DeviceConfig } from "../containers/device_config";
 import { LineResult } from "../containers/line_result";
 import { ModelResult } from "../containers/model_result";
+import { LineOrder } from "../containers/line_order";
 
 // List role for allow authorization
 // const STUDENT = Authorization(LIST_ROLES.STUDENT);
@@ -122,6 +123,7 @@ const wrappedRoutes = () => (
       <Route path={ROUTES.GOAL_MONITOR} component={GoalMonitor} />
       <Route path={ROUTES.LINE_RESULT} component={LineResult} />
       <Route path={ROUTES.MODEL_RESULT} component={ModelResult} />
+      <Route path={ROUTES.LINE_ORDER} component={LineOrder} />
       {/* <Route path={ROUTES.STATUS_LINE_CHART} component={StatusLineChart} />
       <Route path={ROUTES.HIST_CHART} component={HistChart} />
       <Route path={ROUTES.LIST_MACHINE} component={TestButton} /> */}

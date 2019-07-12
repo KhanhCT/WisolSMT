@@ -165,6 +165,16 @@ class SidebarContent extends Component {
             onClick={this.hideSidebar}
           />
         </ul>
+
+        <ul className="sidebar__block">
+          <SidebarLink
+            // title={t("common.listening")}
+            title="Line Order"
+            icon="construction"
+            route={ROUTES.LINE_ORDER}
+            onClick={this.hideSidebar}
+          />
+        </ul>
         {/* <ul className="sidebar__block">
           <SidebarLink
             // title={t("common.listening")}
