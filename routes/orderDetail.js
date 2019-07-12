@@ -184,12 +184,12 @@ export const createProductionDtl = async(req,res) => {
   }
   let productionDtl = {
       WorkingDate : params.WorkingDate,
+      ProductID: params.ProductID,
       FactoryID : params.FactoryID,
       LineID : params.LineID,
       ShiftID : params.ShiftID, 
       Message : params.Message
   }
-
   //check exits finished = 0
   let countSql = "SELECT COUNT(*) AS numberOfProd FROM productiondtl WHERE " + " WorkingDate='"+productionDtl.WorkingDate+"' AND ProductID = "+productionDtl.ProductID+" AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID+" AND Finished = 0";
   let counts = await query.queryNormal(countSql);
