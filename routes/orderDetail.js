@@ -259,19 +259,9 @@ export function getLstOrderNotFinish(req,res){
 
 export function getLstOrderByDate(req,res){
   let dataRes = {};
-  let date = moment(req.params.date, 'DD-MM-YYYY', true);
-  if (!date.isValid()) {
-      dataRes = {
-          code : "NOK",
-          message : "Date is error, please set format DD-MM-YYYY",
-          data : false
-        }
-      res.json(dataRes);
-      return;
-  }
-
-  var sql="SELECT * FROM productiondtl WHERE WorkingDate = '"+req.params.date+"'";
-  console.log(sql);
+  let date = moment(new Date()).format("DD-MM-YYYY");
+  var sql="SELECT t1.*, t2.product_name, t3.LineCode FROM productiondtl as t1 inner join Product as t2 on t1.ProductID=t2.id inner join ProductionLine as t3 on t1.LineID = t3.LineID WHERE WorkingDate = '"+date+"'";
+  console.log(date);
   db.query(sql, function(err, results){
       if (err) {
           dataRes = {

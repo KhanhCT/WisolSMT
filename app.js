@@ -53,7 +53,7 @@ app.post('/production/createOrderDtl',productionDtl.createProductionDtl);
 app.post('/production/submitOrderDtl',productionDtl.submitOrderDtl);
 app.post('/production/updateMessage',productionDtl.updateMessage);
 app.get('/production/getLstOrderNotFinish/:lineId',productionDtl.getLstOrderNotFinish);
-app.get('/production/getLstOrderByDate/:date',productionDtl.getLstOrderByDate);
+app.get('/production/getLstOrderByDate',productionDtl.getLstOrderByDate);
 
 //Model Detail
 app.post('/model/importProduct',modelDetail.importProduct);
