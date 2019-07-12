@@ -162,7 +162,7 @@ export function createPlan(req,res){
                 dataLine.status = "RUN"
                 dataLine.color = "5BBD2B";
             }
-            let prodPlan = await query.queryNormal ("SELECT * FROM productionplan WHERE WorkingDate = '"+dateStr+"' AND LineID = '"+lstLines[i].LineID+"'");
+            let prodPlan = await query.queryNormal ("SELECT * FROM productionplan WHERE WorkingDate = '"+dateStr+"' AND LineID = "+lstLines[i].LineID);
             if (prodPlan) {
                 if (prodPlan[0]) {
                     dataLine.order = prodPlan[0].OrderedQty;
