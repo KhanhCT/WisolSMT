@@ -131,7 +131,7 @@ const wrappedRoutes = () => (
         path="/receiver_response_student"
         component={ReceiveResponseStudent}
       /> */}
-      <Route exact path="/" component={ListModel} />
+      <Route exact path="/" component={LineResult} />
     </div>
   </div>
 );
@@ -302,15 +302,16 @@ const wrappedRoutes = () => (
 // };
 
 /** WRAPPED MAIN URL BY AUTHENTICATION */
-const WRAPPED_ROUTES = Authentication(wrappedRoutes);
+// const WRAPPED_ROUTES = Authentication(wrappedRoutes);
+const WRAPPED_ROUTES = wrappedRoutes;
 
 const Router = () => (
   <MainWrapper>
     <main>
       <Switch>
         <Route path="/404" component={NotFound404} />
-        <Route path={ROUTES.LOGIN} component={LogIn} />
-        <Route path={ROUTES.SIGNUP} component={SignUp} />
+        {/* <Route path={ROUTES.LOGIN} component={LogIn} /> */}
+        {/* <Route path={ROUTES.SIGNUP} component={SignUp} /> */}
         <Route path="/" component={WRAPPED_ROUTES} />
       </Switch>
     </main>
