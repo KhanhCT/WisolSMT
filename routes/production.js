@@ -114,43 +114,6 @@ export function createPlan(req,res){
     });       
  };
 
- export function getLstOrderNotFinish(req,res){
-    let dataRes = {};
-    let userId = req.session.userId;
-    // if(userId == null){
-    //     dataRes = {
-    //         code : "NOK",
-    //         message : "Unauthorized",
-    //         data : false
-    //      }
-    //     res.status(401).send(dataRes)
-    //     return;
-    // }
-
-    let lineId = Number(req.params.lineId);
-    if (lineId) {
-        var sql="SELECT * FROM productiondtl WHERE LineID = "+lineId+" AND Finished = false";
-        db.query(sql, function(err, results){
-            if (err) {
-                dataRes = {
-                  code : "NOK",
-                  message : err.sqlMessage,
-                  data : null
-               }
-               res.json(dataRes);
-            }
-            if (results) {
-                dataRes = {
-                    code : "OK",
-                    message : "getLstOrderNotFinish success",
-                    data : results
-                 }
-                 res.json(dataRes);
-            }
-        });  
-    }
- };
-
  export const getLineResult = async (req,res) => {
     let dataRes = {};
     let userId = req.session.userId;

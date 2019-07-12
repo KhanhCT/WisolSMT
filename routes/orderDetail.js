@@ -27,6 +27,7 @@ export const createProductionDtl = async(req,res) => {
   let productionDtl = {
       WorkingDate : params.WorkingDate,
       FactoryID : params.FactoryID,
+      ProductID : params.ProductID,
       LineID : params.LineID,
       ShiftID : params.ShiftID, 
       Amount : params.Amount,
@@ -34,7 +35,7 @@ export const createProductionDtl = async(req,res) => {
   }
 
   //check exits finished = 0
-  let countSql = "SELECT COUNT(*) AS numberOfProd FROM productiondtl WHERE " + " WorkingDate='"+productionDtl.WorkingDate+"' AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID+" AND Finished = 0";
+  let countSql = "SELECT COUNT(*) AS numberOfProd FROM productiondtl WHERE " + " WorkingDate='"+productionDtl.WorkingDate+"' AND ProductID = "+productionDtl.ProductID+" AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID+" AND Finished = 0";
   let counts = await query.queryNormal(countSql);
   if (counts && counts[0].numberOfProd == 0)
   {
@@ -91,12 +92,13 @@ export const createProductionDtl = async(req,res) => {
   let productionDtl = {
     WorkingDate : params.WorkingDate,
     FactoryID : params.FactoryID,
+    ProductID : params.ProductID,
     LineID : params.LineID,
     ShiftID : params.ShiftID, 
     Amount : params.Amount,
     StopTime : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
   }
-  let countSql = "SELECT COUNT(*) AS numberOfProd FROM productiondtl WHERE " + " WorkingDate='"+productionDtl.WorkingDate+"' AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID+" AND Finished = false";
+  let countSql = "SELECT COUNT(*) AS numberOfProd FROM productiondtl WHERE " + " WorkingDate='"+productionDtl.WorkingDate+"' AND ProductID = "+productionDtl.ProductID+" AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID+" AND Finished = false";
   let counts = await query.queryNormal(countSql);
   if (counts && counts[0].numberOfProd == 0) {
     dataRes = {
@@ -108,7 +110,7 @@ export const createProductionDtl = async(req,res) => {
     return;
   }
 
-  var conditionSQL = " WorkingDate='"+productionDtl.WorkingDate+"' AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID+"";
+  var conditionSQL = " WorkingDate='"+productionDtl.WorkingDate+"' AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID+" AND ProductID = "+productionDtl.ProductID+"";
   var sqlProductionDtl="UPDATE productiondtl SET StopTime = '"+productionDtl.StopTime+"', Finished = true WHERE ";
   var sqlProductionPlan = "UPDATE productionplan SET OrderedQty = OrderedQty + "+productionDtl.Amount+",RemainQty = RemainQty + "+productionDtl.Amount+" WHERE ";
   db.beginTransaction(function(err) {
@@ -189,7 +191,7 @@ export const createProductionDtl = async(req,res) => {
   }
 
   //check exits finished = 0
-  let countSql = "SELECT COUNT(*) AS numberOfProd FROM productiondtl WHERE " + " WorkingDate='"+productionDtl.WorkingDate+"' AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID+" AND Finished = 0";
+  let countSql = "SELECT COUNT(*) AS numberOfProd FROM productiondtl WHERE " + " WorkingDate='"+productionDtl.WorkingDate+"' AND ProductID = "+productionDtl.ProductID+" AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID+" AND Finished = 0";
   let counts = await query.queryNormal(countSql);
   if (counts && counts[0].numberOfProd == 0)
   {
@@ -199,7 +201,7 @@ export const createProductionDtl = async(req,res) => {
       data : false
     }
   } else {
-    let updateSql = "UPDATE productiondtl SET Message = '" +productionDtl.Message+ "' WHERE " + " WorkingDate='"+productionDtl.WorkingDate+"' AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID +" AND Finished = 0";
+    let updateSql = "UPDATE productiondtl SET Message = '" +productionDtl.Message+ "' WHERE " + " WorkingDate='"+productionDtl.WorkingDate+"' AND ProductID = "+productionDtl.ProductID+" AND FactoryID ="+productionDtl.FactoryID+" AND LineID = "+productionDtl.LineID+" AND ShiftID = "+productionDtl.ShiftID +" AND Finished = 0";
     let updateObj = await query.queryNormal(updateSql);
     if (updateObj) {
       dataRes = {
@@ -216,4 +218,76 @@ export const createProductionDtl = async(req,res) => {
     }
   } 
   res.json(dataRes);
+};
+
+export function getLstOrderNotFinish(req,res){
+  let dataRes = {};
+  let userId = req.session.userId;
+  // if(userId == null){
+  //     dataRes = {
+  //         code : "NOK",
+  //         message : "Unauthorized",
+  //         data : false
+  //      }
+  //     res.status(401).send(dataRes)
+  //     return;
+  // }
+
+  let lineId = Number(req.params.lineId);
+  if (lineId) {
+      var sql="SELECT * FROM productiondtl WHERE LineID = "+lineId+" AND Finished = false";
+      db.query(sql, function(err, results){
+          if (err) {
+              dataRes = {
+                code : "NOK",
+                message : err.sqlMessage,
+                data : null
+             }
+             res.json(dataRes);
+          }
+          if (results) {
+              dataRes = {
+                  code : "OK",
+                  message : "getLstOrderNotFinish success",
+                  data : results
+               }
+               res.json(dataRes);
+          }
+      });  
+  }
+};
+
+export function getLstOrderByDate(req,res){
+  let dataRes = {};
+  let date = moment(req.params.date, 'DD-MM-YYYY', true);
+  if (!date.isValid()) {
+      dataRes = {
+          code : "NOK",
+          message : "Date is error, please set format DD-MM-YYYY",
+          data : false
+        }
+      res.json(dataRes);
+      return;
+  }
+
+  var sql="SELECT * FROM productiondtl WHERE WorkingDate = '"+req.params.date+"'";
+  console.log(sql);
+  db.query(sql, function(err, results){
+      if (err) {
+          dataRes = {
+            code : "NOK",
+            message : err.sqlMessage,
+            data : null
+          }
+          res.json(dataRes);
+      }
+      if (results) {
+          dataRes = {
+              code : "OK",
+              message : "getLstOrder success",
+              data : results
+            }
+            res.json(dataRes);
+      }
+  });  
 };

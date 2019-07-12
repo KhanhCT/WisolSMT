@@ -45,7 +45,6 @@ app.get('/product/getShifts',product.getShifts);
 
 app.post('/production/createPlan',production.createPlan);
 app.post('/production/initProduct',production.updatePlan);
-app.get('/production/getLstOrderNotFinish/:lineId',production.getLstOrderNotFinish);
 app.get('/production/getLineResult/:date',production.getLineResult);
 app.get('/production/getPlanOfLine/:date/:factoryID/:lineId/:shipId',production.getPlanOfLine);
 
@@ -53,6 +52,8 @@ app.get('/production/getPlanOfLine/:date/:factoryID/:lineId/:shipId',production.
 app.post('/production/createOrderDtl',productionDtl.createProductionDtl);
 app.post('/production/submitOrderDtl',productionDtl.submitOrderDtl);
 app.post('/production/updateMessage',productionDtl.updateMessage);
+app.get('/production/getLstOrderNotFinish/:lineId',productionDtl.getLstOrderNotFinish);
+app.get('/production/getLstOrderByDate/:date',productionDtl.getLstOrderByDate);
 
 //Model Detail
 app.post('/model/importProduct',modelDetail.importProduct);
