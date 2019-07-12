@@ -18,7 +18,7 @@ connection.connect((err) => {
   console.log('Connected!');
 });
 
-app.set('port', process.env.PORT || 8080);
+app.set('port', process.env.PORT || 6969);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -61,4 +61,4 @@ app.post('/model/exportProduct',modelDetail.exportProduct);
 app.get('/model/getModelResult/:date',modelDetail.getModelResult);
 
 //Middleware
-app.listen(8080)
+app.listen(6969)
