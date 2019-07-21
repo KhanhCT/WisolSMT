@@ -193,17 +193,41 @@ namespace WisolSMTLineApp
             return LstOrderNotFinish;
         }
 
-        public Plan GetLinePlan(ProductionPlan Obj)
+        public async Task<List<ProductionDtl>> getLstOrderNotFinishAsync(string lineID)
+        {
+            List<ProductionDtl> LstOrderNotFinish = null;
+            try
+            {
+                string url = "production/getLstOrderNotFinish/" + lineID;
+                using (var response = await _httpClient.GetAsync(url))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        Response<List<ProductionDtl>> resMsg = JsonConvert.DeserializeObject<Response<List<ProductionDtl>>>(content);
+                        if (resMsg.Data != null)
+                            LstOrderNotFinish = resMsg.Data;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return LstOrderNotFinish;
+        }
+
+        public async Task<Plan> GetLinePlan(ProductionPlan Obj)
         {
             try
             {
                 string url = $"/production/getPlanOfLine/{Obj.WorkingDate}/{Obj.FactoryID}/{Obj.LineID}/{Obj.ShiftID}";
                 Plan plan = null;
-                using (var response = _httpClient.GetAsync(url).Result)
+                using (var response = await _httpClient.GetAsync(url))
                 {
                     if (response.IsSuccessStatusCode)
                     {
-                        var content = response.Content.ReadAsStringAsync().Result;
+                        var content = await response.Content.ReadAsStringAsync();
                         Response<Plan> resMsg = JsonConvert.DeserializeObject<Response<Plan>>(content);
                         if (resMsg.Data != null)
                             plan = resMsg.Data;

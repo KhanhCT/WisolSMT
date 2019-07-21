@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Model:" Grid.Row="0"/>
-        <TextBlock Grid.Column="1" Grid.Row="0" Margin="10" Text="{Binding Product_Name, Source={x:Static local:Setting.SelectedProduct}}">
+        <TextBlock Grid.Column="1" Grid.Row="0" Margin="10" Text="{Binding Product.Product_Name}">
         </TextBlock>
 
         <TextBlock Text="Amount:" Grid.Row="1"/>

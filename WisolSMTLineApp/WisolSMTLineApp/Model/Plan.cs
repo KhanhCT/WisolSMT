@@ -14,7 +14,14 @@ namespace WisolSMTLineApp.Model
         public int order
         {
             get { return _order; }
-            set { _order = value; OnPropertyChanged(nameof(order)); }
+            set
+            {
+                if (_order != value)
+                {
+                    _order = value;
+                    OnPropertyChanged(nameof(order));
+                }
+            }
         }
         int _elapsed;
         private int _remain;
@@ -22,7 +29,12 @@ namespace WisolSMTLineApp.Model
         public int elapsed
         {
             get { return _elapsed; }
-            set { _elapsed = value; OnPropertyChanged(nameof(elapsed)); }
+                if (_elapsed != value)
+                {
+                    _elapsed = value;
+                    OnPropertyChanged(nameof(elapsed));
+                }
+            }
         }
 
         public int remain
@@ -33,8 +45,11 @@ namespace WisolSMTLineApp.Model
             }
             set
             {
-                _remain = value;
-                OnPropertyChanged(nameof(remain));
+                if (_remain != value)
+                {
+                    _remain = value;
+                    OnPropertyChanged(nameof(remain));
+                }
             }
         }
     }

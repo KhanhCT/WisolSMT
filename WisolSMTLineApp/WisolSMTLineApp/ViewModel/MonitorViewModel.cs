@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using WisolSMTLineApp.Model;
 using static PandaApp.GPIOCommunication.GPIOHelper;
 using static WisolSMTLineApp.App;
@@ -20,12 +22,11 @@ namespace WisolSMTLineApp.ViewModel
             {
                 if (_WorkingStatus != value)
                 {
-
-                    OnPropertyChanged("WorkingStatus");
-                    if (_WorkingStatus == WorkingStatus.Normal)
-                        if (value == WorkingStatus.Order)
-                            CreateOrder();
                     _WorkingStatus = value;
+                    OnPropertyChanged("WorkingStatus");
+                    if (_WorkingStatus == WorkingStatus.Order)
+                        CreateOrder();
+
                 }
             }
         }
@@ -34,96 +35,140 @@ namespace WisolSMTLineApp.ViewModel
             get;
             set;
         } = new Plan();
+        private string _OrderDuration;
         public string OrderDuration
         {
             get { return _OrderDuration; }
-            set { _OrderDuration = value; OnPropertyChanged(nameof(OrderDuration)); }
-        }
-        Timer T;
-        private void CreateOrder()
-        {
-            if (Setting.WorkingMode == WorkingMode.Auto)
+            set
             {
-                var Success = Api.Controller.CreateOrder(new ProductionDtl()
+                if (_OrderDuration != value)
                 {
-                    FactoryID = 1,
-                    Amount = Setting.DefaultLots,
-                    LineID = Setting.SelectedLine.LineID,
-                    WorkingDate = TodayDate,
-                    ShiftID = CurrentShift
-                });
+                    _OrderDuration = value;
+                    OnPropertyChanged(nameof(OrderDuration));
+                }
             }
+        }
+        //Timer T;
+
+        public void CreateOrder()
+        {
+            var ProductionDtl = new ProductionDtl()
+            {
+                Amount = Setting.DefaultLots,
+                FactoryID = 1,
+                WorkingDate = App.TodayDate,
+                ShiftID = App.CurrentShift,
+                LineID = Setting.SelectedLine.LineID,
+                ProductID = Setting.SelectedProduct.ID,
+                Message = "WAITTING"
+            };
+            if (Api.Controller.CreateOrder(ProductionDtl))
+            {
+                //LstOrderNotFinish.Clear();
+                //Api.Controller.getLstOrderNotFinish(2)?.ForEach(x => LstOrderNotFinish.Add(x));
+                //MessageBox.Show("Create order successfully");
+            }
+            //else
+            //MessageBox.Show("Create order failed, something happened");
+        }
+
+        SemaphoreSlim ConfirmOrderLock = new SemaphoreSlim(1, 1);
+        public async void ConfirmOrder()
+        {
+            //Confirm to server
+            if (ConfirmOrderLock.CurrentCount == 0)
+                return;
+            await ConfirmOrderLock.WaitAsync();
+            if (UnConfirmOrder != null)
+                if (Api.Controller.ConfirmOrder(UnConfirmOrder))
+                {
+                    //LstOrderNotFinish.Clear();
+                    //Api.Controller.getLstOrderNotFinish(Setting.SelectedLine.LineID)?.ForEach(x => LstOrderNotFinish.Add(x));
+                    MessageBox.Show("Order Confirmed", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Confirm order failed", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            ConfirmOrderLock.Release();
+        }
+
+        DispatcherTimer UITimer = new DispatcherTimer(DispatcherPriority.Background, Application.Current.Dispatcher);
+        CancellationTokenSource UpdateUITaskCTS;
+        public void CancelTask()
+        {
+            if (UpdateUITaskCTS != null)
+                if (!UpdateUITaskCTS.IsCancellationRequested)
+                    UpdateUITaskCTS.Cancel();
         }
 
         public MonitorViewModel()
         {
-            var ProductionPlan = Api.Controller.GetLinePlan(new ProductionPlan()
-            {
-                FactoryID = 1,
-                WorkingDate = TodayDate,
-                ProductID = Setting.SelectedProduct.ID,
-                LineID = Setting.SelectedLine.LineID,
-                ShiftID = CurrentShift
-            });
-            if (ProductionPlan == null)
-            {
-                IN.CountingSensor.OnPinValueChanged -= CountingSensor_OnPinValueChanged;
-                //MessageBox.Show("No plan found, Create a new plan");
-                return;
-            }
-            else
-            {
-                T = new Timer(Callback, null, 0, 1000);
-                IN.CountingSensor.OnPinValueChanged += CountingSensor_OnPinValueChanged;
-            }
-            Plan.elapsed = ProductionPlan.elapsed;
-            Plan.remain = ProductionPlan.remain;
-            Plan.order = ProductionPlan.order;
+            CancelTask();
+            UpdateUITaskCTS = new CancellationTokenSource();
+            UpdateUILoop(UpdateUITaskCTS.Token);
         }
 
-        private void Callback(object state)
+        ProductionDtl UnConfirmOrder = null;
+        private async void UpdateUILoop(CancellationToken token)
         {
             try
             {
-                ProductionDtl LastOrder = null;
-                var Orders = Api.Controller.getLstOrderNotFinish(Setting.SelectedLine.LineID);
-                if (Orders.Count > 0)
-                    LastOrder = Orders.Last();
-                if (LastOrder != null)
+                var ProductionPlan1 = await Api.Controller.GetLinePlan(new ProductionPlan()
                 {
-                    if (LastOrder.Message?.ToUpper() != "OK")
-                        OrderDuration = $"{LastOrder.Message?.ToUpper()} | {(DateTime.Now - DateTime.Parse(LastOrder.StartTime)).ToString("hh\\:mm\\:ss")}";
-                    else if (LastOrder.Message?.ToUpper() == "OK")
-                    {
-                        OrderDuration = "OK";
-                    }
+                    FactoryID = 1,
+                    WorkingDate = TodayDate,
+                    ProductID = Setting.SelectedProduct.ID,
+                    LineID = Setting.SelectedLine.LineID,
+                    ShiftID = CurrentShift
+                });
+                if (ProductionPlan1 == null)
+                {
+                    IN.CountingSensor.OnPinValueChanged -= CountingSensor_OnPinValueChanged;
+                    return;
                 }
-            }
-            catch (Exception)
-            {
-
-            }
-        }
-
-        private async void CountingSensor_OnPinValueChanged(object sender, GPIOPin.PinValueChangedEventArgs e)
-        {
-            if (e.Edge == Edge.Rise)
-            {
-
-                if (Plan.remain > 0)
+                else
                 {
-                    var Succeed = await Api.Controller.UpdatePlan(new ProductionPlan()
+                    IN.CountingSensor.OnPinValueChanged += CountingSensor_OnPinValueChanged;
+                }
+                Plan.elapsed = ProductionPlan1.elapsed;
+                Plan.remain = ProductionPlan1.remain;
+                Plan.order = ProductionPlan1.order;
+                while (true)
+                {
+                    token.ThrowIfCancellationRequested();
+                    ProductionDtl LastOrder = null;
+                    var Orders = await Api.Controller.getLstOrderNotFinishAsync(Setting.SelectedLine.LineID);
+                    if (Orders.Count > 0)
+                        LastOrder = Orders.Last();
+                    if (LastOrder != null)
                     {
-                        ShiftID = App.CurrentShift,
-                        LineID = Setting.SelectedLine.LineID,
+                        UnConfirmOrder = LastOrder;
+                        OrderDuration = "Confirm";
+                        if (WorkingStatus == WorkingStatus.Stop)
+                            OrderDuration = $"Confirm \n{LastOrder.Message?.ToUpper()} | {(DateTime.Now - DateTime.Parse(LastOrder.StartTime)).ToString("hh\\:mm\\:ss")}";
+                    }
+                    else
+                    {
+                        OrderDuration = "No Order";
+                        UnConfirmOrder = null;
+                    }
+                    var ProductionPlan = await Api.Controller.GetLinePlan(new ProductionPlan()
+                    {
                         FactoryID = 1,
-                        GoodProdQty = 1,
-                        WorkingDate = App.TodayDate,
-                        ProductID = Setting.SelectedProduct.ID
+                        WorkingDate = TodayDate,
+                        ProductID = Setting.SelectedProduct.ID,
+                        LineID = Setting.SelectedLine.LineID,
+                        ShiftID = CurrentShift
                     });
-                    if (Succeed)
+                    if (ProductionPlan != null)
                     {
-                        Plan.remain--;
+                        Plan.elapsed = ProductionPlan.elapsed;
+                        Plan.remain = ProductionPlan.remain;
+                        Plan.order = ProductionPlan.order;
+                    }
+                    if (Plan.remain > 0)
+                    {
                         if (Plan.remain < Setting.DefaultLevel)
                         {
                             WorkingStatus = WorkingStatus.Order;
@@ -138,25 +183,97 @@ namespace WisolSMTLineApp.ViewModel
                             //await OUT.OrangeLight.RST();
                             //await OUT.RedLight.RST();
                         }
-                        Plan.elapsed++;
                         if (Plan.remain > Setting.DefaultLevel)
                         {
                             Ellipse = new SolidColorBrush(Colors.Green);
-
                         }
                         else
                         {
                             Ellipse = new SolidColorBrush(Colors.Orange);
                         }
                     }
+                    if (Plan.remain == 0)
+                    {
+                        WorkingStatus = WorkingStatus.Stop;
+                        Ellipse = new SolidColorBrush(Colors.Red);
+                        //await OUT.OrangeLight.RST();
+                        //await OUT.GreenLight.RST();
+                        //await OUT.RedLight.SET();
+                    }
+                    await Task.Delay(1000);
                 }
-                else if (Plan.remain == 0)
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        SemaphoreSlim LockObject = new SemaphoreSlim(1, 1);
+        private async void CountingSensor_OnPinValueChanged(object sender, GPIOPin.PinValueChangedEventArgs e)
+        {
+            if (e.Edge == Edge.Rise)
+            {
+                if (Plan.remain > 0)
                 {
-                    WorkingStatus = WorkingStatus.Stop;
-                    Ellipse = new SolidColorBrush(Colors.Red);
-                    //await OUT.OrangeLight.RST();
-                    //await OUT.GreenLight.RST();
-                    //await OUT.RedLight.SET();
+                    await LockObject.WaitAsync();
+                    var ProductionPlan1 = await Api.Controller.GetLinePlan(new ProductionPlan()
+                    {
+                        FactoryID = 1,
+                        WorkingDate = TodayDate,
+                        ProductID = Setting.SelectedProduct.ID,
+                        LineID = Setting.SelectedLine.LineID,
+                        ShiftID = CurrentShift
+                    });
+                    if (ProductionPlan1 != null)
+                    {
+                        if (ProductionPlan1.remain > 0)
+                            await Api.Controller.UpdatePlan(new ProductionPlan()
+                            {
+                                ShiftID = App.CurrentShift,
+                                LineID = Setting.SelectedLine.LineID,
+                                FactoryID = 1,
+                                GoodProdQty = 1,
+                                WorkingDate = App.TodayDate,
+                                ProductID = Setting.SelectedProduct.ID
+                            });
+                    }
+                    LockObject.Release();
+                    //if (Succeed)
+                    //{
+                    //    Plan.remain--;
+                    //    if (Plan.remain < Setting.DefaultLevel)
+                    //    {
+                    //        WorkingStatus = WorkingStatus.Order;
+                    //        //await OUT.OrangeLight.SET();
+                    //        //await OUT.GreenLight.RST();
+                    //        //await OUT.RedLight.RST();
+                    //    }
+                    //    else if (Plan.remain > Setting.DefaultLevel)
+                    //    {
+                    //        WorkingStatus = WorkingStatus.Normal;
+                    //        //await OUT.GreenLight.SET();
+                    //        //await OUT.OrangeLight.RST();
+                    //        //await OUT.RedLight.RST();
+                    //    }
+                    //    Plan.elapsed++;
+                    //    if (Plan.remain > Setting.DefaultLevel)
+                    //    {
+                    //        Ellipse = new SolidColorBrush(Colors.Green);
+
+                    //    }
+                    //    else
+                    //    {
+                    //        Ellipse = new SolidColorBrush(Colors.Orange);
+                    //    }
+                    //}
+                    //if (Plan.remain == 0)
+                    //{
+                    //    WorkingStatus = WorkingStatus.Stop;
+                    //    Ellipse = new SolidColorBrush(Colors.Red);
+                    //    //await OUT.OrangeLight.RST();
+                    //    //await OUT.GreenLight.RST();
+                    //    //await OUT.RedLight.SET();
+                    //}
                 }
             }
         }
@@ -169,16 +286,7 @@ namespace WisolSMTLineApp.ViewModel
                 _Ellipse = value; OnPropertyChanged(nameof(Ellipse));
             }
         }
-        private ICommand _ClickCommand;
-        private string _OrderDuration;
 
-        public ICommand ClickCommand
-        {
-            get
-            {
-                return _ClickCommand ?? (_ClickCommand = new CommandHandler(() => SensorDetected(), () => CanExecute));
-            }
-        }
 
         private void SensorDetected()
         {
@@ -188,7 +296,7 @@ namespace WisolSMTLineApp.ViewModel
         public void Dispose()
         {
             IN.CountingSensor.OnPinValueChanged -= CountingSensor_OnPinValueChanged;
-            if (T != null) T.Dispose();
+            CancelTask();
         }
 
         public bool CanExecute
@@ -196,6 +304,24 @@ namespace WisolSMTLineApp.ViewModel
             get
             {
                 return true;
+            }
+        }
+
+        private ICommand _ClickCommand;
+        public ICommand ClickCommand
+        {
+            get
+            {
+                return _ClickCommand ?? (_ClickCommand = new CommandHandler(() => SensorDetected(), () => CanExecute));
+            }
+        }
+
+        private ICommand _OrderCommand;
+        public ICommand OrderCommand
+        {
+            get
+            {
+                return _OrderCommand ?? (_OrderCommand = new CommandHandler(() => ConfirmOrder(), () => CanExecute));
             }
         }
     }

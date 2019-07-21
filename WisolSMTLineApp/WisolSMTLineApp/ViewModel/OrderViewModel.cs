@@ -12,13 +12,8 @@ namespace WisolSMTLineApp.ViewModel
 {
     public class OrderViewModel : BaseViewModel
     {
-        public ObservableCollection<Product> Products { get; private set; }
-        public Product SelectedProduct
-        {
-            get;
-            set;
-        }
-
+        public Product Product { get; private set; }
+       
         int _Amount;
         public int Amount
         {
@@ -28,7 +23,7 @@ namespace WisolSMTLineApp.ViewModel
         public OrderViewModel()
         {
             Amount = Setting.DefaultLots;
-            SelectedProduct = Setting.SelectedProduct;
+            Product = Setting.SelectedProduct;
         }
 
         public void CreateOrder()

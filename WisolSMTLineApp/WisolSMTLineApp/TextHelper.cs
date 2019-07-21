@@ -203,6 +203,7 @@ namespace WisolSMTLineApp
             set
             {
                 selectedProduct = value;
+                NotifyStaticPropertyChanged(nameof(SelectedProduct));
                 TextHelper.WriteToSetting("SelectedProduct", JsonConvert.SerializeObject(selectedProduct));
                 TextHelper.SaveToFile();
             }

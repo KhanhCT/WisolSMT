@@ -9,7 +9,7 @@ namespace WisolSMTLineApp
     /// </summary>
     public partial class OrderControl : UserControl
     {
-        OrderViewModel OrderVM;
+        public OrderViewModel OrderVM { get; set; }
         public OrderControl()
         {
             InitializeComponent();
