@@ -29,6 +29,8 @@ namespace WisolSMTLineApp.Model
         public int elapsed
         {
             get { return _elapsed; }
+            set
+            {
                 if (_elapsed != value)
                 {
                     _elapsed = value;
