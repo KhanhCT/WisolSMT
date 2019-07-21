@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using WisolSMTLineApp.ViewModel;
 
 namespace WisolSMTLineApp
@@ -7,22 +8,26 @@ namespace WisolSMTLineApp
     /// <summary>
     /// Interaction logic for ConfirmationWindow.xaml
     /// </summary>
-    public partial class ConfirmationWindow : Window, INotifyPropertyChanged
+    public partial class ConfirmationWindow : UserControl, INotifyPropertyChanged
     {
 
         ConfirmOrderViewModel ConfirmOrderVM;
         public ConfirmationWindow()
         {
             InitializeComponent();
-            Closing += ConfirmationWindow_Closing;
-            ConfirmOrderVM = new ConfirmOrderViewModel();
-            DataContext = ConfirmOrderVM;
+            Loaded += ConfirmationWindow_Loaded;
+            Unloaded += ConfirmationWindow_Unloaded;
         }
 
-        private void ConfirmationWindow_Closing(object sender, CancelEventArgs e)
+        private void ConfirmationWindow_Unloaded(object sender, RoutedEventArgs e)
         {
-            e.Cancel = true;
-            Visibility = Visibility.Collapsed;
+
+        }
+
+        private void ConfirmationWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            ConfirmOrderVM = new ConfirmOrderViewModel();
+            DataContext = ConfirmOrderVM;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -32,10 +37,9 @@ namespace WisolSMTLineApp
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(ProName));
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            //Close();
         }
     }
 }

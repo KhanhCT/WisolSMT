@@ -24,15 +24,19 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Date:"/>
-        <DatePicker  Grid.Column="1" VerticalAlignment="Center" Margin="10" 
+        <TextBlock Text="LineID:" Grid.Row="0"/>
+        <TextBlock Grid.Column="1" Grid.Row="0" Margin="10" Text="{Binding Path=SelectedLine.LineCode}"/>
+
+        <TextBlock  Grid.Row="1" Text="Date:"/>
+        <DatePicker  Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10" 
                      SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
 
-        <TextBlock Text="Shift:" Grid.Row="1"/>
-        <ComboBox Grid.Column="1" Grid.Row="1" Margin="10" ItemsSource="{Binding Shifts}" 
+        <TextBlock Text="Shift:" Grid.Row="2"/>
+        <ComboBox Grid.Column="1" Grid.Row="2" Margin="10" ItemsSource="{Binding Shifts}" 
                   SelectedIndex="0"
                   SelectedItem="{Binding SelectedShift}" Name="ShiftComboBox">
             <ComboBox.ItemTemplate>
@@ -43,11 +47,11 @@
         </ComboBox>
 
 
-        <TextBlock Text="Model:" Grid.Row="2"/>
-        <ComboBox Grid.Column="1" Grid.Row="2" Margin="10"
+        <TextBlock Text="Model:" Grid.Row="3"/>
+        <ComboBox Grid.Column="1" Grid.Row="3" Margin="10"
                   ItemsSource="{Binding Products}"
-                  SelectedItem="{Binding SelectedProduct}"
-                  Name="ModelComboBox" SelectedIndex="0">
+                  SelectedItem="{Binding Path=SelectedProduct, Mode=TwoWay}"
+                  Name="ModelComboBox">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Product_Name}"/>
@@ -55,10 +59,10 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <TextBlock Text="Remain Nodes:" Grid.Row="3"/>
-        <TextBox Grid.Column="1" Grid.Row="3" Margin="10" Text="{Binding RemainNodes}"/>
+        <TextBlock Text="Remain Nodes:" Grid.Row="4"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Margin="10" Text="{Binding RemainNodes}"/>
         <!--<TextBox Grid.Column="1" Grid.Row="3" Margin="10" Text="{Binding Path=(local:Setting.RemainNode), Mode=TwoWay}"/>-->
 
-        <Button Content="Create" Grid.Row="4" Margin="20" Grid.ColumnSpan="2" Command="{Binding ClickCommand}"/>
+        <Button Content="Create" Grid.Row="5" Margin="20" Grid.ColumnSpan="2" Command="{Binding ClickCommand}" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

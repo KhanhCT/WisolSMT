@@ -29,7 +29,7 @@ namespace WisolSMTLineApp
             _httpClient = new HttpClient(_httpClientHandler);
             _httpClient.BaseAddress = new Uri("http://45.119.212.111:6969/");
             _httpClient.MaxResponseContentBufferSize = 256000;
-            TimeSpan timeout = TimeSpan.FromSeconds(20);
+            TimeSpan timeout = TimeSpan.FromSeconds(5);
             _httpClient.Timeout = timeout;
             _httpClient.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/apng,*/*;q=0.8");
             _httpClient.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
@@ -47,15 +47,15 @@ namespace WisolSMTLineApp
             if (_httpClientHandler != null)
                 _httpClientHandler.Dispose();
         }
-        public List<Shift> GetShifts()
+        public async Task<List<Shift>> GetShifts()
         {
             string url = "product/getShifts";
             List<Shift> shiftList = null;
-            using (var response = _httpClient.GetAsync(url).Result)
+            using (var response = await _httpClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    string content = response.Content.ReadAsStringAsync().Result;
+                    string content = await response.Content.ReadAsStringAsync();
                     Response<List<Shift>> resMsg = JsonConvert.DeserializeObject<Response<List<Shift>>>(content);
                     if (resMsg.Data != null)
                         shiftList = (List<Shift>)resMsg.Data;
@@ -63,16 +63,15 @@ namespace WisolSMTLineApp
                 return shiftList;
             }
         }
-
-        public List<Product> GetProducts()
+        public async Task<List<Product>> GetProducts()
         {
             string url = "product/getLstModel";
             List<Product> productList = null;
-            using (var response = _httpClient.GetAsync(url).Result)
+            using (var response = await _httpClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    string content = response.Content.ReadAsStringAsync().Result;
+                    string content = await response.Content.ReadAsStringAsync();
                     Response<List<Product>> resMsg = JsonConvert.DeserializeObject<Response<List<Product>>>(content);
                     if (resMsg.Data != null)
                         productList = resMsg.Data;
@@ -81,9 +80,9 @@ namespace WisolSMTLineApp
             return productList;
         }
 
-        public ProductionPlan GetProductionPlan(string workingDate, int factoryID, int lineID, int shiftID)
+        public ProductionPlan GetProductionPlan(string workingDate, int factoryID, string lineID, int shiftID)
         {
-            string url = "productionplan/" + workingDate + "/" + factoryID + "/" + lineID + "/" + shiftID;
+            string url = "production/" + workingDate + "/" + factoryID + "/" + lineID + "/" + shiftID;
             ProductionPlan plan = null;
             using (var response = _httpClient.GetAsync(url).Result)
             {
@@ -101,9 +100,11 @@ namespace WisolSMTLineApp
         public bool NewProductionPlan(ProductionPlan obj)
         {
             var jsonObj = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
-            using (var content = new StringContent(jsonObj))
+            using (var content = new StringContent(jsonObj, Encoding.UTF8, "application/json"))
             {
-                var response = _httpClient.PostAsync("production/createPlan", content).Result;
+                var response = _httpClient.PostAsync("production/createPlan/", content).Result;
+                var res = response.Content.ReadAsStringAsync().Result;
+                Response<object> ret = JsonConvert.DeserializeObject<Response<object>>(res);
                 return response.IsSuccessStatusCode;
             }
         }
@@ -123,7 +124,6 @@ namespace WisolSMTLineApp
                 }
             }
         }
-
         public bool NewProductionDtl(ProductionDtl obj)
         {
             var jsonObj = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
@@ -136,12 +136,13 @@ namespace WisolSMTLineApp
 
         public bool CreateOrder(ProductionDtl obj)
         {
-            var jsonObj = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
-            using (var content = new StringContent(jsonObj))
+            var jsonObj = JsonConvert.SerializeObject(obj);
+            using (var content = new StringContent(jsonObj, Encoding.UTF8, "application/json"))
             {
                 try
                 {
-                    var ret = _httpClient.PostAsync("production/createOrderDtl'", content).Result;
+                    var ret = _httpClient.PostAsync("production/createOrderDtl/", content).Result;
+                    var res = ret.Content.ReadAsStringAsync().Result;
                     return ret.IsSuccessStatusCode;
                 }
                 catch (Exception)
@@ -154,11 +155,11 @@ namespace WisolSMTLineApp
         public bool ConfirmOrder(ProductionDtl obj)
         {
             var jsonObj = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
-            using (var content = new StringContent(jsonObj))
+            using (var content = new StringContent(jsonObj, Encoding.UTF8, "application/json"))
             {
                 try
                 {
-                    var ret = _httpClient.PutAsync("production/submitOrderDtl", content).Result;
+                    var ret = _httpClient.PostAsync("production/submitOrderDtl/", content).Result;
                     return ret.IsSuccessStatusCode;
                 }
                 catch (Exception)
@@ -168,24 +169,94 @@ namespace WisolSMTLineApp
             }
         }
 
-        public List<ProductionDtl> getLstOrderNotFinish(int lineID)
+        public List<ProductionDtl> getLstOrderNotFinish(string lineID)
         {
-            string url = "production/getLstOrderNotFinish/" + lineID;
             List<ProductionDtl> LstOrderNotFinish = null;
-            using (var response = _httpClient.GetAsync(url).Result)
+            try
             {
-                if (response.IsSuccessStatusCode)
+                string url = "production/getLstOrderNotFinish/" + lineID;
+                using (var response = _httpClient.GetAsync(url).Result)
                 {
-                    var content = response.Content.ReadAsStringAsync().Result;
-                    Response<List<ProductionDtl>> resMsg = JsonConvert.DeserializeObject<Response<List<ProductionDtl>>>(content);
-                    if (resMsg.Data != null)
-                        LstOrderNotFinish = resMsg.Data;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = response.Content.ReadAsStringAsync().Result;
+                        Response<List<ProductionDtl>> resMsg = JsonConvert.DeserializeObject<Response<List<ProductionDtl>>>(content);
+                        if (resMsg.Data != null)
+                            LstOrderNotFinish = resMsg.Data;
+                    }
                 }
+            }
+            catch (Exception)
+            {
 
             }
             return LstOrderNotFinish;
         }
 
+        public Plan GetLinePlan(ProductionPlan Obj)
+        {
+            try
+            {
+                string url = $"/production/getPlanOfLine/{Obj.WorkingDate}/{Obj.FactoryID}/{Obj.LineID}/{Obj.ShiftID}";
+                Plan plan = null;
+                using (var response = _httpClient.GetAsync(url).Result)
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = response.Content.ReadAsStringAsync().Result;
+                        Response<Plan> resMsg = JsonConvert.DeserializeObject<Response<Plan>>(content);
+                        if (resMsg.Data != null)
+                            plan = resMsg.Data;
+                    }
+                }
+                return plan;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<LineInfo> getLstLine()
+        {
+            List<LineInfo> ListLine = null;
+            try
+            {
+                string url = "/product/getLstLine";
+                using (var response = _httpClient.GetAsync(url).Result)
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = response.Content.ReadAsStringAsync().Result;
+                        Response<List<LineInfo>> resMsg = JsonConvert.DeserializeObject<Response<List<LineInfo>>>(content);
+                        if (resMsg.Data != null)
+                            ListLine = resMsg.Data;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return ListLine;
+        }
+        public async Task<bool> UpdatePlan(ProductionPlan Obj)
+        {
+            var jsonObj = JsonConvert.SerializeObject(Obj);
+            using (var content = new StringContent(jsonObj, Encoding.UTF8, "application/json"))
+            {
+                try
+                {
+                    var ret = await _httpClient.PostAsync("production/initProduct/", content);
+                    var res = ret.Content.ReadAsStringAsync().Result;
+                    return ret.IsSuccessStatusCode;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
         public class Response<T>
         {
             public string Status { get; set; }

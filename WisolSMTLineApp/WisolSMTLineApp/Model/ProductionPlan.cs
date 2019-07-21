@@ -10,7 +10,7 @@ namespace WisolSMTLineApp.Model
     {
         public string WorkingDate { set; get; }
         public int FactoryID { set; get; }
-        public int LineID { set; get; }
+        public string LineID { set; get; }
         public int ShiftID { set; get; }
         public int ProductID { set; get; }
         public string ProductName { set; get; }

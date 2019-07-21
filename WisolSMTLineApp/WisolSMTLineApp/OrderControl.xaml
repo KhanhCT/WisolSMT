@@ -29,10 +29,8 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Model:" Grid.Row="0"/>
-        <ComboBox Grid.Column="1" Grid.Row="0" Margin="10" SelectedIndex="0">
-            <ComboBoxItem Content="L7E0"/>
-            <ComboBoxItem Content="L7E1" />
-        </ComboBox>
+        <TextBlock Grid.Column="1" Grid.Row="0" Margin="10" Text="{Binding Product_Name, Source={x:Static local:Setting.SelectedProduct}}">
+        </TextBlock>
 
         <TextBlock Text="Amount:" Grid.Row="1"/>
         <TextBox  Grid.Column="1" Grid.Row="1" Margin="10" Text="{Binding Amount, Mode=TwoWay}"/>

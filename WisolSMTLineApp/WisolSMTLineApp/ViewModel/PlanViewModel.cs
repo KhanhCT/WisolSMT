@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,19 +17,31 @@ namespace WisolSMTLineApp.ViewModel
     public class PlanViewModel : BaseViewModel
     {
         public static PlanViewModel PlanVM;
+        ProductionPlan CreatedPlan;
+
         public ObservableCollection<Shift> Shifts { get; private set; } = new ObservableCollection<Shift>();
         public Shift SelectedShift { get; set; }
         public static ObservableCollection<Product> Products { get; private set; } = new ObservableCollection<Product>();
+        Product selectedProduct;
         public Product SelectedProduct
         {
-            get;
-            set;
+            get
+            {
+                return selectedProduct;
+            }
+            set
+            {
+                selectedProduct = value;
+                Setting.SelectedProduct = selectedProduct;
+                OnPropertyChanged(nameof(SelectedProduct));
+                //TextHelper.WriteToSetting("SelectedProduct", JsonConvert.SerializeObject(value));
+                //TextHelper.SaveToFile();
+            }
         }
-
         public int RemainNodes { get; set; }
         public Controller controller;
         static ShiftPeriod DayShift = new ShiftPeriod() { From = TimeSpan.Parse("08:00:00") };
-        static ShiftPeriod NightShift = new ShiftPeriod() { From = TimeSpan.Parse("20:00:00") };
+        //static readonly ShiftPeriod NightShift = new ShiftPeriod() { From = TimeSpan.Parse("20:00:00") };
         static TimeSpan TodayDateTime { get { return TimeSpan.Parse(DateTime.Now.ToString("hh:mm:ss")); } }
 
         DateTime _SelectedDate = DateTime.Now;
@@ -65,11 +78,12 @@ namespace WisolSMTLineApp.ViewModel
             List<Product> _products = null;
             try
             {
-                await Task.Run(() =>
+                await Task.Run(async () =>
                 {
                     controller = new Controller();
-                    _shifts = controller.GetShifts();
-                    _products = controller.GetProducts();
+                    _shifts = await controller.GetShifts();
+                    _products = await controller.GetProducts();
+                    CreatedPlan = Api.Controller.GetProductionPlan(App.TodayDate, 1, Setting.SelectedLine.LineID, App.CurrentShift);
                 });
             }
             catch (Exception)
@@ -80,29 +94,45 @@ namespace WisolSMTLineApp.ViewModel
             {
                 if (_shifts != null)
                 {
+                    Shifts.Clear();
                     _shifts.ForEach(x => { Shifts.Add(x); });
                     SelectedShift = (App.CurrentShift == 1) ? Shifts[0] : Shifts[1];
                 }
                 if (_products != null)
                 {
+                    Products.Clear();
                     _products.ForEach(x => Products.Add(x));
-                    SelectedProduct = Products[0];
+
+                    if (Setting.SelectedProduct != null)
+                    {
+                        SelectedProduct = Products.Where(x => x.ID == Setting.SelectedProduct.ID).FirstOrDefault();
+                    }
+                    else
+                    {
+                        SelectedProduct = Products[0];
+                    }
+                    //Setting.SelectedProduct = SelectedProduct;
                 }
+                if (Setting.SelectedLine != null)
+                    SelectedLine = Setting.SelectedLine;
             }
         }
         public void Create_Plan()
         {
-            if (
-            controller.NewProductionPlan(new ProductionPlan()
+            var success = controller.NewProductionPlan(new ProductionPlan()
             {
-                ProductID = SelectedProduct.ID,
-                ProductName = SelectedProduct.Product_Name,
+                ProductID = Setting.SelectedProduct.ID,
+                ProductName = Setting.SelectedProduct.Product_Name,
                 FactoryID = 1,
-                LineID = 1,
-                WorkingDate = SelectedDate.ToString("dd/mm/yyyy"),
+                LineID = Setting.SelectedLine.LineID.ToString(),
+                WorkingDate = App.TodayDate,
                 OrderedQty = RemainNodes,
                 ShiftID = SelectedShift.ID,
-            })) { MessageBox.Show("Plan created"); }
+            });
+            if (success)
+            {
+                MessageBox.Show("Plan created");
+            }
             else
             {
                 MessageBox.Show("Plan create failed, something happened");
@@ -123,6 +153,12 @@ namespace WisolSMTLineApp.ViewModel
             {
                 return true;
             }
+        }
+        LineInfo selectedLine;
+        public LineInfo SelectedLine
+        {
+            get { return selectedLine; }
+            set { selectedLine = value; OnPropertyChanged(nameof(SelectedLine)); }
         }
     }
 }

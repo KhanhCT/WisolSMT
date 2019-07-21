@@ -5,22 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WisolSMTLineApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="400">
+        Title="MainWindow" Height="480" Width="480">
     <Window.Resources>
         <Style TargetType="TabItem">
             <Setter Property="FontSize" Value="16"/>
         </Style>
     </Window.Resources>
     <Grid>
-        <TabControl Name="MainTab">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TabControl Name="MainTab" Grid.Row="1">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TabItem}">
+                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="2,2,0,0" Margin="1,0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        
+                                        Margin="10,5"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
             <TabItem Header="PLAN" FontSize="16">
                 <local:PlanControl/>
             </TabItem>
             <TabItem Header="ORDER" FontSize="16">
                 <local:OrderControl/>
             </TabItem>
-            <TabItem Header="MONITOR" FontSize="16">
+            <TabItem Header="MONITOR" FontSize="16" Name="MonitorTab">
                 <local:MonitorControl/>
+            </TabItem>
+
+            <TabItem Header="CONFIRMATION" FontSize="16">
+                <local:ConfirmationWindow/>
             </TabItem>
             <TabItem Header="SETTING" FontSize="16">
                 <local:SettingControl/>

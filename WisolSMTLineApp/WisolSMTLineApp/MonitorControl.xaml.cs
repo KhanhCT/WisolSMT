@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,13 +20,26 @@ namespace WisolSMTLineApp
         public MonitorControl()
         {
             InitializeComponent();
-            MonitorVM = new MonitorViewModel();
-            DataContext = MonitorVM;
+            Loaded += MonitorControl_Loaded;
+            Unloaded += MonitorControl_Unloaded;
+        }
+
+        private void MonitorControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (MonitorVM != null)
+            {
+                MonitorVM.Dispose();
+            }
         }
 
         private void MonitorControl_Loaded(object sender, RoutedEventArgs e)
         {
-
-        }     
+            if (!StartUp)
+            {
+                MonitorVM = new MonitorViewModel();
+                DataContext = MonitorVM;
+            }
+            StartUp = false;
+        }
     }
 }

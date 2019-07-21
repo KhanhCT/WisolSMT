@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WisolSMTLineApp.Model;
 
@@ -11,8 +12,13 @@ namespace WisolSMTLineApp.ViewModel
 {
     public class OrderViewModel : BaseViewModel
     {
-        public Controller controller;
         public ObservableCollection<Product> Products { get; private set; }
+        public Product SelectedProduct
+        {
+            get;
+            set;
+        }
+
         int _Amount;
         public int Amount
         {
@@ -22,30 +28,36 @@ namespace WisolSMTLineApp.ViewModel
         public OrderViewModel()
         {
             Amount = Setting.DefaultLots;
-            Products = PlanViewModel.Products;
-            controller = new Controller();
+            SelectedProduct = Setting.SelectedProduct;
         }
-        public void OrderNode()
+
+        public void CreateOrder()
         {
-            //controller.CreateOrder(new ProductionDtl()
-            //{
-            //    LineID = 1,
-            //    FactoryID = 1,
-            //    Amount = Amount,
-            //    WorkingDate = App.TodayDate,
-            //    ShiftID = App.CurrentShift,
-
-            //}); 
-            MainWindow.ConfirmWindow = new ConfirmationWindow();
-            MainWindow.ConfirmWindow.ShowDialog();
+            var ProductionDtl = new ProductionDtl()
+            {
+                Amount = Amount,
+                FactoryID = 1,
+                WorkingDate = App.TodayDate,
+                ShiftID = App.CurrentShift,
+                LineID = Setting.SelectedLine.LineID,
+                ProductID = Setting.SelectedProduct.ID,
+                Message = "WAITTING"
+            };
+            if (Api.Controller.CreateOrder(ProductionDtl))
+            {
+                //LstOrderNotFinish.Clear();
+                //Api.Controller.getLstOrderNotFinish(2)?.ForEach(x => LstOrderNotFinish.Add(x));
+                MessageBox.Show("Create order successfully");
+            }
+            else
+                MessageBox.Show("Create order failed, something happened");
         }
-
         private ICommand _orderCommand;
         public ICommand OrderCommand
         {
             get
             {
-                return _orderCommand ?? (_orderCommand = new CommandHandler(() => OrderNode(), () => CanExecute));
+                return _orderCommand ?? (_orderCommand = new CommandHandler(() => CreateOrder(), () => CanExecute));
             }
         }
         public bool CanExecute

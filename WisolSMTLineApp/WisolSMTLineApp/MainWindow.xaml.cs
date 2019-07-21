@@ -14,12 +14,13 @@ namespace WisolSMTLineApp
     public partial class MainWindow : Window
     {
         public static Dispatcher MainDispatcher { get; set; }
+        public static bool StartUp = true;
         public MainWindow()
         {
             MainDispatcher = this.Dispatcher;
             InitializeComponent();
             MainTabControl = MainTab;
-            DataContext = this;
+            DataContext = this;           
         }
         public static TabControl MainTabControl;
         public static ConfirmationWindow ConfirmWindow { get; set; }

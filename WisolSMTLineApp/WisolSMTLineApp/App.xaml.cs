@@ -16,6 +16,7 @@ namespace WisolSMTLineApp
         {
             Init();
         }
+
         static TimeSpan TodayDateTime { get { return TimeSpan.Parse(DateTime.Now.ToString("HH:mm:ss")); } }
         static ShiftPeriod DayShift = new ShiftPeriod() { From = TimeSpan.Parse("08:00:00") };
         public static int CurrentShift
@@ -30,29 +31,28 @@ namespace WisolSMTLineApp
             }
         }
         public static string TodayDate { get { return DateTime.Now.ToString("dd-MM-yyyy"); } }
-        private async void Init()
+        private void Init()
         {
-            await TextHelper.InitSetting();
-         
-            var COMport = TextHelper.ReadSetting("COMPort");
-            try
-            {
-                if (GPIOBoard.GPIOCOM == null)
-                    GPIOBoard.GPIOCOM = new GPIOSerial(COMport);
-                Loop();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);               
-            }
-            try
-            {
+            TextHelper.InitSetting();
+            //var COMport = TextHelper.ReadSetting("COMPort");
+            //try
+            //{
+            //    if (GPIOBoard.GPIOCOM == null)
+            //        GPIOBoard.GPIOCOM = new GPIOSerial(COMport);
+            //    Loop();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+            //try
+            //{
 
-            }
-            catch
-            {
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
 
         public static GPIOBoard F0 = new GPIOBoard(0xF0);

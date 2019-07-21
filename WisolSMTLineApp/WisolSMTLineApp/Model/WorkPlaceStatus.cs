@@ -12,8 +12,8 @@ namespace WisolSMTLineApp.Model
         public bool Finished { set; get; }
     }
 
-    
-    public enum WorkingStatus { Normal, Order, Warning }
+
+    public enum WorkingStatus { Normal, Order, Stop }
     public enum WorkingMode { Auto, Manual }
-    
+
 }

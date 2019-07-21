@@ -16,7 +16,6 @@ namespace WisolSMTLineApp
             InitializeComponent();
             Loaded += SettingControl_Loaded;
         }
-
         private void SettingControl_Loaded(object sender, RoutedEventArgs e)
         {
             SettingVM = new SettingViewModel();

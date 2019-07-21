@@ -13,15 +13,11 @@ namespace WisolSMTLineApp
     public partial class PlanControl : UserControl
     {
         public static PlanViewModel PlanVM { get; set; }
-     
         public PlanControl()
         {
             InitializeComponent();
-            PlanVM = new PlanViewModel();
-            Thread.Sleep(500);
+            PlanVM = new PlanViewModel();           
             this.DataContext = PlanVM;
         }
-
-       
     }
 }
