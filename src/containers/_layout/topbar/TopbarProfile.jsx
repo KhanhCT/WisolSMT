@@ -1,6 +1,5 @@
 import React, { PureComponent } from "react";
 import DownIcon from "mdi-react/ChevronDownIcon";
-import TopbarMenuLink from "./TopbarMenuLink";
 import { Collapse } from "reactstrap";
 import { callApi, userHelper } from "../../../helpers";
 import { apiConfigs, ROUTES } from "../../../constants";
@@ -8,7 +7,7 @@ import { translate } from "react-i18next";
 import { connect } from "react-redux";
 import { updateForSchoolUserRole } from "../../../redux/actions";
 
-const AvaMale = process.env.PUBLIC_URL + "/img/avatar-male.svg";
+const AvaMale = process.env.PUBLIC_URL + "/favicon-32x32.png";
 const AvaFemale = process.env.PUBLIC_URL + "/img/avatar-female.svg";
 
 class TopbarProfile extends PureComponent {

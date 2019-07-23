@@ -80,7 +80,6 @@ export class LineOrder extends Component {
                     this.setState({ lineOrderData: [] });
                 });
         }
-
     }
 
     render() {
@@ -117,15 +116,14 @@ export class LineOrder extends Component {
                     style={{ fontSize: "30px" }}
                     className="p-0-m"
                     titleClassName="m-3-m"
-                    collapseClassName="t-3-m"
-                >
+                    collapseClassName="t-3-m">
                     <TableComponent
                         className="table--bordered table--head-accent table-monitoring"
-                        responsive={true}
-                    >
+                        responsive={true}>
                         <tbody>
                             {renderHeaderDatas}
                             {renderRowDatas}
+                        <tr>{lineOrderData.length == 0 ? "No data available" : null}</tr>
                         </tbody>
                     </TableComponent>
                 </Panel>

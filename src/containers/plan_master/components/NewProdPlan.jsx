@@ -37,7 +37,6 @@ export default class NewProdPlan extends Component {
         userHelper.showErrorMessage("Not found any plan");
       });
   }
-
   componentDidUpdate(prevProps, prevState) {
     let prevProductionPlan = prevProps.productionPlan,
       newProductionPlan = this.props.productionPlan;
