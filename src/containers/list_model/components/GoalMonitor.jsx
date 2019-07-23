@@ -8,11 +8,10 @@ import {
   SelectFactory,
   SelectShift,
   SelectLine,
-} from "../../model_register/components/search_components";
+} from "../../plan_master/components/search_components";
 import { callApi } from "../../../helpers";
 import moment from "moment";
 import Clock from "react-live-clock";
-import { CursorDefaultOutlineIcon } from "mdi-react";
 
 const LIST_SHIFT = {
   "DAY": {
