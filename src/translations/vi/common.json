@@ -1,0 +1,862 @@
+{
+    "dashboard_default": {
+        "page_title": "Dashboard Default",
+        "visits": "Visits",
+        "total_page_views": "Total page views",
+        "new_users": "New users",
+        "bounce_rate": "Bounce rate",
+        "ab_testing": "A/B testing analytics",
+        "visitors_sessions": "Visitor sessions",
+        "sales_statistic": "Sales statistic",
+        "budget_statistic": "Budget statistic",
+        "audience_by_country": "Audience by country",
+        "best_selling": "Best selling regions",
+        "goals_completion": "Goal completion"
+    },
+    "dashboard_commerce": {
+        "page_title": "Dashboard E-commerce",
+        "total_products": "Total products",
+        "total_profit": "Total profit",
+        "orders_today": "Orders today",
+        "subscriptions": "Subscriptions",
+        "product_sales": "Product sales",
+        "new_orders": "New orders",
+        "my_todos": "My todos",
+        "sales_statistic": "Sales statistic",
+        "sales_report": "Sales report",
+        "emails": "Emails",
+        "short_reminders": "Short reminders",
+        "top_selling_products": "Top selling products",
+        "basic_card": "Basic card",
+        "recent_orders": "Recent orders"
+    },
+    "dashboard_fitness": {
+        "page_title": "Dashboard Fitness",
+        "heartrate": "Heartrate",
+        "calories_burn": "Calories burn",
+        "steps": "Steps",
+        "distance": "Distance",
+        "activity_chart": "Activity chart",
+        "today_running_map": "Today running map",
+        "my_competitors": "My competitors",
+        "fat_burning": "Fat burning",
+        "activity_rating": "Activity rating"
+    },
+    "dashboard_crypto": {
+        "page_title": "Dashboard Crypto",
+        "trade_history": "Trade history",
+        "cryptotrends_today": "Cryptotrends today",
+        "place_order": "Place order",
+        "top_cryptocurrencies": "Top 10 cryptocurrencies"
+    },
+    "dashboard_student": {
+        "page_title": "Dashboard Student",
+        "visits": "Visits",
+        "total_page_views": "Total page views",
+        "new_users": "New users",
+        "bounce_rate": "Bounce rate",
+        "ab_testing": "User online time analytics",
+        "visitors_sessions": "Visitor sessions",
+        "sales_statistic": "Sales statistic",
+        "budget_statistic": "Budget statistic",
+        "audience_by_country": "Audience by country",
+        "best_selling": "Best selling regions",
+        "goals_completion": "Goal completion",
+        "road_map": "Learning Road map",
+        "offline_user_learning": "Biểu đồ số giờ học offline"
+    },
+    "layout": {
+        "page_title": "Layout",
+        "light_theme": "Light Theme",
+        "dark_theme": "Dark Theme"
+    },
+    "ui_elements": {
+        "title": "UI elements",
+        "alerts": {
+            "title": "Alerts",
+            "basic_alerts": "Basic alerts",
+            "bordered_alerts_with_icons": "Bordered alerts with icons",
+            "colored_alerts_with_icons": "Colored alerts with icons",
+            "neutral_alerts_with_icons": "Neutral alerts with icons"
+        },
+        "buttons": {
+            "title": "Buttons",
+            "default_buttons": "Default buttons",
+            "buttons_icons_and_expand": "Buttons icons and expand",
+            "square_buttons": "Square buttons",
+            "rounded_buttons": "Rounded buttons",
+            "status_buttons": "Status buttons",
+            "button_group": "Button group",
+            "button_dropdown": "Button dropdown"
+        },
+        "carousel": {
+            "title": "Carousel",
+            "basic_carousel": "Basic carousel",
+            "basic_carousel_without_caption": "Basic carousel without caption",
+            "basic_carousel_with_caption": "Basic carousel with caption"
+        },
+        "collapse": {
+            "title": "Collapse",
+            "minimal_collapse": "Minimal collapse",
+            "boxed_collapse": "Boxed collapse",
+            "boxed_collapse_full_width": "Boxed collapse full width"
+        },
+        "modals": {
+            "title": "Modals",
+            "default_modals": "Default modals",
+            "colored_modals": "Colored modals",
+            "header_modals": "Header modals"
+        },
+        "notifications": {
+            "title": "Notifications",
+            "basic_notifications": "Basic notifications",
+            "image_notifications": "Image notifications",
+            "color_notifications": "Color notifications",
+            "color_states_full_width": "Color states full width"
+        },
+        "panels": {
+            "title": "Panels",
+            "default_panel": "Default panel",
+            "default_panel_with_subhead": "Default panel with subhead",
+            "default_panel_divider": "Default panel divider",
+            "label_panel_divider": "Label panel divider",
+            "icon_panel_divider": "Icon panel divider",
+            "tabs_panel_divider": "Tabs panel divider",
+            "success_panel": "Success panel",
+            "warning_panel": "Warning panel",
+            "danger_panel": "Danger panel"
+        },
+        "progress_bars": {
+            "title": "Progress bars",
+            "default_progress_bar": "Default progress bar",
+            "data_progress_bar": "Data progress bar",
+            "animated_progress_bar": "Animated progress bar",
+            "colored_progress_bars": "Colored progress bars",
+            "multisized_progress_bars": "Multisized progress bars",
+            "animated_multisized_progress_bars": "Animated multisized progress bars"
+        },
+        "range_sliders": {
+            "title": "Range sliders",
+            "slider_without_params": "Slider without params",
+            "slider_start_point": "Slider start point",
+            "double_slider_type": "Double slider type",
+            "slider_with_scale": "Slider with scale"
+        },
+        "tabs": {
+            "title": "Tabs",
+            "default_tabs": "Default tabs",
+            "default_tabs_bordered_top": "Default tabs bordered top",
+            "justify_tabs": "Justify tabs",
+            "justify_tabs_bordered_top": "Justify tabs bordered top",
+            "justify_tabs_bordered_bottom": "Justify tabs bordered bottom",
+            "tabs_bordered_bottom": "Tabs bordered bottom",
+            "vertical_tabs": "Vertical tabs"
+        },
+        "timeline": {
+            "title": "Timeline"
+        },
+        "tooltips_popovers": {
+            "title": "Tooltips & Popovers",
+            "tooltip_on_top": "Tooltip on top",
+            "tooltip_on_bottom": "Tooltip on bottom",
+            "tooltip_on_right": "Tooltip on right",
+            "tooltip_on_left": "Tooltip on left",
+            "popover_on_top": "Popover on top",
+            "popover_on_bottom": "Popover on bottom",
+            "popover_on_right": "Popover on right",
+            "popover_on_left": "Popover on left"
+        },
+        "typography": {
+            "title": "Typography",
+            "basic_heading": "Basic heading",
+            "heading_with_subheading": "Heading with subheading",
+            "bold_heading": "Bold heading",
+            "sample_text": "Sample text",
+            "sample_text_with_description": "Sample text with description",
+            "default_list": "Default list",
+            "simple_icon_list": "Simple icon list",
+            "numerous_list": "Numerous list",
+            "blockquote": "Blockquote",
+            "highlight": "Highlight"
+        }
+    },
+    "mail_application": {
+        "page_title": "Mail Application",
+        "compose": "Compose",
+        "inbox": "Inbox",
+        "sent_mail": "Sent Mail",
+        "drafts": "Drafts",
+        "tagged": "Tagged",
+        "deleted": "Deleted",
+        "labels": "Labels",
+        "attachment": "Attachment",
+        "search": "Search"
+    },
+    "chat_application": {
+        "page_title": "Chat Application",
+        "search": "Search",
+        "type_here": "Type here",
+        "download": "Download",
+        "no_messages": "No messages"
+    },
+    "forms": {
+        "title": "Forms",
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "basic_form": {
+            "title": "Basic form",
+            "horizontal_form": "Horizontal form",
+            "vertical_form": "Vertical form"
+        },
+        "check_form_controls": {
+            "title": "Check Form Controls",
+            "default_controls": "Default controls",
+            "colored_controls": "Colored controls",
+            "colored_controls_on_click": "Colored controls on click",
+            "button_type_controls": "Button type controls"
+        },
+        "file_upload": {
+            "title": "File upload",
+            "file_upload_default": "File upload default",
+            "file_upload_custom_height": "File upload custom height"
+        },
+        "floating_labels_form": {
+            "title": "Floating Labels Form",
+            "animated_line_inputs": "Animated line inputs forms with floating labels"
+        },
+        "form_dropzone": {
+            "title": "Form dropzone",
+            "drop_files_to_upload": "Drop files to upload"
+        },
+        "form_layouts": {
+            "title": "Form layouts",
+            "horizontal_form": "Horizontal form",
+            "horizontal_form_with_icons": "Horizontal form with icons",
+            "vertical_form": "Vertical form",
+            "vertical_form_with_icons": "Vertical form with icons"
+        },
+        "from_picker": {
+            "title": "Form-picker",
+            "date_picker": "Date picker",
+            "time_picker": "Time picker",
+            "color_picker": "Color picker"
+        },
+        "from_validation": {
+            "title": "Form Validation",
+            "horizontal_form_validate": "Horizontal form validate",
+            "horizontal_form_validate_two": "Horizontal form validate 2",
+            "vertical_form_validate": "Vertical form validate",
+            "vertical_form_validate_two": "Vertical form validate 2"
+        },
+        "mask_form": {
+            "title": "Mask form",
+            "mask_examples": "Mask examples"
+        },
+        "material_from": {
+            "title": "Material form",
+            "animated_line": "Animated line inputs forms"
+        },
+        "wizard_from": {
+            "title": "Wizard form",
+            "step": "Step",
+            "fill": "Fill your personal data",
+            "address": "What’s your address",
+            "set": "Set the preferences",
+            "back": "Back",
+            "next": "Next"
+        }
+    },
+    "tables": {
+        "title": "Tables",
+        "basic_tables": {
+            "title": "Basic tables",
+            "basic_table": "Basic table",
+            "bordered_table": "Bordered table",
+            "head_accent_table": "Head accent table",
+            "colored_string_table": "Colored string table",
+            "hover_colored_string_table": "Hover colored string table",
+            "inverse_table": "Inverse table",
+            "responsive_table": "Responsive table"
+        },
+        "data_table": {
+            "title": "Data table"
+        },
+        "editable_table": {
+            "title": "Editable table"
+        }
+    },
+    "charts": {
+        "title": "Charts",
+        "react_chartjs": {
+            "title": "ChartJS 2",
+            "point_sizes": "Point sizes",
+            "random_animated_line": "Random animated line",
+            "random_animated_bars": "Random animated bars",
+            "polar_area": "Polar area",
+            "dynamicly_refreshed_doughnut": "Denamicly refreshed doughnut",
+            "legend_handlers": "Legend handlers"
+        },
+        "react_vis": {
+            "title": "React-vis",
+            "plots": "Plots",
+            "line_series_canvas": "Line series canvas",
+            "mark_series_canvas": "Mark series canvas",
+            "line_series": "Line series",
+            "line_series_with_many_colors": "Line series with many colors",
+            "bars": "Bars"
+        },
+        "recharts": {
+            "title": "Recharts",
+            "simple_line_chart": "Simple line chart",
+            "dashed_line_chart": "Dashed  line chart",
+            "simple_area_chart": "Simple area chart",
+            "stacked_area_chart": "Stacked area chart",
+            "multiple_scatter_chart": "Multiple yaxes scatter chart",
+            "simple_radial_bar_chart": "Simple radial bar chart",
+            "simple_radar_chart": "Simple radar chart",
+            "two_level_pie_chart": "Two level pie chart"
+        }
+    },
+    "maps": {
+        "title": "Maps",
+        "google_map": {
+            "title": "Google map",
+            "basic_map": "Basic map",
+            "pin_with_info_window": "Pin with info window",
+            "monochrome_map": "Monochrome map"
+        },
+        "vector_map": {
+            "title": "Vector map",
+            "vector_world_map": "Vector world map"
+        }
+    },
+    "account": {
+        "title": "Account",
+        "email_confirmation": {
+            "title": "Email Confirmation",
+            "verified": "Your e-mail address has been successfully verified",
+            "thank_you": "Thank you for choosing the EasyDev",
+            "go_to_dashboard": "Go to dashboard",
+            "got_to_profile": "Go to profile"
+        },
+        "profile": {
+            "title": "Profile",
+            "current_tasks": "Current tasks",
+            "activity": "Activity",
+            "timeline": "Timeline",
+            "settings": "Settings",
+            "account_setting": "Thiết lập tài khoản",
+            "update_profile": "Cập nhật thông tin cá nhân",
+            "fullname": "Họ và tên",
+            "email_address": "Địa chi email",
+            "phone_number": "Số điện thoại",
+            "choose_country": "Chọn quốc gia",
+            "change_password": "Thay đổi mật khẩu",
+            "old_password": "Mật khẩu cũ",
+            "new_password": "Mật khẩu mới",
+            "confirm_password": "Xác nhận mật khẩu",
+            "gender": "Giới tính",
+            "avatar": "Ảnh đại diện"
+        }
+    },
+    "commerce": {
+        "title": "E-Commerce",
+        "cart": {
+            "title": "Cart",
+            "purchase": "Purchase"
+        },
+        "catalog": {
+            "title": "Catalog"
+        },
+        "orders_list": {
+            "title": "Orders List"
+        },
+        "payment": {
+            "title": "Payment",
+            "make_payment": "Make payment"
+        },
+        "product_edit": {
+            "title": "Product Edit",
+            "main_information": "Main information",
+            "pricing": "Pricing",
+            "general_information": "General information",
+            "save": "Save",
+            "cancel": "Cancel"
+        },
+        "product_page": {
+            "title": "Product Page",
+            "related_items": "Related items",
+            "pricing": "Pricing",
+            "general_information": "General information",
+            "save": "Save",
+            "cancel": "Cancel"
+        },
+        "product_list": {
+            "title": "Product List"
+        }
+    },
+    "default_pages": {
+        "title": "Default Pages",
+        "calendar": {
+            "title": "Calendar",
+            "events_labels": "Events labels",
+            "create_new_event": "Create new event"
+        },
+        "faqs": {
+            "title": "FAQs"
+        },
+        "gallery": {
+            "title": "Gallery",
+            "filter_gallery": "Filter gallery"
+        },
+        "invoice": {
+            "title": "Invoice template",
+            "proceed_to_payment": "Proceed to payment",
+            "print": "Print"
+        },
+        "pricing_cards": {
+            "title": "Pricing Cards",
+            "basic": "Basic",
+            "special": "Special",
+            "pro": "Pro",
+            "premium": "Premium",
+            "sign_up": "Sign Up"
+        },
+        "project_summary": {
+            "title": "Project summary",
+            "global_company": "Nes website for global company",
+            "task_statistic": "Task statistic",
+            "project_team": "Project team"
+        },
+        "search_results": {
+            "title": "Search Results",
+            "search_here": "Search here"
+        },
+        "text_editor": {
+            "title": "Text Editor"
+        }
+    },
+    "multilevel": {
+        "title": "Multilevel Menu",
+        "second": "Second Level Item",
+        "third": "Third Level Item"
+    },
+    "log_out": "Log Out",
+    "documentation": "Documentation",
+    "other_pages": "Other pages",
+    "dashboards": "Dashboards",
+    "topbar": {
+        "profile": "My Profile",
+        "calendar": "Calendar",
+        "tasks": "Tasks",
+        "inbox": "Inbox",
+        "account_settings": "Account Settings",
+        "lock_screen": "Lock screen",
+        "log_out": "Log out"
+    },
+    "sidebar": {
+        "layout": "Giao diện",
+        "dark_theme": "Tối màu",
+        "light_theme": "Sáng màu"
+    },
+    "price": {
+        "form_pay": "Bạn có thể thanh toán bằng những hình thức sau"
+    },
+    "pay": {
+        "payment": "Thanh toán",
+        "list_code": "Danh sách mã",
+        "successful_delivery": "Nhận hàng thành công",
+        "waiting_delivery": "Đang giao hàng",
+        "order_success": "Đặt hàng thành công",
+        "order_history": "Lịch sử đặt hàng",
+        "payment_history": "Lịch sử thanh toán",
+        "warning_1": "Vui lòng không tắt trình duyệt khi tiến hành thanh toán. Xin cảm ơn!",
+        "warning_2": "Chú ý: Thanh toán bằng COD chỉ áp dụng tại Việt Nam",
+        "select_member": "Chọn thẻ thành viên",
+        "silver_member": "Thẻ thành viên bạc",
+        "gold_member": "Thẻ thành viên vàng",
+        "platinum_member": "Thẻ thành viên bạch kim",
+        "enter_num": "Nhập số lượng",
+        "trans_1": "Bạn sẽ nhận được mã kích hoạt qua SMS ngay sau khi chúng tôi nhận được khoản thanh toán của bạn.",
+        "trans_2": "Ngân hàng thương mại cổ phần Ngoại thương Việt Nam",
+        "trans_3_1": "Chủ tài khoản",
+        "trans_3_2": "CÔNG TY CỔ PHẦN ĐÀO TẠO HANASPEAK",
+        "trans_4": "Số tài khoản",
+        "trans_5_1": "Chi nhánh",
+        "trans_5_2": "Vietcombank chi nhánh Tây Hồ",
+        "trans_6": "565 Lạc Long Quân, Tây Hồ, Hà Nội",
+        "trans_7": "Vui lòng chuyển khoản theo cú pháp",
+        "trans_8": "DK Ho_va_ten So_dien_Thoai Goi_thanh_vien",
+        "form": "Chọn hình thức thanh toán",
+        "ck": "C.khoản",
+        "card": "Thẻ",
+        "order": "Đặt hàng",
+        "fee": "Phí giao hàng"
+    },
+    "video": {
+        "guilde_2": "Chọn video bạn muốn nghe.",
+        "guilde_3": "để xem và nghe nội dung video và sử dụng các chức năng:",
+        "guilde_3_1": "để tắt/bật âm thanh.",
+        "guilde_3_2": "để tăng/giảm tốc độ nghe.",
+        "guilde_3_3": "để tắt/hiển thị ngôn ngữ phụ đề.",
+        "guilde_3_4": "để chuyển chế độ toàn màn hình",
+        "guilde_3_5": "Nhấp vào đoạn phụ đề để chuyển đến cảnh tương ứng.",
+        "w_lang": "Bạn muốn học ngôn ngữ nào?"
+    },
+    "common": {
+        "detail": "Chi tiết",
+        "classroom": "Phòng học",
+        "no_transactions_yet": "Chưa có giao dịch nào",
+        "examination": "Kiểm tra",
+        "practice": "Thực hành",
+        "pronunciation": "Phát âm",
+        "subtitle": "Phụ đề",
+        "fullscreen": "Mở rộng",
+        "auto": "Tự động",
+        "send": "Gửi",
+        "sending": "Đang gửi",
+        "password": "Mật khẩu",
+        "success": "Thành công",
+        "failure": "Thất bại",
+        "show": "Hiển thị",
+        "bank": "Ngân hàng",
+        "currency": "Đơn vị",
+        "type": "Loại",
+        "status": "Trạng thái",
+        "amount": "Thành tiền",
+        "history": "Lịch sử",
+        "bill": "Hóa đơn",
+        "fullname": "Họ và tên",
+        "phone": "Số điện thoại",
+        "address": "Địa chỉ",
+        "promotion": "Khuyến mãi",
+        "total": "Tổng cộng",
+        "free": "Miễn phí",
+        "quantity": "Số lượng",
+        "click": "Nhấp",
+        "step": "Bước",
+        "hdsd": "Hướng dẫn sử dụng",
+        "start": "Bắt đầu",
+        "all": "Tất cả",
+        "listening": "Luyện nghe",
+        "buy_topup_card": "Mua thẻ",
+        "topup_card": "Nạp thẻ",
+        "payment_methods": "Phương thức thanh toán",
+        "register": "Đăng ký",
+        "silver": "Bạc",
+        "gold": "Vàng",
+        "platinum": "Bạch kim",
+        "hana_add": "Số 227, phố Trích Sài, phường Bưởi, quận Tây Hồ, Thành phố Hà Nội, Việt Nam.",
+        "main_office": "Trụ sở chính",
+        "you_get": "Bạn đã đạt được",
+        "terms_of_use": "Điều khoản sử dụng",
+        "privacy_policy": "Chính sách bảo mật",
+        "company_name": "Công ty Cổ phần đào tạo Hanaspeak",
+        "all_rights_reserved": "Đã Đăng Ký Bản Quyền",
+        "membership": "Thành viên",
+        "sign_in": "Đăng nhập",
+        "sign_up": "Đăng ký",
+        "how": "như thế nào",
+        "what": "cái gì",
+        "why": "tại sao",
+        "customize": "Tùy chỉnh",
+        "w_yourlanguage_want": "Bạn muốn học ngôn ngữ nào?",
+        "w_yourlanguage": "Ngôn ngữ của bạn là gì?",
+        "chinese": "Tiếng Trung",
+        "japanese": "Tiếng Nhật",
+        "korean": "Tiếng Hàn",
+        "english": "Tiếng Anh",
+        "vietnamese": "Tiếng Việt",
+        "select_all": "Chọn tất",
+        "topic": "Chủ đề",
+        "unchecked": "Bỏ chọn",
+        "refresh": "Làm mới",
+        "hi": "Chào",
+        "good_day": "chúc bạn một ngày tốt lành",
+        "upgrade_account": "Nâng cấp tài khoản",
+        "signout": "Đăng xuất",
+        "account_settings": "Cài đặt tài khoản",
+        "active": "Kích hoạt",
+        "active_account": "Kích hoạt tài khoản",
+        "alert_enter_information": "Bạn phải nhập đầy đủ thông tin!",
+        "comment": "Bình luận",
+        "attendance_record": "Điểm danh",
+        "action": "Hành động",
+        "title": "Tiêu đề",
+        "date": "Ngày",
+        "time": "Thời gian",
+        "end_time": "Thời gian kết thúc",
+        "start_time": "Thời gian bắt đầu",
+        "add": "Thêm",
+        "add_new": "Thêm mới",
+        "update": "Cập nhật",
+        "delete": "Xoá",
+        "dashboard": "Bảng điều khiển",
+        "confirm": "Xác nhận",
+        "cancel": "Hủy bỏ",
+        "trial_free": "HỌC THỬ NGAY",
+        "talk_to_us": "Talk to us",
+        "email_to": "Email to",
+        "back": "Quay lại",
+        "choose_all_category": "Chọn tất cả flashcard của chủ đề",
+        "clear_all_category": "Xoá tất cả flashcard của chủ đề",
+        "clear_all_selected": "Xoá toàn bộ flascard đã chọn",
+        "pause": "Tạm dừng",
+        "on": "Bật",
+        "off": "Tắt",
+        "more": "Xem thêm",
+        "close": "Đóng",
+        "compulsory": "Bắt buộc",
+        "optional": "Không bắt buộc",
+        "level": "Cấp độ",
+        "business": "Kinh doanh",
+        "price": {
+            "price": "Bảng giá"
+        },
+        "choose_language": "Chọn ngôn ngữ"
+    },
+    "login": {
+        "welcome_title": "Đăng nhập vào hệ thống",
+        "forgot_password_text": "Nhớ mật khẩu",
+        "remember_text": "Quên mật khẩu?",
+        "button_text": "Đăng nhập",
+        "dont_have_account": "Chưa có tài khoản?",
+        "register_text": "Đăng ký",
+        "log_out": "Đăng xuất",
+        "get_password_success": "Thành công! Vui lòng kiểm tra email để cập nhật mật khẩu"
+    },
+    "signup": {
+        "welcome_title": "Đăng ký tài khoản",
+        "button_text": "Đăng ký",
+        "have_account": "Đã có tài khoản?",
+        "login_text": "Đăng nhập ngay"
+    },
+    "main_page": {
+        "learning_short_intro": "Có cần tổ chức thi THPT quốc gia với mục tiêu chính là xét tốt nghiệp khi tỷ lệ đạt gần 100% là câu hỏi được nhiều chuyên gia thảo luận.",
+        "software_short_intro": "Có cần tổ chức thi THPT quốc gia với mục tiêu chính là xét tốt nghiệp khi tỷ lệ đạt gần 100% là câu hỏi được nhiều chuyên gia thảo luận.",
+        "network_short_intro": "Có cần tổ chức thi THPT quốc gia với mục tiêu chính là xét tốt nghiệp khi tỷ lệ đạt gần 100% là câu hỏi được nhiều chuyên gia thảo luận."
+    },
+    "confirm_lession_modal": {
+        "title": "Xác nhận!",
+        "body": "Xác nhận hoàn thành bài học này!",
+        "btn_Confirm": "Xác nhận",
+        "btn_cancel": "Huỷ",
+        "confirm_btn_text": "Xác nhận hoàn thành"
+    },
+    "flash_card": {
+        "tem1": "Nghe và chọn câu trả lời đúng",
+        "practice": "Thực hành",
+        "examination": "Kiểm tra",
+        "guilde_1": "Chọn ngôn ngữ của bạn.",
+        "guilde_2": "Chọn ngôn ngữ muốn học.",
+        "guilde_3": "để học.",
+        "guilde_4": "ở thanh công cụ dưới màn hình để chọn chủ đề.",
+        "guilde_5": "Tiến hành chọn thẻ học:",
+        "guilde_5_1": "Nhấp trực tiếp vào ảnh thẻ học để chọn.",
+        "guilde_5_2": "ở thanh công cụ dưới màn hình để chọn tất cả thẻ học của chủ đề đang xem.",
+        "guilde_5_3_1": "Loại bỏ thẻ đã chọn bằng cách nhấp trực tiếp vào ảnh thẻ muốn bỏ chọn hoặc",
+        "guilde_5_3_2": "ở thanh công cụ dưới màn hình để bỏ chọn tất cả thẻ trong chủ đề đang xem hoặc",
+        "guilde_5_3_3": "để làm mới lại.",
+        "guilde_6": "ở góc dưới bên phải màn hình để trình chiếu thẻ học đã chọn.",
+        "guilde_7": "Tiến hành trình chiếu thẻ đã chọn:",
+        "guilde_7_1": "trên ảnh thẻ để nghe giọng nam.",
+        "guilde_7_2": "trên ảnh thẻ để nghe giọng nữ.",
+        "guilde_7_3_1": "để chuyển ảnh thẻ trước hoặc",
+        "guilde_7_3_2": "để chuyển ảnh thẻ sau (Có thể sử dụng ngón tay trượt để chuyển ảnh thẻ đối với màn hình cảm ứng).",
+        "guilde_7_4": "ở thanh công cụ phía dưới để tắt/bật để ảnh tự động chuyển ảnh thẻ.",
+        "guilde_7_5": "ở thanh công cụ phía dưới để tắt/mở chức năng cài đặt thời gian tự động chuyển ảnh thẻ.",
+        "guilde_7_6": "ở thanh công cụ phía dưới để mở chế độ toàn màn hình.",
+        "guilde_7_7": "để tắt/bật hiển thị dịch ngôn ngữ.",
+        "guilde_7_8": "để tắt/bật hiển thị nguyên âm (đối với các thứ tiếng có nguyên âm).",
+        "guilde_7_9": "để tiến hành làm các bài kiểm tra giúp ghi nhớ ảnh thẻ.",
+        "guilde_7_10": "để tiến hành làm các bài kiểm tra, phần thưởng nhận được là huy chương",
+        "have_cards": "Những thẻ đã chọn",
+        "search_title": "Chọn những flashcard muốn học",
+        "choose_category_title": "Chọn thể loại",
+        "find_keyword_title": "Tìm kiếm từ khoá",
+        "input_find_keyword_placeholder": "Nhập từ khoá tìm kiếm...",
+        "list_choosed_flash_card": "Danh sách flashcard đã chọn",
+        "list_flash_card": "Danh sách flashcard",
+        "male_voice": "Giọng nam",
+        "female_voice": "Giọng nữ",
+        "start_learning": "Bắt đầu học flashcard!",
+        "clear_all_flashcard": "Bỏ toàn bộ flashcard đã chọn",
+        "change_language": "Thay đổi",
+        "title_countdown": "Đếm ngược thời gian hết hạn:",
+        "days": "Ngày",
+        "hours": "Giờ",
+        "minutes": "Phút",
+        "seconds": "Giây",
+        "btn_trial_flashcard": "Học thử Flashcard",
+        "btn_buy_now": "Mua ngay",
+        "btn_start_learning": "Bắt đầu học",
+        "text_expire_time": "Thời gian học của bạn đã hết, xin vui lòng gia hạn thêm thời để tiếp tục học!",
+        "header_text_modal_confirm_trial_flashcard": "Đăng ký học thử",
+        "body_text_modal_confirm_trial_flashcard": "Bạn có muốn học thử không?",
+        "intro_lead_1": "This is a module for students to learn new words in the form of flashcards. Students can select the specific vocabulary they want to learn.",
+        "intro_lead_2": "This is a module for students to learn new words in the form of flashcards. Students can select the specific vocabulary they want to learn."
+    },
+    "learning": {
+        "one_on_one": "HỌC 1 VỚI 1",
+        "one_on_one_content": "Học sinh có thể chọn học trực tiếp qua Skype hoặc tại văn phòng của chúng tôi hoặc ở vị trí bắt buộc. Đó là một cách luyện tập giúp học sinh có nhiều thời gian hơn để thực hành với giáo viên và cải thiện nhanh hơn.",
+        "group_learning": "HỌC NHÓM",
+        "group_learning_content": "Chúng tôi cũng có lớp dạy tại trung tâm của chúng tôi. Sẽ có từ bốn đến sáu học sinh cho một lớp. Có rất nhiều hoạt động để học sinh thực hành và tương tác với nhau.",
+        "online_learning": "HỌC TRỰC TUYẾN",
+        "online_learning_content": "Đây sẽ là một sự chuẩn bị tuyệt vời để học tiếng Việt trực tuyến trước khi bạn đến Việt Nam. Các bài học sẽ được giảng dạy qua Skype và thông qua phần mềm trực tuyến của chúng tôi.",
+        "join_now": "Đăng ký ngay",
+        "register_now_content": "ĐĂNG KÝ NGAY ĐỂ ĐƯỢC MIỄN PHÍ",
+        "virtual_tour": "Phòng học",
+        "virtual_tour_content": "Hãy nhìn xung quanh không gian Hanaspeak.",
+        "virtual_tour_button": "Xem tour",
+        "virtual_tour_modal_text_1": "Phòng học trên tầng 2 ở Hanaspeak",
+        "virtual_tour_modal_text_2": "Phòng học trên tầng 3 ở Hanaspeak",
+        "courses": "Khoá học",
+        "courses_content": "Hãy xem các khóa học thích hợp cho bạn.",
+        "courses_button": "Xem khoá học",
+        "courses_modal_text_1": "To help students speak Vietnamese fluently, we have created fours training programs, namely Level A, Level B, Level C and Vietnamese Business Language Training Program. We combined both in class lessons and online self-studying lessons so that the students can learn easily and intelligently.",
+        "courses_modal_text_2": "We also encourge our students practice as much as possible. Therefore, we created educational tours which help students to have the opportunity to speak to native speakers with different accents, as well as create lasting friendships with others in the program.",
+        "courses_modal_level_A_text_1": "The aim of this course is to teach pronunciation skills and improve learners’ communication abilities in Vietnamese. The course content not only focuses on pronunciation, simple structures and vocabulary but also teaches learners the dialogues of most immediate relevance to daily situations.",
+        "courses_modal_level_A_text_2": "Upon successful completion of this course, students will be able to:",
+        "courses_modal_level_A_text_2_sub_1": "Pronounce lexemes, phrases and sentences clearly.",
+        "courses_modal_level_A_text_2_sub_2": "Understand and respond naturally when participating in simple conversations and routine tasks.",
+        "courses_modal_level_A_text_2_sub_3": "Comfortably communicate using basic to pre-intermediate expressions (e.g., personal introductions, asking and answering questions about personal details - address, employment, habits, hobbies, etc.)",
+        "courses_modal_level_A_text_2_sub_4": "Utilize the various vocabulary items needed to communicate about daily life and specialist knowledge (e.g., food, drink, transportation, weather, shopping, day, month, common places in Vietnam, etc.)",
+        "courses_modal_level_A_text_2_sub_5": "Describe in simple terms relevant aspects of their background, present environment and matters of immediate need.",
+        "courses_modal_level_B_text_1": "The aim of the course is to develop Vietnamese language skills in listening, speaking, reading and writing by having learners engage in a range of communicative tasks and activities. The course translates theory into practice to help students respond in Vietnamese quickly and naturally. It includes practical lessons in which students and native teachers will discuss familiar matters in daily activities. The course expands the learner’s use of grammatically correct and situationally and culturally appropriate language in speaking and writing for effective communication in a variety of interpersonal and academic situations.",
+        "courses_modal_level_B_text_2": "By the end of the course, a student should be able to:",
+        "courses_modal_level_B_text_2_sub_1": "Understand the main points of clear standard input on familiar matters encountered in daily life.",
+        "courses_modal_level_B_text_2_sub_2": "Deal with most situations likely to arise when coming to places where the language is spoken.",
+        "courses_modal_level_B_text_2_sub_3": "Create simple connected conversations on topics which are familiar or of personal interest.",
+        "courses_modal_level_B_text_2_sub_4": "Know how to express their thoughts deeply, and briefly give reasons and explanations for opinions and plans.",
+        "courses_modal_level_B_text_2_sub_5": "Understand the main ideas of complex texts regarding both concrete and abstract topics, including technical discussions in his/her field of specialization.",
+        "courses_modal_level_B_text_2_sub_6": "Interact with a degree of fluency and spontaneity that makes regular interaction with native speakers possible and without strain for either party.",
+        "courses_modal_level_B_text_2_sub_7": "Write well and expressively, with an ear for different voices.",
+        "courses_modal_level_B_text_2_sub_8": "Present effectively.",
+        "courses_modal_level_C_text_1": "The advanced course will not only help learners develop their professional skills in speaking Vietnamese but will also give them the ability to read and understand complex texts such as articles about history and economics.",
+        "courses_modal_level_C_text_2": "By the end of this course, students will be able to:",
+        "courses_modal_level_C_text_2_sub_1": "Interact with spoken and written academic content.",
+        "courses_modal_level_C_text_2_sub_2": "Demonstrate the ability to think critically.",
+        "courses_modal_level_C_text_2_sub_3": "Utilize information and digital literacy skills.",
+        "courses_modal_level_C_text_2_sub_4": "Demonstrate behavior and attitudes appropriate to Vietnamese culture.",
+        "courses_modal_level_C_text_2_sub_5": "Understand a wide range of demanding, lengthy texts and recognize implicit meaning.",
+        "courses_modal_level_C_text_2_sub_6": "Express themselves fluently and spontaneously without much obvious searching for expressions.",
+        "courses_modal_level_C_text_2_sub_7": "Use language flexibly and effectively for social, academic and professional purposes.",
+        "courses_modal_level_C_text_2_sub_8": "Understand dialogues spoken at a high-speed, even with hidden meanings.",
+        "courses_modal_level_C_text_2_sub_9": "Tell long stories and give long presentations.",
+        "courses_modal_level_C_text_2_sub_10": "Read and understand academic documents.",
+        "courses_modal_level_C_text_2_sub_11": "Develop complex spoken and academic grammar.",
+        "courses_modal_level_business_title": "VIETNAMESE BUSINESS LANGUAGE",
+        "courses_modal_level_business_text_1": "The Vietnamese business training course is designed for businessmen and other professionals who are working or will work in Vietnam for an extended period of time. The course focuses on the common conversations that learners will have around the office. Additionally, learners will receive training to develop their abilities in the four major communication skills – listening, reading, speaking and writing – all in relation to a business context. This course is a perfect bridge from the beginner level to the intermediate level.",
+        "courses_modal_level_business_text_2": "As a result of the course, the learners will be able to:",
+        "courses_modal_level_business_text_2_sub_1": "Utilize an extensive business vocabulary.",
+        "courses_modal_level_business_text_2_sub_2": "Develop complex spoken grammar.",
+        "courses_modal_level_business_text_2_sub_3": "Confidently speak with staff, colleagues and business partners.",
+        "courses_modal_level_business_text_2_sub_4": "Be able to discuss and give ideas in meetings.",
+        "courses_modal_level_business_text_2_sub_5": "Understand Vietnamese business culture well.",
+        "courses_modal_level_business_text_2_sub_6": "Participate in interviews effectively.",
+        "courses_modal_level_business_text_2_sub_7": "Develop real relationships with Vietnamese businessmen.",
+        "courses_modal_level_business_text_2_sub_8": "Prepare informal and formal reports, including performance evaluations.",
+        "courses_modal_level_business_text_2_sub_9": "Effectively use language in accordance with proper business etiquette in diverse professional situations.",
+        "certificate": "Chứng chỉ",
+        "certificate_content": "Hãy xem chứng chỉ bạn đã nhận được.",
+        "certificate_button": "Xem chứng chỉ",
+        "certificate_modal_text_1": "Chúng tôi cung cấp chứng chỉ để hoàn thành cấp độ. Trước khi nhận được chứng chỉ, sinh viên phải vượt qua kỳ thi.",
+        "certificate_modal_text_2": "Mẫu chứng chỉ được cung cấp bởi Hanaspeak - Trung tâm Ngoại ngữ Việt Nam.",
+        "price": "Học phí",
+        "price_content": "Hãy xem cấu trúc giá của chúng tôi.",
+        "price_button": "Xem học phí",
+        "price_modal_text_1": "Bảng giá này chỉ dành cho học phí cá nhân mỗi giờ cho mỗi học sinh, có nghĩa là giáo viên chuyên nghiệp của chúng tôi sẽ dạy bạn trực tiếp. Bạn có thể nói chuyện với chúng tôi, lắng nghe chúng tôi và xem chuyển động miệng của chúng tôi.",
+        "price_modal_title_sub_1": "Học phí cá nhân",
+        "price_modal_title_table_text_1": "Số lượng sinh viên",
+        "price_modal_title_table_text_2": "Giá tiêu chuẩn",
+        "price_modal_text_2": "Bảng giá này chỉ dành cho học phí cá nhân mỗi giờ cho mỗi học sinh học qua skype hoặc tại trung tâm của chúng tôi.",
+        "price_modal_text_3": "Nếu sinh viên muốn học tại vị trí cần thiết, xin vui lòng thêm 10% vào tổng giá chiết khấu.",
+        "price_modal_text_4": "Mỗi cấp độ sẽ được thực hiện trong 60 giờ.",
+        "price_modal_text_5": "Chúng tôi cũng cung cấp kế hoạch bài học chi tiết cho từng học sinh và mỗi lớp.",
+        "price_modal_title_sub_2": "Giá công cụ học tập",
+        "price_modal_title_table_text_3": "Công cụ",
+        "price_modal_title_table_text_4": "Giá",
+        "price_modal_title_table_text_5": "thẻ",
+        "price_modal_title_table_text_6": "Phần mềm",
+        "price_modal_text_6": "Với Smart Book và phần mềm, bạn có thể học và thực hành tiếng Việt mọi lúc mọi nơi.",
+        "price_modal_text_7": "Bạn không cần đĩa CD hoặc DVD để nghe âm thanh. Tất cả các tệp nghe và bài tập tương tác và kiểm tra đều nằm trong phần mềm.",
+        "price_modal_note": "ĐỂ ĐƯỢC GIẢM GIÁ ĐẶC BIỆT, XIN GỬI EMAIL CHO CHÚNG TÔI"
+    },
+    "software_modal": {
+        "book": "THƯ VIỆN",
+        "book_content": "Đây là mục dành cho học viên đã đăng ký học. Mục này là toàn bộ sách học Tiếng Việt trực tuyến với audio. Bằng cách scan mã QR-CODE trong mỗi bài mà sách bạn đang có, bạn sẽ dễ dàng truy cập vào nội dung của bài học đó.",
+        "book_button": "Xem thư viện",
+        "video": "VIDEO",
+        "video_content": "Đây là mục dành cho học viên tự học trực tuyến. Bạn dễ dàng tự học bất kì thời gian rảnh nào với lộ trình học trực tuyến gồm video và bài tập. Điểm tích lũy và huy chương là cách để biết được bạn đã cố gắng hơn chưa.",
+        "video_button": "Xem video",
+        "exercise": "LUYỆN TẬP",
+        "exercise_content": "Đây là mục dành cho học viên đã đăng ký học. Học viên dễ dàng tự làm bài tập theo lộ trình với các dạng khác nhau nhằm củng cố lại kiến thức đã học được.",
+        "exercise_button": "Xem luyện tập",
+        "flashcard": "FLASH CARD",
+        "flashcard_content": "Đây là mục dành cho học viên học các từ mới theo dạng thẻ flashcard, học viên có thể lựa chọn cụ thể danh sách các từ vựng mà mình muốn học.",
+        "flashcard_button": "Xem flashcard",
+        "attendance_record": "LỘ TRÌNH HỌC OFFLINE",
+        "attendance_record_content": "Đây là mục dành cho giáo viên và học viên có thể theo dõi chi tiết lộ trình học offline",
+        "attendance_record_button": "Xem lộ trình học"
+    },
+    "attendance_record": {
+        "teacher_title": "Giáo viên tạo Attendance Record",
+        "student_title": "Học viên xác nhận Attendance Record",
+        "green_label": "Điểm danh chưa được xác nhận",
+        "red_label": "Điểm danh records đã được xác nhận",
+        "select_student": "Chọn học sinh",
+        "select_book": "Chọn sách",
+        "event_label": "Chú thích"
+    },
+    "lesson_detail": {
+        "conversation": "Hội thoại",
+        "vocabulary": "Từ vựng",
+        "structure": "Cấu trúc",
+        "extension": "Mở rộng"
+    },
+    "exerise": {
+        "confirm_back": {
+            "header": "Xác nhận quay lại",
+            "content1": "Bạn đang ở câu hỏi số ",
+            "content2": "Bạn có muốn quay lại không?"
+        },
+        "customise_level": {
+            "header": "Thực hành ghi nhớ từ vựng",
+            "content1": "Hãy lựa chọn cấp độ và số lượng câu hỏi bạn muốn thực hiện, bạn nên bắt đầu với 10 câu hỏi ở cấp độ dễ.",
+            "button": "Bắt đầu tập luyện"
+        }
+    },
+    "examination": {
+        "confirm_finish": {
+            "header": "Xác nhận hoàn thành",
+            "content": "Bạn có muốn xác nhận hoàn thành bài kiểm tra không?"
+        }
+    },
+    "buy_card": {
+        "confirm_cod": {
+            "header": "Xác nhận đặt hàng",
+            "content": "Bạn có muốn xác nhận đặt đơn hàng này?"
+        },
+        "confirm_cash": {
+            "header": "Xác nhận thanh toán",
+            "content": "Bạn có muốn xác nhận thanh toán? Hệ thống sẽ chuyển bạn sang trang thanh toán, vui lòng không tắt trình duyệt!"
+        }
+    },
+    "MESSAGES": {
+        "LOGIN_SUCCESS": "Đăng nhập thành công!",
+        "LOGOUT_MESSAGE": "Đăng xuất thành công!",
+        "SIGNUP_SUCCESS": "Đăng ký tài khoản thành công!",
+        "UPDATE_PROFILE_SUCCESS": "Cập nhật thông tin cá nhân thành công!",
+        "UPDATE_PROFILE_ERROR": "Cập nhật thông tin cá nhân không thành công!",
+        "OLD_PASSWORD_INCORRECT": "Mật khẩu cũ không chính xác!",
+        "CHANGE_PASSWORD_SUCCESS": "Thay đổi mật khẩu thành công!",
+        "CHANGE_PASSWORD_ERROR": "Thay đổi mật khẩu không thành công!",
+        "REGISTER_TRIAL_FLASHCARD_SUCCESS": "Đăng ký học thử thành công!",
+        "VERIRY_EMAIL_SUCCESS": "Xác thực email thành công!",
+        "REGISTER_ACCOUNT_SUCCESS": "Đăng ký tài khoản thành công! Vui lòng kiểm tra email để xác thực tài khoản",
+        "ACTIVE_ACCOUNT_SUCCESS": "Xác thực thành công! Vui lòng login lại vào hệ thống",
+        "COD_BUY_CARD_ORDER_SUCCESS": "Đặt hàng thành công! Chúng tôi sẽ liên lạc lại với bạn trong thời gian sớm nhất, vui lòng kiểm tra lịch sử",
+        "SUCCESS": "Thành công!",
+        "UPDATE_MESSAGE_SUCCESS": "Cập nhật status thành công!"
+    }
+}

@@ -1,0 +1,69 @@
+$themes: (
+    light: (
+        colorBackground: white,
+        colorBackgroundBody: #f0f0f0,
+        colorBackgroundGrey: #dee2e6,
+        colorText: #111,
+        colorTextAdditional: #4c4c4c,
+        logoImg: url(../img/logo/logo_lingo.svg),
+        colorHover: #fafbfe,
+        colorBorder: #eff1f5,
+        colorIcon: #dddddd,
+        imgInvert: invert(0%),
+        colorFieldsBorder: #f2f4f7,
+        colorBubble: rgba(242, 244, 247, 0.65),
+        colorBubbleActive: rgba(234, 238, 255, 0.6),
+        colorScrollbar: #b4bfd0,
+        colorFitness: #777777,
+    ),
+    dark: (
+        colorBackground: #4c4c4c,
+        colorBackgroundBody: #4c4c4c,
+        colorText: #dddddd,
+        colorTextAdditional: #999999,
+        logoImg: url(../img/logo/logo_lingo_white.svg),
+        colorHover: #38373f,
+        colorBorder: #333246,
+        colorIcon: #605f7b,
+        imgInvert: invert(100%),
+        colorFieldsBorder: #33333a,
+        colorBubble: rgba(68, 79, 97, 0.65),
+        colorBubbleActive: rgba(92, 104, 156, 0.6),
+        colorScrollbar: #606071,
+        colorFitness: #ffffff,
+    ),
+);
+
+@mixin themify($themes) {
+    @each $theme, $map in $themes {
+        .theme-#{$theme} & {
+            $theme-map: () !global;
+            @each $key, $submap in $map {
+                $value: map-get(map-get($themes, $theme), "#{$key}");
+                $theme-map: map-merge(
+                    $theme-map,
+                    (
+                        $key: $value,
+                    )
+                ) !global;
+            }
+            @content;
+            $theme-map: null !global;
+        }
+    }
+}
+@function themed($key) {
+    @return map-get($theme-map, $key);
+}
+$color-accent: #4ce1b6;
+$color-accent-hover: darken($color-accent, 10%);
+$color-additional: #999999;
+$color-additional-hover: darken($color-additional, 10%);
+$color-yellow: #f9bc6d;
+$color-yellow-hover: darken($color-yellow, 10%);
+$color-violet: #c88ffa;
+$color-red: #ff4861;
+$color-red-hover: darken($color-red, 10%);
+$color-blue: #70bbfd;
+$color-blue-hover: darken($color-blue, 10%);
+$color-gray: #787985;
