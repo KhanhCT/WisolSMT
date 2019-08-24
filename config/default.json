@@ -1,0 +1,20 @@
+{
+	"server": {
+		"host": "0.0.0.0",
+		"port": 5000
+	},
+	"logs": {
+		"level": "debug",
+		"handleExceptions": false
+	},
+	"time_format": "YYYY-MM-DD H:mm:ss:SSS",
+	"postgres": {
+		"host": "45.119.212.111",
+		"port": 5432,
+		"user": "postgres",
+		"password": "postgres",
+		"database": "wisolsmt",
+		"timeout": 120000,
+		"dateStrings": true
+	}
+}

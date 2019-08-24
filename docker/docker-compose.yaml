@@ -1,0 +1,45 @@
+version: '2'
+services:
+  # tour-service:
+  #   image: "node:8"
+  #   build: .
+  #   container_name: "tour-service"
+  #   environment:
+  #     NODE_ENV: development
+  #     NODE_PATH: /
+  #   ports:
+  #     - "5000:5000"
+  #   links:
+  #     - tour-mysql
+  #   depends_on:
+  #     - tour-mysql
+  tour-mysql:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'deeptravel_tour'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'deeptravel'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'deeptravel'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'deeptravel'
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - tour-mysql-data:/var/lib/mysql
+  # mongodb:
+  #   image: mongo:3.4.10
+  #   container_name: "tour-mongodb"
+  #   ports:
+  #     - 27017
+  #   volumes:
+  #     - tour-mongo-data:/data/db
+  #   ports:
+  #     - 27017:27017
+  #   command: mongod --smallfiles --logpath=/dev/null
+volumes:
+  tour-mysql-data:
+    driver: local
