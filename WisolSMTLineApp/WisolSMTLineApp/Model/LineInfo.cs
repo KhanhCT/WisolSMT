@@ -8,10 +8,9 @@ namespace WisolSMTLineApp.Model
 {
     public class LineInfo
     {
-        public string LineID { get; set; }
-        public int FactoryID { get; set; }
-        public string LineCode { get; set; }
-        public string Description { get; set; }
-        public string Disabled { get; set; }
+        public int ID { get; set; }
+        public int Factory_ID { get; set; }
+        public string Name { get; set; }
+        public bool Is_active { get; set; }
     }
 }

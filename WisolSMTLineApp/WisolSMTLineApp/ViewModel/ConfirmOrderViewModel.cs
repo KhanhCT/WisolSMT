@@ -21,27 +21,55 @@ namespace WisolSMTLineApp.ViewModel
         public ObservableCollection<ProductionDtl> LstOrderNotFinish { get; set; } = new ObservableCollection<ProductionDtl>();
         public ConfirmOrderViewModel()
         {
-            Api.Controller.getLstOrderNotFinish(Setting.SelectedLine.LineID)?.ForEach(x => LstOrderNotFinish.Add(x));
+            Api.Controller.getLstOrderNotFinish(Setting.SelectedLine.ID)?.ForEach(x => LstOrderNotFinish.Add(x));
         }
-
-        public void ConfirmOrder(object b)
+        object lockObject = new object();
+        public async void ConfirmOrder(object b)
         {
-            object lockObject = new object();
             //Confirm to server
-            var ProductionDtl = (ProductionDtl)b;
-            lock (lockObject)
+            var UnconfirmOrder = (ProductionDtl)b;
+            //lock (lockObject)
+            //{
+            //    if (Api.Controller.ConfirmOrder(ProductionDtl))
+            //    {
+            //        LstOrderNotFinish.Clear();
+            //        Api.Controller.getLstOrderNotFinish(Setting.SelectedLine.ID)?.ForEach(x => LstOrderNotFinish.Add(x));
+            //        MessageBox.Show("Order Confirmed", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Confirm order failed", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    }
+            //}
+            try
             {
-                if (Api.Controller.ConfirmOrder(ProductionDtl))
+                if (UnconfirmOrder != null)
                 {
-                    LstOrderNotFinish.Clear();
-                    Api.Controller.getLstOrderNotFinish(Setting.SelectedLine.LineID)?.ForEach(x => LstOrderNotFinish.Add(x));
-                    MessageBox.Show("Order Confirmed", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Confirm order failed", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (Api.Controller.ConfirmOrder(UnconfirmOrder))
+                    {
+                        var Plans = Api.Controller.GetProductionPlan(Setting.SelectedLine.ID);
+                        if (Plans != null)
+                        {
+                            if (Plans.Count > 0)
+                            {
+                                var Plan = Plans[0];
+                                Plan.Remain_Qty += UnconfirmOrder.Amount;
+                                Plan.Ordered_Qty += UnconfirmOrder.Amount;
+                                await Api.Controller.UpdatePlan(Plan);
+                            }
+                        }
+                        MessageBox.Show("Order Confirmed", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Confirm order failed", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+
+            }        
         }
 
         public void CreateOrder()
@@ -49,17 +77,17 @@ namespace WisolSMTLineApp.ViewModel
             var ProductionDtl = new ProductionDtl()
             {
                 Amount = Amount,
-                FactoryID = 1,
-                WorkingDate = App.TodayDate,
-                ShiftID = App.CurrentShift,
-                LineID = Setting.SelectedLine.LineID,
-                ProductID = Setting.SelectedProduct.ID,
+                Factory_ID = 1,
+                Working_Date = App.TodayDate,
+                Shift_ID = App.CurrentShift,
+                Line_ID = Setting.SelectedLine.ID,
+                Product_ID = Setting.SelectedProduct.ID,
                 Message = "WAITTING"
             };
             if (Api.Controller.CreateOrder(ProductionDtl))
             {
                 LstOrderNotFinish.Clear();
-                Api.Controller.getLstOrderNotFinish(Setting.SelectedLine.LineID)?.ForEach(x => LstOrderNotFinish.Add(x));
+                Api.Controller.getLstOrderNotFinish(Setting.SelectedLine.ID)?.ForEach(x => LstOrderNotFinish.Add(x));
                 MessageBox.Show("Create order successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else

@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="LineID:" Grid.Row="0"/>
-        <TextBlock Grid.Column="1" Grid.Row="0" Margin="10" Text="{Binding Path=SelectedLine.LineCode}"/>
+        <TextBlock Grid.Column="1" Grid.Row="0" Margin="10" Text="{Binding Path=SelectedLine.Name}"/>
 
         <TextBlock  Grid.Row="1" Text="Date:"/>
         <DatePicker  Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10" 
@@ -54,7 +54,7 @@
                   Name="ModelComboBox">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Product_Name}"/>
+                    <TextBlock Text="{Binding Name}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>

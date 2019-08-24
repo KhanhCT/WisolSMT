@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +10,39 @@ namespace WisolSMTLineApp.Model
 {
     public class ProductionDtl
     {
+        public ProductionDtl()
+        {
+
+        }
+        ////---------------------------------------------------------------------
+        [JsonProperty(PropertyName = "id")]
         public int ID { set; get; }
-        public string WorkingDate { set; get; }
-        public int FactoryID { set; get; }
-        public string LineID { set; get; }
-        public int ShiftID { set; get; }
-        public int ProductID { set; get; }
+        ////---------------------------------------------------------------------
+        [JsonProperty(PropertyName = "working_date")]
+        public string Working_Date { set; get; }
+        ////---------------------------------------------------------------------
+        [JsonProperty(PropertyName = "factory_id")]
+        public int Factory_ID { set; get; }
+        ////---------------------------------------------------------------------
+        [JsonProperty(PropertyName = "line_id")]
+        public int Line_ID { set; get; }
+        ////---------------------------------------------------------------------
+        [JsonProperty(PropertyName = "shift_id")]
+        public int Shift_ID { set; get; } = 1;
+        ////---------------------------------------------------------------------
+        [JsonProperty(PropertyName = "product_id")]
+        public int Product_ID { set; get; }
+        ////---------------------------------------------------------------------
+        [JsonProperty(PropertyName = "amount")]
         public int Amount { get; set; }
-        public string StartTime { get; set; }
-        public string StopTime { get; set; }
+        ////---------------------------------------------------------------------
+        [JsonProperty(PropertyName = "duration")]
+        public string Duration { get; set; }
+        ////---------------------------------------------------------------------
+        [JsonProperty(PropertyName = "message")]
         public string Message { get; set; }
+        ////---------------------------------------------------------------------
+        [JsonProperty(PropertyName = "finished")]
         public bool Finished { set; get; }
     }
     //WorkingDate : params.date,

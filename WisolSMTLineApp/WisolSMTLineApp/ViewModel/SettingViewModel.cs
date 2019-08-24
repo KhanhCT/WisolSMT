@@ -71,7 +71,7 @@ namespace WisolSMTLineApp.ViewModel
             if (ListLine != null)
             {
                 if (Setting.SelectedLine != null)
-                    SelectedLine = ListLine.Where(x => x.LineID == Setting.SelectedLine.LineID).FirstOrDefault();
+                    SelectedLine = ListLine.Where(x => x.ID == Setting.SelectedLine.ID).FirstOrDefault();
             }
         }
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WisolSMTLineApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="480">
+        Title="MainWindow" Height="480" Width="800">
     <Window.Resources>
         <Style TargetType="TabItem">
             <Setter Property="FontSize" Value="16"/>
@@ -49,8 +49,10 @@
             <TabItem Header="ORDER" FontSize="16">
                 <local:OrderControl/>
             </TabItem>
-            <TabItem Header="MONITOR" FontSize="16" Name="MonitorTab">
-                <local:MonitorControl/>
+            <TabItem Header="MONITOR" FontSize="16" Name="MonitorTab" >
+                <Viewbox>
+                    <local:MonitorControl VerticalAlignment="Stretch"/>
+                </Viewbox>
             </TabItem>
 
             <TabItem Header="CONFIRMATION" FontSize="16">

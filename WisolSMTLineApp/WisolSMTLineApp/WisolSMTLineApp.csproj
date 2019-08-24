@@ -67,6 +67,7 @@
     <Compile Include="GPIO\GPIOHelper.cs" />
     <Compile Include="GPIO\SerialHelper.cs" />
     <Compile Include="Model\LineInfo.cs" />
+    <Compile Include="Model\Orders.cs" />
     <Compile Include="Model\Plan.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\ProductionDtl.cs" />

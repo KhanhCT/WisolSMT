@@ -30,7 +30,7 @@ namespace WisolSMTLineApp
                     return 2;
             }
         }
-        public static string TodayDate { get { return DateTime.Now.ToString("dd-MM-yyyy"); } }
+        public static string TodayDate { get { return DateTime.Now.ToString("MM-dd-yyyy"); } }
         private void Init()
         {
             TextHelper.InitSetting();

@@ -10,7 +10,10 @@ namespace WisolSMTLineApp.Model
     public class Product
     {
         public int ID { set; get; }
-        public string Product_Name { set; get; }
-        public bool Disabled { set; get; }
+        public string  Barcode { get; set; }
+        public string Name { set; get; }
+        public bool Is_active { set; get; }
+        public DateTime Created_at { set; get; }
+        public DateTime Updated_at { set; get; }
     }
 }

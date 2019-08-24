@@ -1,45 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
-using WisolSMTLineApp.Model;
 
-namespace WisolSMTLineApp.ViewModel
+namespace WisolSMTLineApp.Model
 {
-    public class OrderViewModel : BaseViewModel
+    public class Orders
     {
-        public Product Product { get; private set; }
-
-        int _Amount;
-        public int Amount
-        {
-            get { return _Amount; }
-            set { _Amount = value; OnPropertyChanged(nameof(Amount)); }
-        }
-        public OrderViewModel()
-        {
-            Amount = Setting.DefaultLots;
-            Product = Setting.SelectedProduct;
-        }
-
-        public async void CreateOrder()
+        public static async void Create()
         {
             var Orders = await Api.Controller.getLstOrderNotFinishAsync(Setting.SelectedLine.ID);
             if (Orders != null)
             {
                 if (Orders.Count > 0)
                 {
-                    MessageBox.Show("Please confirm previous order before create a new one");
                     return;
                 }
             }
             var ProductionDtl = new ProductionDtl()
             {
-                Amount = Amount,
+                Amount = Setting.DefaultLots,
                 Factory_ID = 1,
                 Working_Date = App.TodayDate,
                 Shift_ID = App.CurrentShift,
@@ -55,22 +37,6 @@ namespace WisolSMTLineApp.ViewModel
             }
             else
                 MessageBox.Show("Create order failed, something happened");
-        }
-
-        private ICommand _orderCommand;
-        public ICommand OrderCommand
-        {
-            get
-            {
-                return _orderCommand ?? (_orderCommand = new CommandHandler(() => CreateOrder(), () => CanExecute));
-            }
-        }
-        public bool CanExecute
-        {
-            get
-            {
-                return true;
-            }
         }
     }
 }

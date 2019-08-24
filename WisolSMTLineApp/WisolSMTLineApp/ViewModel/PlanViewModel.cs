@@ -17,8 +17,7 @@ namespace WisolSMTLineApp.ViewModel
     public class PlanViewModel : BaseViewModel
     {
         public static PlanViewModel PlanVM;
-        ProductionPlan CreatedPlan;
-
+        //ProductionPlan CreatedPlan;
         public ObservableCollection<Shift> Shifts { get; private set; } = new ObservableCollection<Shift>();
         public Shift SelectedShift { get; set; }
         public static ObservableCollection<Product> Products { get; private set; } = new ObservableCollection<Product>();
@@ -70,20 +69,19 @@ namespace WisolSMTLineApp.ViewModel
         {
             PlanVM = this;
             Initilize();
-
         }
         public async void Initilize()
         {
-            List<Shift> _shifts = null;
+            //List<Shift> _shifts = null;
             List<Product> _products = null;
             try
             {
                 await Task.Run(async () =>
                 {
                     controller = new Controller();
-                    _shifts = await controller.GetShifts();
+                    //_shifts = await controller.GetShifts();
                     _products = await controller.GetProducts();
-                    CreatedPlan = Api.Controller.GetProductionPlan(App.TodayDate, 1, Setting.SelectedLine.LineID, App.CurrentShift);
+                    //CreatedPlan = Api.Controller.GetProductionPlan(App.TodayDate, 1, Setting.SelectedLine.ID, App.CurrentShift);
                 });
             }
             catch (Exception)
@@ -92,17 +90,16 @@ namespace WisolSMTLineApp.ViewModel
             }
             finally
             {
-                if (_shifts != null)
-                {
-                    Shifts.Clear();
-                    _shifts.ForEach(x => { Shifts.Add(x); });
-                    SelectedShift = (App.CurrentShift == 1) ? Shifts[0] : Shifts[1];
-                }
+                //if (_shifts != null)
+                //{
+                //    Shifts.Clear();
+                //    _shifts.ForEach(x => { Shifts.Add(x); });
+                //    SelectedShift = (App.CurrentShift == 1) ? Shifts[0] : Shifts[1];
+                //}
                 if (_products != null)
                 {
                     Products.Clear();
                     _products.ForEach(x => Products.Add(x));
-
                     if (Setting.SelectedProduct != null)
                     {
                         SelectedProduct = Products.Where(x => x.ID == Setting.SelectedProduct.ID).FirstOrDefault();
@@ -119,16 +116,39 @@ namespace WisolSMTLineApp.ViewModel
         }
         public void Create_Plan()
         {
+            var CreatePlans = Api.Controller.GetProductionPlan(Setting.SelectedLine.ID);
+            if (CreatePlans != null)
+            {
+                CreatePlans.ForEach(async x =>
+                {
+                    if (App.TodayDate == x.Working_Date &&
+                        x.Product_ID == Setting.SelectedLine.ID &&
+                        !x.Is_Active)
+                    {
+                        x.Is_Active = true;
+                        await Api.Controller.UpdatePlan(x);
+                    }
+                    else
+                    {
+                        x.Is_Active = false;
+                        await Api.Controller.UpdatePlan(x);
+                    }
+                });
+                //CreatePlan.Is_Active = false;
+                //await Api.Controller.UpdatePlan(CreatePlan);
+            }
+
             var success = controller.NewProductionPlan(new ProductionPlan()
             {
-                ProductID = Setting.SelectedProduct.ID,
-                ProductName = Setting.SelectedProduct.Product_Name,
-                FactoryID = 1,
-                LineID = Setting.SelectedLine.LineID.ToString(),
-                WorkingDate = App.TodayDate,
-                OrderedQty = RemainNodes,
-                ShiftID = SelectedShift.ID,
-            });
+                Product_ID = Setting.SelectedProduct.ID,
+                //Name = Setting.SelectedProduct.Name,
+                Factory_ID = 1,
+                Line_ID = Setting.SelectedLine.ID,
+                Working_Date = App.TodayDate,
+                Ordered_Qty = RemainNodes,
+                Is_Active = true
+                //Shift_ID = SelectedShift.ID,
+            }); ;
             if (success)
             {
                 MessageBox.Show("Plan created");
