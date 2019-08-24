@@ -20,6 +20,7 @@ import {
 
 import { ProductMaster } from "../containers/product_master";
 import { ProductionPlan } from "../containers/plan_master";
+import {ProdLineMaster} from "../containers/line_master"
 
 import {
   LineOrder,
@@ -33,6 +34,7 @@ const wrappedRoutes = () => (
     <div className="container__wrap">
       <Route path={ROUTES.PRODUCT_MASTER} component={ProductMaster} />
       <Route path={ROUTES.PLAN_MASTER} component={ProductionPlan} />
+      <Route path={ROUTES.LINE_MASTER} component={ProdLineMaster} />
 
       <Route path={ROUTES.LINE_ORDER} component={LineOrder} />
       <Route path={ROUTES.LINE_RESULT} component={LineResult} />

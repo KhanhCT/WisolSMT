@@ -8,7 +8,7 @@ import moment from "moment";
 
 const columnAttrs = [
     {
-        key: "model_name",
+        key: "product_name",
         name: "Model"
     },
     {
@@ -16,11 +16,11 @@ const columnAttrs = [
         name: "Status"
     },
     {
-        key: "remain",
+        key: "remain_qty",
         name: "Remain"
     },
     {
-        key: "exported",
+        key: "exported_qty",
         name: "Exported"
     }
 ]
@@ -43,15 +43,29 @@ export class ModelResult extends Component {
         const { date } = this.state;
         if (date) {
             callApi(
-                `model/getModelResult/${date.format('DD-MM-YYYY')}`,
+                `product-dtl/${date.format('YYYY-MM-DD')}`,
                 "GET",
                 {}
             )
                 .then(res => {
+                    console.log(res.status)
+
                     if (res.status == 200)
+                    {
+                        let data = res.data.data ? res.data.data : [];
+                        data.map(product =>{
+                            if(product.remain_qty > 24){
+                                product.status= "AVAILABLE";
+                                product.color = "DCD800";
+                            } else {
+                                product.status = "WAITING";
+                                product.color = "8E1E20";
+                            }
+                        })
                         this.setState({
-                            modelResultData: res.data.data ? res.data.data : [],
+                            modelResultData: data,
                         });
+                    }
                 })
                 .catch(error => {
                     console.log(error);

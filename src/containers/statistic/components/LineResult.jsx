@@ -12,23 +12,23 @@ const columnAttrs = [
         name: "Line"
     },
     {
+        key: "product_name",
+        name: "Model"
+    },
+    {
         key: "status",
         name: "Status"
     },
     {
-        key: "model",
-        name: "Model"
-    },
-    {
-        key: "order",
+        key: "ordered_qty",
         name: "Order"
     },
     {
-        key: "elapsed",
+        key: "good_prod_qty",
         name: "Elapsed"
     },
     {
-        key: "remain",
+        key: "remain_qty",
         name: "Remain"
     }
 ]
@@ -49,17 +49,30 @@ export class LineResult extends Component {
 
     getData = () => {
         const { date } = this.state;
+        let curDate = moment(new Date()).format("YYYY-MM-DD")
         if (date) {
             callApi(
-                `production/getLineResult/${date.format('DD-MM-YYYY')}`,
+                `production-plan/${curDate}`,
                 "GET",
                 {}
             )
                 .then(res => {
-                    if (res.status == 200)
+                    if (res.status == 200){
+                        
+                        let data = res.data.data ? res.data.data : [];
+                        data.map(product =>{
+                            if(product.remain_qty < 10){
+                                product.status= "ORDERING";
+                                product.color = "DCD800";
+                            } else {
+                                product.status = "RUN";
+                                product.color = "8E1E20";
+                            }
+                        })
                         this.setState({
                             lineResultData: res.data.data ? res.data.data : [],
                         });
+                    }
                 })
                 .catch(error => {
                     console.log(error);
@@ -106,11 +119,10 @@ export class LineResult extends Component {
         })
         return (
             <Container>
-                <Row>
-                    <Col sm={3}>
-                        <Label style={{ fontSize: "18px" }}>View Date</Label>
+                {/* <Row>
+                    <Col sm={5}>
                         <CustomDatePicker
-                            placeholderText="View Date"
+                            placeholderText="Select Date"
                             name="date"
                             value={date}
                             showTimeSelect={false}
@@ -120,13 +132,13 @@ export class LineResult extends Component {
                     <Col sm={3}>
                         <Button
                             color="primary"
-                            style={{ marginTop: "10px", fontSize: "18px" }}
+                            style={{ margin: "10px", fontSize: "18px" }}
                             onClick={this.getData}
                         >
                             Search
                         </Button>
                     </Col>
-                </Row>
+                </Row> */}
                 <Panel
                     title="LINE RESULT"
                     titleFontsize="30px"

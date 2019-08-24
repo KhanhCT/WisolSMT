@@ -3,18 +3,18 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import Panel from "../../../components/Panel";
 import { Button } from "primereact/button";
-import NewProduct from "./NewProduct";
+import NewProdLine from "./NewProdLine";
 import { callApi, userHelper } from "../../../helpers";
 
-export class ProductMaster extends Component {
+export class ProdLineMaster extends Component {
   constructor() {
     super();
     this.state = {
-      products: [],
+      lines: [],
       modalIsOpen: false,
-      selectedProduct: null,
+      selectedLine: null,
     };
-    this.getListProducts();
+    this.getListLines();
   }
 
   toggle = () => {
@@ -22,39 +22,39 @@ export class ProductMaster extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    let prevProducts = prevProps.products,
-      newProducts = this.props.products;
-    if (!prevProducts && newProducts) {
-      this.getListProducts();
+    let prevLines = prevProps.lines,
+      newLines = this.props.lines;
+    if (!prevLines && newLines) {
+      this.getListLines();
     }
   }
 
-  getListProducts = () => {
-    callApi("product", "GET", {})
+  getListLines = () => {
+    callApi("prod-line/1", "GET", {})
       .then(res => {
         if (res.status === 200){
-          this.setState({ products: res.data.data });
+          this.setState({ lines: res.data.data });
         }
       })
       .catch(error => {
-        this.setState({ listFactorySchedule: [] });
       });
   };
 
   editRowData = (rowData, column) => {
     this.setState({ modalIsOpen: true });
-    let _selectedProduct = {
+    let _selectedLine = {
       name: rowData.name,
       id: rowData.id,
+      factory_id: rowData.factory_id,
     };
-    this.setState({ selectedProduct: _selectedProduct });
+    this.setState({ selectedLine: _selectedLine });
   };
 
   deleteRowData = (rowData, column) => {
-    callApi(`product/${rowData.id}`, "DELETE", {})
+    callApi(`prod-line/${rowData.id}`, "DELETE", {})
       .then(res => {
         if (res.status === 200) {
-          this.getListProducts();
+          this.getListLines();
           userHelper.showToastMessage("SUCCESS", "success");
         }
       })
@@ -63,8 +63,8 @@ export class ProductMaster extends Component {
       });
   };
 
-  addProduct = () => {
-    this.setState({ selectedProduct: null });
+  addLine = () => {
+    this.setState({ selectedLine: null });
     this.setState({ modalIsOpen: true });
   };
 
@@ -88,10 +88,10 @@ export class ProductMaster extends Component {
   };
 
   render() {
-    const { modalIsOpen, products, selectedProduct } = this.state;
+    const { modalIsOpen, lines, selectedLine } = this.state;
     return (
       <Panel
-        title="Product Master"
+        title="Production Line Master"
         titleFontsize="30px"
         className="p-0-m"
         titleClassName="m-3-m"
@@ -104,11 +104,11 @@ export class ProductMaster extends Component {
             className="p-button-primary"
             label="Add"
             style={{ marginBottom: ".5em" }}
-            onClick={this.addProduct}
+            onClick={this.addLine}
           />
-          <DataTable value={products} paginator={true} rows={10}>
+          <DataTable value={lines} paginator={true} rows={10}>
             <Column field="id" header="ID" />
-            <Column field="name" header="Model" />
+            <Column field="name" header="Line Name" />
             <Column
               header="Action"
               body={this.actionTemplate}
@@ -116,11 +116,11 @@ export class ProductMaster extends Component {
             />
           </DataTable>
         </div>
-        <NewProduct
+        <NewProdLine
           modalIsOpen={modalIsOpen}
           toggle={this.toggle}
-          getListProducts={this.getListProducts}
-          selectedProduct={selectedProduct}
+          getListLines={this.getListLines}
+          selectedLine={selectedLine}
         />
       </Panel>
     );

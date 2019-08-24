@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "http://localhost:5000/api/v0.1/";
 const CMS_BASE_URL = "http://localhost:3000";
 const PASSWORD_ENCODE_SECRET = "hanaspeak_secret";
 export const GOOGLE_RE_CAPTCHA_SITE_KEY =

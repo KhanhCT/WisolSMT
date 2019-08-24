@@ -5,11 +5,12 @@ import Panel from "../../../components/Panel";
 import { callApi, userHelper } from "../../../helpers";
 
 const LIST_STATUS = {
-	"jig-shortage": "Jig Shortage",
-	"magazin-shortage": "Magazin Shortage",
-	"plasma-waiting": "Plasma Waiting",
-	"pcb-shortage": "Pcb Shortage",
+	"jig-shortage": "JIG SHORTAGE",
+	"magazin-shortage": "MAGAZIN SHORTAGE",
+	"plasma-waiting": "PLASMA WAITING",
+	"pcb-shortage": "PCB SHORTAGE",
 	ok: "OK",
+	"waiting": "WAITING"
 };
 
 export class LineOrder extends Component {
@@ -27,7 +28,7 @@ export class LineOrder extends Component {
 	}
 
 	getData = () => {
-		callApi(`production/getLstOrderByDate`, "GET", {})
+		callApi(`production-dtl/order-per-day`, "GET", {})
 			.then(res => {
 				if (res.status === 200)
 					this.setState({
@@ -35,7 +36,6 @@ export class LineOrder extends Component {
 					});
 			})
 			.catch(error => {
-				console.log(error);
 				this.setState({ lineOrderData: [] });
 			});
 	};
@@ -51,23 +51,26 @@ export class LineOrder extends Component {
 		let rowData = lineOrderData[rowIndex];
 		if (selectedMessage && rowIndex != null) {
 			let updateData = {
-				WorkingDate: rowData["WorkingDate"],
-				FactoryID: rowData["FactoryID"],
-				LineID: rowData["LineID"],
-				ShiftID: rowData["ShiftID"],
-				Message: selectedMessage,
-				ProductID: rowData["ProductID"],
+				id: rowData['id'],
+				working_date: rowData["working_date"],
+				factory_id: rowData["factory_id"],
+				line_id: rowData["line_id"],
+				shift_id: rowData["shift_id"],
+				message: selectedMessage,
+				product_id: rowData["product_id"],
 			};
-			callApi(`production/updateMessage`, "POST", {}, updateData)
+			
+			callApi(`production-dtl`, "PUT", {}, updateData)
 				.then(res => {
-					if (res.data.code == "OK")
+					if (res.status == 200){
+						this.getData();
 						userHelper.showToastMessage(
 							"UPDATE_MESSAGE_SUCCESS",
 							"success"
 						);
+					}
 				})
 				.catch(error => {
-					console.log(error);
 					this.setState({ lineOrderData: [] });
 				});
 		}
@@ -77,11 +80,11 @@ export class LineOrder extends Component {
 		const { lineOrderData } = this.state;
 		let renderHeaderDatas = (
 			<tr>
-				<th style={{ fontSize: "18px" }}>Line</th>
-				<th style={{ fontSize: "18px" }}>Model</th>
-				<th style={{ fontSize: "18px" }}>Amount</th>
-				<th style={{ fontSize: "18px" }}>Status</th>
-				<th style={{ fontSize: "18px" }}>Action</th>
+				<th style={{ fontSize: "18px" , textAlign: "center"}}>Line</th>
+				<th style={{ fontSize: "18px" , textAlign: "center"}}>Model</th>
+				<th style={{ fontSize: "18px" , textAlign: "center"}}>Amount</th>
+				<th style={{ fontSize: "18px" , textAlign: "center"}}>Status</th>
+				<th style={{ fontSize: "18px", textAlign: "center" }}>Action</th>
 			</tr>
 		);
 		let renderRowDatas = lineOrderData.map((rowData, index) => {
@@ -97,7 +100,7 @@ export class LineOrder extends Component {
 					type="select"
 					name="select-message"
 					id="select-message"
-					defaultValue={rowData.Message}
+					defaultValue={rowData.message}
 					onChange={this.handleChangeMessage}
 				>
 					<option value={null} />
@@ -106,6 +109,7 @@ export class LineOrder extends Component {
 			);
 			let action = (
 				<Button
+					style={{marginTop: "15px"}}
 					color="primary"
 					onClick={() => this.updateMessage(index)}
 				>
@@ -114,11 +118,11 @@ export class LineOrder extends Component {
 			);
 			return (
 				<tr key={index}>
-					<td style={{ fontSize: "18px" }}>{rowData.LineCode}</td>
-					<td style={{ fontSize: "18px" }}>{rowData.product_name}</td>
-					<td style={{ fontSize: "18px" }}>{rowData.Amount}</td>
-					<td style={{ fontSize: "18px" }}>{messageSelect}</td>
-					<td style={{ fontSize: "18px" }}>{action}</td>
+					<td style={{ fontSize: "18px" , textAlign: "center"}}>{rowData.line_name}</td>
+					<td style={{ fontSize: "18px", textAlign: "center" }}>{rowData.product_name}</td>
+					<td style={{ fontSize: "18px", textAlign: "center" }}>{rowData.amount}</td>
+					<td style={{ fontSize: "18px", textAlign: "center" }}>{messageSelect}</td>
+					<td style={{ fontSize: "18px", textAlign: "center" }}>{action}</td>
 				</tr>
 			);
 		});
@@ -144,6 +148,7 @@ export class LineOrder extends Component {
 									? "No data available"
 									: null}
 							</tr>
+							<tr></tr>
 						</tbody>
 					</TableComponent>
 				</Panel>

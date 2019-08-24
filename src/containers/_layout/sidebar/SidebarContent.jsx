@@ -17,7 +17,7 @@ class SidebarContent extends Component {
     //const { t } = this.props;
     return (
       <div className="sidebar__content">
-        <ul className="sidebar__block">
+        {/* <ul className="sidebar__block">
           <SidebarLink
             // title={t("common.listening")}
             title="Schedule Master"
@@ -25,14 +25,14 @@ class SidebarContent extends Component {
             route={ROUTES.FACTORY_MASTER}
             onClick={this.hideSidebar}
           />
-        </ul>
+        </ul> */}
 
         <ul className="sidebar__block">
           <SidebarLink
             // title={t("common.listening")}
             title="Line Master"
             icon="wheelchair"
-            route={ROUTES.WORKPLACE_MASTER}
+            route={ROUTES.LINE_MASTER}
             onClick={this.hideSidebar}
           />
         </ul>
@@ -67,7 +67,7 @@ class SidebarContent extends Component {
           />
         </ul>
 
-        <ul className="sidebar__block">
+        {/* <ul className="sidebar__block">
           <SidebarLink
             // title={t("common.listening")}
             title="Model Result"
@@ -75,7 +75,7 @@ class SidebarContent extends Component {
             route={ROUTES.MODEL_RESULT}
             onClick={this.hideSidebar}
           />
-        </ul>
+        </ul> */}
       </div>
     );
   }
