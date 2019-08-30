@@ -40,6 +40,9 @@ namespace WisolSMTLineApp.Model
 
         //[JsonProperty(PropertyName = "ngprod_qty")]
         //public int NGProdQty { set; get; }
+        [JsonProperty(PropertyName = "duration")]
+        public int Duration { get; set; }
+
 
         [JsonProperty(PropertyName = "is_active")]
         public bool Is_Active { set; get; }

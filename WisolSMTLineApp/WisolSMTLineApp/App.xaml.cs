@@ -30,21 +30,28 @@ namespace WisolSMTLineApp
                     return 2;
             }
         }
-        public static string TodayDate { get { return DateTime.Now.ToString("MM-dd-yyyy"); } }
+        public static string TodayDate { get { return DateTime.Now.ToString("yyyy-MM-dd"); } }
         private void Init()
         {
             TextHelper.InitSetting();
-            //var COMport = TextHelper.ReadSetting("COMPort");
-            //try
-            //{
-            //    if (GPIOBoard.GPIOCOM == null)
-            //        GPIOBoard.GPIOCOM = new GPIOSerial(COMport);
-            //    Loop();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            var COMport = TextHelper.ReadSetting("COMPort");
+            try
+            {
+
+                if (GPIOBoard.GPIOCOM == null)
+                {
+                    //GPIOBoard.GPIOCOM = new GPIOSerial(COMport);
+                    foreach (OutputPin OutputPin in F0.OutputPins)
+                    {
+                        OutputPin.Board = F0;
+                    }
+                }
+                //Loop();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             //try
             //{
 
@@ -75,6 +82,7 @@ namespace WisolSMTLineApp
                         GPIOStateLoopCTS.Token.ThrowIfCancellationRequested();
                         await F0.GetGPIOsState();
                         Thread.Sleep(30);
+                        //await OUT.GreenLight.SET();
                     }
                 }
                 catch

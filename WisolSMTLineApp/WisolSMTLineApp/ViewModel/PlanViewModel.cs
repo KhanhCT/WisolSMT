@@ -114,48 +114,51 @@ namespace WisolSMTLineApp.ViewModel
                     SelectedLine = Setting.SelectedLine;
             }
         }
-        public void Create_Plan()
+        public async void Create_Plan()
         {
             var CreatePlans = Api.Controller.GetProductionPlan(Setting.SelectedLine.ID);
+            bool IsPlanCreated = false;
             if (CreatePlans != null)
             {
-                CreatePlans.ForEach(async x =>
+                foreach (ProductionPlan Plan in CreatePlans)
                 {
-                    if (App.TodayDate == x.Working_Date &&
-                        x.Product_ID == Setting.SelectedLine.ID &&
-                        !x.Is_Active)
+                    if (Plan.Product_ID == Setting.SelectedProduct.ID && Plan.Working_Date == App.TodayDate)
                     {
-                        x.Is_Active = true;
-                        await Api.Controller.UpdatePlan(x);
+                        MessageBox.Show("Plan has already created");
+                        IsPlanCreated = true;
                     }
                     else
                     {
-                        x.Is_Active = false;
-                        await Api.Controller.UpdatePlan(x);
+                        if (Plan.Working_Date != App.TodayDate)
+                        {
+                            Plan.Is_Active = false;
+                            await Api.Controller.UpdatePlan(Plan);
+                        }
                     }
-                });
-                //CreatePlan.Is_Active = false;
-                //await Api.Controller.UpdatePlan(CreatePlan);
-            }
-
-            var success = controller.NewProductionPlan(new ProductionPlan()
-            {
-                Product_ID = Setting.SelectedProduct.ID,
-                //Name = Setting.SelectedProduct.Name,
-                Factory_ID = 1,
-                Line_ID = Setting.SelectedLine.ID,
-                Working_Date = App.TodayDate,
-                Ordered_Qty = RemainNodes,
-                Is_Active = true
-                //Shift_ID = SelectedShift.ID,
-            }); ;
-            if (success)
-            {
-                MessageBox.Show("Plan created");
-            }
-            else
-            {
-                MessageBox.Show("Plan create failed, something happened");
+                }
+                if (!IsPlanCreated)
+                {
+                    var success = controller.NewProductionPlan(new ProductionPlan()
+                    {
+                        Product_ID = Setting.SelectedProduct.ID,
+                        //Name = Setting.SelectedProduct.Name,
+                        Factory_ID = 1,
+                        Line_ID = Setting.SelectedLine.ID,
+                        Working_Date = App.TodayDate,
+                        Remain_Qty = RemainNodes,
+                        Ordered_Qty = RemainNodes,
+                        Is_Active = true
+                        //Shift_ID = SelectedShift.ID,
+                    });
+                    if (success)
+                    {
+                        MessageBox.Show("Plan created");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Plan create failed, something happened");
+                    }
+                }
             }
         }
 

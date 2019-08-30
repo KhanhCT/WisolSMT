@@ -25,7 +25,9 @@ namespace WisolSMTLineApp
 
             _httpClient = new HttpClient(_httpClientHandler);
             //_httpClient.BaseAddress = new Uri("http://45.119.212.111:5000/");
-            _httpClient.BaseAddress = new Uri("http://192.168.43.172:5000/api/v0.1/");
+            //_httpClient.BaseAddress = new Uri("http://192.168.0.5:5000/api/v0.1/");
+            //_httpClient.BaseAddress = new Uri("http://10.70.10.52:5000/api/v0.1/");
+            _httpClient.BaseAddress = new Uri("http://localhost:5000/api/v0.1/");
             _httpClient.MaxResponseContentBufferSize = 256000;
             TimeSpan timeout = TimeSpan.FromSeconds(4);
             _httpClient.Timeout = timeout;
@@ -83,6 +85,23 @@ namespace WisolSMTLineApp
             string url = "production-plan/1/" + lineID;
             List<ProductionPlan> plans = null;
             using (var response = _httpClient.GetAsync(url).Result)
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = response.Content.ReadAsStringAsync().Result;
+                    Response<List<ProductionPlan>> resMsg = JsonConvert.DeserializeObject<Response<List<ProductionPlan>>>(content);
+                    if (resMsg.Data != null)
+                        plans = resMsg.Data;
+                }
+            }
+            return plans;
+        }
+
+        public async Task<List<ProductionPlan>> GetProductionPlanAsync(int lineID)
+        {
+            string url = "production-plan/1/" + lineID;
+            List<ProductionPlan> plans = null;
+            using (var response = await _httpClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {

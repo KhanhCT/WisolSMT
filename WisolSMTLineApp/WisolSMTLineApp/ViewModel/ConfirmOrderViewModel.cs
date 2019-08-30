@@ -16,9 +16,14 @@ namespace WisolSMTLineApp.ViewModel
         public int Amount
         {
             get { return amount; }
-            set { amount = value; OnPropertyChanged(nameof(Amount)); }
+            set
+            {
+                amount = value;
+                OnPropertyChanged(nameof(Amount));
+            }
         }
-        public ObservableCollection<ProductionDtl> LstOrderNotFinish { get; set; } = new ObservableCollection<ProductionDtl>();
+        public ObservableCollection<ProductionDtl> LstOrderNotFinish { get; set; }
+            = new ObservableCollection<ProductionDtl>();
         public ConfirmOrderViewModel()
         {
             Api.Controller.getLstOrderNotFinish(Setting.SelectedLine.ID)?.ForEach(x => LstOrderNotFinish.Add(x));
@@ -52,12 +57,17 @@ namespace WisolSMTLineApp.ViewModel
                         {
                             if (Plans.Count > 0)
                             {
-                                var Plan = Plans[0];
-                                Plan.Remain_Qty += UnconfirmOrder.Amount;
-                                Plan.Ordered_Qty += UnconfirmOrder.Amount;
-                                await Api.Controller.UpdatePlan(Plan);
+                                var Plan = Plans.Where(x => x.Product_ID == UnconfirmOrder.Product_ID).FirstOrDefault();
+                                if (Plan != null)
+                                {
+                                    Plan.Remain_Qty += UnconfirmOrder.Amount;
+                                    Plan.Ordered_Qty += UnconfirmOrder.Amount;
+                                    await Api.Controller.UpdatePlan(Plan);
+                                }
                             }
                         }
+                        LstOrderNotFinish.Clear();
+                        Api.Controller.getLstOrderNotFinish(Setting.SelectedLine.ID)?.ForEach(x => LstOrderNotFinish.Add(x));
                         MessageBox.Show("Order Confirmed", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
@@ -66,10 +76,10 @@ namespace WisolSMTLineApp.ViewModel
                     }
                 }
             }
-            catch (Exception ex)
+            catch 
             {
 
-            }        
+            }
         }
 
         public void CreateOrder()

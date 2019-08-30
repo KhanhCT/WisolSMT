@@ -94,8 +94,6 @@ namespace PandaApp.GPIOCommunication
                 new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO14, GPIOLabel = "OUT_14" ,GPIODescription = "OUT14"},
                 //new OutputPin() { GPIOBitmask = GPIOBitmask.GPIO15, GPIOLabel = "OUT_15" ,GPIODescription = "OUT15"},
             };
-
-
             public GPIOBoard(byte Station)
             {
                 GPIOStation = Station;
@@ -178,7 +176,7 @@ namespace PandaApp.GPIOCommunication
             public async Task RST()
             {
                 await Board.RST(this);
-            }           
+            }
         }
 
         public class GPIOPin : INotifyPropertyChanged
@@ -195,7 +193,6 @@ namespace PandaApp.GPIOCommunication
             }
             public string GPIOLabel { get; set; }
             public ushort GPIOBitmask { get; set; }
-            public int DebounceTime { get; set; } = 0;
             private PinValue _PinValue;
             public PinValue PinValue
             {
@@ -204,7 +201,7 @@ namespace PandaApp.GPIOCommunication
                     return _PinValue;
                 }
                 set
-                {                 
+                {
                     if (_PinValue != value)
                     {
                         _PinValue = value;
@@ -265,7 +262,7 @@ namespace PandaApp.GPIOCommunication
         public class GPIOSerial : SerialHelper
         {
             private int MAXRETRY = 3;
-            public GPIOSerial(string ComPort) : base(ComPort, 5, 115200, "GPIOHelper")
+            public GPIOSerial(string ComPort) : base(ComPort, 7, 115200, "GPIOHelper")
             {
 
             }
@@ -395,3 +392,4 @@ namespace PandaApp.GPIOCommunication
         #endregion
     }
 }
+    

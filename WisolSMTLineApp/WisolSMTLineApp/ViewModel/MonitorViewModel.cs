@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,7 @@ namespace WisolSMTLineApp.ViewModel
 {
     public class MonitorViewModel : BaseViewModel, IDisposable
     {
+        public Product Product { get; private set; }
         static WorkingStatus _WorkingStatus;
         public WorkingStatus WorkingStatus
         {
@@ -24,10 +26,64 @@ namespace WisolSMTLineApp.ViewModel
                     _WorkingStatus = value;
                     OnPropertyChanged("WorkingStatus");
                     if (_WorkingStatus == WorkingStatus.Order)
+                    {
                         CreateOrder();
+                    }
                 }
             }
         }
+        protected override async void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            if (propertyName == "WorkingStatus")
+            {
+
+                if (WorkingStatus == WorkingStatus.Normal)
+                {
+                    await LightOff();
+                }
+                else if (WorkingStatus == WorkingStatus.Order)
+                {
+                    await LightOn();
+                }
+                else if (WorkingStatus == WorkingStatus.Stop)
+                {
+                    await LightConstanslyOn();
+                }
+            }
+            base.OnPropertyChanged(propertyName);
+        }
+        SemaphoreSlim LightLock = new SemaphoreSlim(1, 1);
+        CancellationTokenSource LightCancelationTS;
+        private async Task LightOn()
+        {
+            try
+            {
+                LightCancelationTS = new CancellationTokenSource();
+                await OUT.GreenLight.SET();
+                await Task.Delay(3000, LightCancelationTS.Token);
+                await OUT.GreenLight.RST();
+            }
+            catch
+            {
+            }
+        }
+
+        private async Task LightConstanslyOn()
+        {
+            if (LightCancelationTS != null)
+                if (!LightCancelationTS.IsCancellationRequested)
+                    LightCancelationTS.Cancel();
+            await OUT.GreenLight.SET();
+        }
+
+        private async Task LightOff()
+        {
+            if (LightCancelationTS != null)
+                if (!LightCancelationTS.IsCancellationRequested)
+                    LightCancelationTS.Cancel();
+            await OUT.GreenLight.RST();
+        }
+
         public Plan PlanView
         {
             get;
@@ -63,7 +119,7 @@ namespace WisolSMTLineApp.ViewModel
                 Amount = Setting.DefaultLots,
                 Factory_ID = 1,
                 Working_Date = App.TodayDate,
-                Shift_ID = App.CurrentShift,
+                Shift_ID = 1,
                 Line_ID = Setting.SelectedLine.ID,
                 Product_ID = Setting.SelectedProduct.ID,
                 Message = "waiting"
@@ -74,8 +130,8 @@ namespace WisolSMTLineApp.ViewModel
                 //Api.Controller.getLstOrderNotFinish(2)?.ForEach(x => LstOrderNotFinish.Add(x));
                 //MessageBox.Show("Create order successfully");
             }
-            //else
-            //MessageBox.Show("Create order failed, something happened");
+            else
+                MessageBox.Show("Create order failed, something happened");
         }
 
         SemaphoreSlim ConfirmOrderLock = new SemaphoreSlim(1, 1);
@@ -90,7 +146,7 @@ namespace WisolSMTLineApp.ViewModel
                 if (UnconfirmOrder != null)
                 {
                     if (WorkingStatus == WorkingStatus.Stop)
-                        UnconfirmOrder.Duration = Duration.TotalSeconds.ToString();
+                        UnconfirmOrder.Duaration = (int)Duration.TotalSeconds;
                     if (Api.Controller.ConfirmOrder(UnconfirmOrder))
                     {
                         var Plans = Api.Controller.GetProductionPlan(Setting.SelectedLine.ID);
@@ -98,10 +154,13 @@ namespace WisolSMTLineApp.ViewModel
                         {
                             if (Plans.Count > 0)
                             {
-                                var Plan = Plans[0];
-                                Plan.Remain_Qty += UnconfirmOrder.Amount;
-                                Plan.Ordered_Qty += UnconfirmOrder.Amount;
-                                await Api.Controller.UpdatePlan(Plan);
+                                var Plan = Plans.Where(x => x.Product_ID == UnconfirmOrder.Product_ID).First();
+                                if (Plan != null)
+                                {
+                                    Plan.Remain_Qty += UnconfirmOrder.Amount;
+                                    Plan.Ordered_Qty += UnconfirmOrder.Amount;
+                                    await Api.Controller.UpdatePlan(Plan);
+                                }
                             }
                         }
                         MessageBox.Show("Order Confirmed", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -135,6 +194,7 @@ namespace WisolSMTLineApp.ViewModel
             CancelTask();
             UpdateUITaskCTS = new CancellationTokenSource();
             UpdateUILoop(UpdateUITaskCTS.Token);
+            Product = Setting.SelectedProduct;
         }
 
         ProductionDtl UnconfirmOrder = null;
@@ -152,8 +212,7 @@ namespace WisolSMTLineApp.ViewModel
                 //    Line_ID = Setting.SelectedLine.ID,
                 //    Shift_ID = CurrentShift
                 //});
-                var Plans = Api.Controller.GetProductionPlan(Setting.SelectedLine.ID)
-                .Where(x => x.Is_Active == true).ToList();
+                var Plans = Api.Controller.GetProductionPlan(Setting.SelectedLine.ID).Where(x => x.Is_Active == true).ToList();
                 if (Plans == null)
                 {
                     IN.CountingSensor.OnPinValueChanged -= CountingSensor_OnPinValueChanged;
@@ -171,15 +230,21 @@ namespace WisolSMTLineApp.ViewModel
                     var Orders = await Api.Controller.getLstOrderNotFinishAsync(Setting.SelectedLine.ID);
                     if (Orders != null)
                         if (Orders.Count > 0)
-                            LastOrder = Orders.Last();
+                            LastOrder = Orders.Where(x => x.Product_ID == Setting.SelectedProduct.ID).First();
                     if (LastOrder != null)
                     {
                         UnconfirmOrder = LastOrder;
-                        OrderDuration = "Confirm";
+                        OrderDuration = "No action";
+                       
                         if (WorkingStatus == WorkingStatus.Stop)
                         {
                             Duration = DateTime.Now - StartTime;
-                            OrderDuration = $"Confirm \n{LastOrder.Message?.ToUpper()} | {Duration.ToString("hh\\:mm\\:ss")}";
+                            OrderDuration = $"{LastOrder.Message?.ToUpper()} | {Duration.ToString("hh\\:mm\\:ss")}";
+                        }
+                        else if (WorkingStatus == WorkingStatus.Order)
+                        {
+                            StartTime = DateTime.Now;
+                            OrderDuration = $"{LastOrder.Message?.ToUpper()} | {Duration.ToString("hh\\:mm\\:ss")}";
                         }
                         else
                         {
@@ -200,51 +265,67 @@ namespace WisolSMTLineApp.ViewModel
                     //    Line_ID = Setting.SelectedLine.ID,
                     //    Shift_ID = CurrentShift
                     //});
-                    Plans = Api.Controller.GetProductionPlan(Setting.SelectedLine.ID)
-                    .Where(x => x.Is_Active == true).ToList();
-
+                    Plans = (await Api.Controller.GetProductionPlanAsync(Setting.SelectedLine.ID)).ToList();
                     if (Plans != null)
                     {
-                        var Plan = Plans[0];
-                        //if (Plan.Remain_Qty > 0)
-                        //{
-                        PlanView.elapsed = Plan.Good_Prod_Qty;
-                        PlanView.remain = Plan.Remain_Qty;
-                        PlanView.order = Plan.Ordered_Qty;
-                        //}
+                        var Plan = Plans.Where(x => x.Product_ID == Setting.SelectedProduct.ID &&
+                                               x.Working_Date == TodayDate).FirstOrDefault();
+                        if (Plan == null)
+                        {
+                            foreach (ProductionPlan P in Plans)
+                            {
+                                if (P.Working_Date != TodayDate)
+                                {
+                                    P.Is_Active = false;
+                                    await Api.Controller.UpdatePlan(P);
+                                }
+                            }
+                            var success = Api.Controller.NewProductionPlan(new ProductionPlan()
+                            {
+                                Product_ID = Setting.SelectedProduct.ID,
+                                //Name = Setting.SelectedProduct.Name,
+                                Factory_ID = 1,
+                                Line_ID = Setting.SelectedLine.ID,
+                                Working_Date = App.TodayDate,
+                                Ordered_Qty = PlanView.order,
+                                Remain_Qty = PlanView.remain,
+                                Good_Prod_Qty = PlanView.elapsed,
+                                Is_Active = true
+                                //Shift_ID = SelectedShift.ID,
+                            });
+                        }
+                        else
+                        {
+                            PlanView.elapsed = Plan.Good_Prod_Qty;
+                            PlanView.remain = Plan.Remain_Qty;
+                            PlanView.order = Plan.Ordered_Qty;
+                        }
 
                         if (PlanView.remain > 0)
                         {
-                            if (PlanView.remain < Setting.DefaultLevel)
+                            if (PlanView.remain <= Setting.DefaultLevel)
                             {
                                 WorkingStatus = WorkingStatus.Order;
+                                Ellipse = new SolidColorBrush(Colors.Orange);
 
                             }
                             else if (PlanView.remain > Setting.DefaultLevel)
                             {
                                 WorkingStatus = WorkingStatus.Normal;
-
-                            }
-                            if (PlanView.remain > Setting.DefaultLevel)
-                            {
                                 Ellipse = new SolidColorBrush(Colors.Green);
-                            }
-                            else
-                            {
-                                Ellipse = new SolidColorBrush(Colors.Orange);
+
                             }
                         }
                         if (PlanView.remain == 0)
                         {
                             WorkingStatus = WorkingStatus.Stop;
                             Ellipse = new SolidColorBrush(Colors.Red);
-
                         }
                     }
                     await Task.Delay(1000);
                 }
             }
-            catch (Exception)
+            catch
             {
 
             }
@@ -254,66 +335,25 @@ namespace WisolSMTLineApp.ViewModel
         {
             if (e.Edge == Edge.Rise)
             {
-                await LockObject.WaitAsync();
+                //await LockObject.WaitAsync();
                 if (PlanView.remain > 0)
                 {
-                    var Plans = Api.Controller.GetProductionPlan(Setting.SelectedLine.ID)
-                                          .Where(x => x.Is_Active == true).ToList();
+                    var Plans = (await Api.Controller.GetProductionPlanAsync(Setting.SelectedLine.ID)).
+                                Where(x => x.Is_Active == true).ToList();
                     if (Plans != null)
                     {
                         int count = Plans.Count;
-                        var Plan = Plans[count - 1];
-                        if (Plan.Remain_Qty > 0)
-                            await Api.Controller.UpdatePlan(new ProductionPlan()
+                        var Plan = Plans.Where(x => x.Product_ID == Setting.SelectedProduct.ID).FirstOrDefault();
+                        if (Plan != null)
+                            if (Plan.Remain_Qty > 0)
                             {
-                                Shift_ID = App.CurrentShift,
-                                Line_ID = Setting.SelectedLine.ID,
-                                Factory_ID = 1,
-                                Good_Prod_Qty = Plan.Good_Prod_Qty++,
-                                Ordered_Qty = Plan.Ordered_Qty++,
-                                Remain_Qty = Plan.Remain_Qty--,
-                                Working_Date = TodayDate,
-                                Product_ID = Setting.SelectedProduct.ID
-                            });
+                                Plan.Good_Prod_Qty += 1;
+                                Plan.Remain_Qty--;
+                                await Api.Controller.UpdatePlan(Plan);
+                            }
                     }
-                    //if (Succeed)
-                    //{
-                    //    Plan.remain--;
-                    //    if (Plan.remain < Setting.DefaultLevel)
-                    //    {
-                    //        WorkingStatus = WorkingStatus.Order;
-                    //        //await OUT.OrangeLight.SET();
-                    //        //await OUT.GreenLight.RST();
-                    //        //await OUT.RedLight.RST();
-                    //    }
-                    //    else if (Plan.remain > Setting.DefaultLevel)
-                    //    {
-                    //        WorkingStatus = WorkingStatus.Normal;
-                    //        //await OUT.GreenLight.SET();
-                    //        //await OUT.OrangeLight.RST();
-                    //        //await OUT.RedLight.RST();
-                    //    }
-                    //    Plan.elapsed++;
-                    //    if (Plan.remain > Setting.DefaultLevel)
-                    //    {
-                    //        Ellipse = new SolidColorBrush(Colors.Green);
-
-                    //    }
-                    //    else
-                    //    {
-                    //        Ellipse = new SolidColorBrush(Colors.Orange);
-                    //    }
-                    //}
-                    //if (Plan.remain == 0)
-                    //{
-                    //    WorkingStatus = WorkingStatus.Stop;
-                    //    Ellipse = new SolidColorBrush(Colors.Red);
-                    //    //await OUT.OrangeLight.RST();
-                    //    //await OUT.GreenLight.RST();
-                    //    //await OUT.RedLight.SET();
-                    //}
                 }
-                LockObject.Release();
+                //LockObject.Release();
             }
         }
         SolidColorBrush _Ellipse = new SolidColorBrush(Colors.Green);
@@ -327,8 +367,9 @@ namespace WisolSMTLineApp.ViewModel
         }
 
 
-        private void SensorDetected()
+        private async void SensorDetected()
         {
+            await LightOff();
             CountingSensor_OnPinValueChanged(null, new GPIOPin.PinValueChangedEventArgs(Edge.Rise));
         }
 

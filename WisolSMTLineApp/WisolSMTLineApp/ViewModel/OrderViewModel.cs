@@ -28,15 +28,18 @@ namespace WisolSMTLineApp.ViewModel
 
         public async void CreateOrder()
         {
+            //var Plan = await Api.Controller.GetProductionPlanAsync(Setting.SelectedLine.ID);
             var Orders = await Api.Controller.getLstOrderNotFinishAsync(Setting.SelectedLine.ID);
             if (Orders != null)
             {
-                if (Orders.Count > 0)
+                var Order = Orders.Where(x => x.ID == Setting.SelectedProduct.ID).FirstOrDefault();
+                if (Order != null)
                 {
-                    MessageBox.Show("Please confirm previous order before create a new one");
+                    MessageBox.Show("Please confirm current order");
                     return;
                 }
             }
+
             var ProductionDtl = new ProductionDtl()
             {
                 Amount = Amount,

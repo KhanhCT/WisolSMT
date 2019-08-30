@@ -31,8 +31,7 @@ namespace WisolSMTLineApp
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-
+        
         public void NotifyPropertyChanged(string ProName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(ProName));

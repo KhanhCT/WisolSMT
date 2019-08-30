@@ -24,6 +24,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="Status:"/>
@@ -31,7 +32,7 @@
             <TextBlock Text="{Binding WorkingStatus}"/>
         </Button>
         <TextBlock Text="Model:" Grid.Row="1"/>
-        <TextBlock Grid.Column="1" Grid.Row="1" Margin="10" Text="{Binding Product_Name, Source={x:Static local:Setting.SelectedProduct}}" HorizontalAlignment="Center">
+        <TextBlock Grid.Column="1" Grid.Row="1" Margin="10" Text="{Binding Product.Name}" HorizontalAlignment="Center">
 
         </TextBlock>
 
@@ -44,9 +45,12 @@
         <TextBlock Text="Remain:" Grid.Row="4"/>
         <TextBlock Grid.Column="1" Grid.Row="4" Margin="10" Text="{Binding Path=PlanView.remain}" HorizontalAlignment="Center"/>
 
-        <TextBlock Text="Confirmation:" TextWrapping="Wrap" Grid.Row="5"/>
-        <Button  Grid.Column="1" Margin="10" Command="{Binding OrderCommand}" Grid.Row="5">
-            <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding OrderDuration}" HorizontalAlignment="Center"/>
+        <TextBlock Text="Order Status:" TextWrapping="Wrap" Grid.Row="5"/>
+        <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding OrderDuration}" HorizontalAlignment="Center"/>
+
+        <TextBlock Text="Action:" TextWrapping="Wrap" Grid.Row="6"/>
+        <Button  Grid.Column="1" Margin="10" Command="{Binding OrderCommand}" Grid.Row="6">
+            <TextBlock Grid.Column="1" Grid.Row="5" Text="Confirm" HorizontalAlignment="Center"/>
         </Button>
     </Grid>
 </UserControl>

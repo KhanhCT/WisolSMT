@@ -36,8 +36,8 @@ namespace WisolSMTLineApp.Model
         [JsonProperty(PropertyName = "amount")]
         public int Amount { get; set; }
         ////---------------------------------------------------------------------
-        [JsonProperty(PropertyName = "duration")]
-        public string Duration { get; set; }
+        [JsonProperty(PropertyName = "duaration")]
+        public int Duaration { get; set; }
         ////---------------------------------------------------------------------
         [JsonProperty(PropertyName = "message")]
         public string Message { get; set; }

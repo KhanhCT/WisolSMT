@@ -26,7 +26,7 @@
                       ItemsSource="{Binding LstOrderNotFinish}"
                       AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Amount" Binding="{Binding Amount, Mode=TwoWay}" Width="*">
+                    <DataGridTextColumn Header="Amount" Binding="{Binding Path=Amount, Mode=TwoWay}" Width="*">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
