@@ -43,7 +43,6 @@ namespace WisolSMTLineApp.Model
         [JsonProperty(PropertyName = "duration")]
         public int Duration { get; set; }
 
-
         [JsonProperty(PropertyName = "is_active")]
         public bool Is_Active { set; get; }
 

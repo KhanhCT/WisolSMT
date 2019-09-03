@@ -91,6 +91,10 @@ namespace WisolSMTLineApp
                     Setting.DefaultLots = int.Parse(Settings.Where(x => x.Key == "DefaultLots").FirstOrDefault().Value);
                     Setting.DefaultLevel = int.Parse(Settings.Where(x => x.Key == "DefaultLevel").FirstOrDefault().Value);
 
+                    var LineStatus = Settings.Where(x => x.Key == "LineStatus").FirstOrDefault();
+                    if (LineStatus != null)
+                        Setting.LineStatus = int.Parse(LineStatus.Value);
+
                     var SelectedLine = Settings.Where(x => x.Key == "SelectedLine").FirstOrDefault();
                     if (SelectedLine != null)
                         Setting.SelectedLine = JsonConvert.DeserializeObject<LineInfo>(SelectedLine.Value);
@@ -120,7 +124,8 @@ namespace WisolSMTLineApp
             new KeyValue(){Key = "WorkingMode", Value = "0"},
             new KeyValue(){Key = "DefaultLots", Value="24"},
             new KeyValue(){Key = "DefaultLevel", Value="15"},
-            new KeyValue(){Key = "LineID", Value="SMT-I"}
+            new KeyValue(){Key = "LineID", Value="SMT-I"},
+            new KeyValue(){Key = "LineStatus", Value="1"}
         };
     }
 
@@ -185,14 +190,15 @@ namespace WisolSMTLineApp
             }
         }
 
-        static int elapsedNode;
-        public static int ElapsedNode
+        static int _LineStatus;
+        public static int LineStatus
         {
-            get { return elapsedNode; }
+            get { return _LineStatus; }
             set
             {
-                elapsedNode = value;
-                NotifyStaticPropertyChanged("ElapsedNode");
+                _LineStatus = value;
+                TextHelper.WriteToSetting("LineStatus", value.ToString());
+                TextHelper.SaveToFile();
             }
         }
         public static LineInfo SelectedLine { get; set; }

@@ -13,7 +13,7 @@ namespace WisolSMTLineApp.Model
     }
 
 
-    public enum WorkingStatus { Normal, Order, Stop }
+    public enum WorkingStatus { Normal, Order, STOP, No_Production }
     public enum WorkingMode { Auto, Manual }
 
 }

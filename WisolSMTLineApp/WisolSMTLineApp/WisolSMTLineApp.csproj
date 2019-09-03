@@ -84,6 +84,9 @@
     <Compile Include="PlanControl.xaml.cs">
       <DependentUpon>PlanControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PlanUpdate.xaml.cs">
+      <DependentUpon>PlanUpdate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SettingControl.xaml.cs">
       <DependentUpon>SettingControl.xaml</DependentUpon>
     </Compile>
@@ -119,6 +122,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PlanControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlanUpdate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

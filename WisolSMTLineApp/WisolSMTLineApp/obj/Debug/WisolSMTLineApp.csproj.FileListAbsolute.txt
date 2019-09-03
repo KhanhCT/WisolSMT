@@ -55,3 +55,5 @@ C:\Users\HP\Documents\GitHub\WisolSMT\WisolSMTLineApp\WisolSMTLineApp\obj\Debug\
 C:\Users\HP\Documents\GitHub\WisolSMT\WisolSMTLineApp\WisolSMTLineApp\obj\Debug\WisolSMTLineApp.exe
 C:\Users\HP\Documents\GitHub\WisolSMT\WisolSMTLineApp\WisolSMTLineApp\obj\Debug\WisolSMTLineApp.pdb
 C:\Users\HP\Documents\GitHub\WisolSMT\WisolSMTLineApp\WisolSMTLineApp\obj\Debug\WisolSMTLineApp.csprojAssemblyReference.cache
+C:\Users\HP\Documents\GitHub\WisolSMT\WisolSMTLineApp\WisolSMTLineApp\obj\Debug\PlanUpdate.g.cs
+C:\Users\HP\Documents\GitHub\WisolSMT\WisolSMTLineApp\WisolSMTLineApp\obj\Debug\PlanUpdate.baml

@@ -41,5 +41,15 @@ namespace WisolSMTLineApp
             }
             StartUp = false;
         }
+
+        private void TextBlock_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var VM = ((TextBlock)sender).DataContext as MonitorViewModel;
+            if (VM.Plan != null)
+            {
+                PlanUpdate planUpdate = new PlanUpdate(VM.Plan);
+                planUpdate.ShowDialog();
+            }
+        }
     }
 }

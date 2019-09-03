@@ -35,7 +35,8 @@
         <TextBlock Text="Amount:" Grid.Row="1"/>
         <TextBox  Grid.Column="1" Grid.Row="1" Margin="10" Text="{Binding Amount, Mode=TwoWay}"/>
 
-        <Button Content="Order" Grid.Row="2" Margin="20" VerticalAlignment="Center" Grid.ColumnSpan="2" 
+        <Button Content="Order" Grid.Row="2" Margin="0" VerticalAlignment="Center" Grid.ColumnSpan="2" 
+                HorizontalAlignment="Left" Width="100"
                 Command="{Binding OrderCommand}"/>
     </Grid>
 </UserControl>

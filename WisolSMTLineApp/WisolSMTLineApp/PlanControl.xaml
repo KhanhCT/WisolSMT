@@ -63,6 +63,8 @@
         <TextBox Grid.Column="1" Grid.Row="4" Margin="10" Text="{Binding RemainNodes}"/>
         <!--<TextBox Grid.Column="1" Grid.Row="3" Margin="10" Text="{Binding Path=(local:Setting.RemainNode), Mode=TwoWay}"/>-->
 
-        <Button Content="Create" Grid.Row="5" Margin="20" Grid.ColumnSpan="2" Command="{Binding ClickCommand}" VerticalAlignment="Center"/>
+        <Button Content="Create" Grid.Row="5" Grid.ColumnSpan="2" 
+                HorizontalAlignment="Left" Width="100"
+                Command="{Binding ClickCommand}" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>
