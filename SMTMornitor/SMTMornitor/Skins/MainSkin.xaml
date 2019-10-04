@@ -1,0 +1,11 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:viewModel="clr-namespace:SMTMornitor.ViewModel"
+    xmlns:converter="clr-namespace:SMTMornitor.Converter">
+    <viewModel:LineViewModel x:Key="LineVM"/>
+    <viewModel:OrderViewModel x:Key="OrderVM" />
+    <viewModel:MainViewModel x:Key="MainVM" />
+    <converter:OrderStatusToColorConverter x:Key="ColorCT" />
+    <converter:TextToColorConverter x:Key="TextColorCT" />
+</ResourceDictionary>

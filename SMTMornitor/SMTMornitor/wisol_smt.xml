@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<wisol>
+  <workplace>
+    <factory_code>F1</factory_code>
+    <line_code>L1</line_code>
+    <position>1</position>
+  </workplace>
+  <apiurl>http://localhost:8090/api/v0.1/</apiurl>
+  <com_port>COM3</com_port>
+</wisol>
